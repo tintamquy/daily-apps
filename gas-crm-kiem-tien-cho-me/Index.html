@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRM Bán Hàng & Chăm Sóc Tự Động Cho Mẹ | Mini ERP on Google Sheets</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #10b981;
+      --primary-dark: #047857;
+      --primary-light: #a7f3d0;
+      --gold: #f59e0b;
+      --bg: #04121b;
+      --card-bg: rgba(15, 29, 43, 0.8);
+      --card-border: rgba(16, 185, 129, 0.3);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --font: 'Be Vietnam Pro', sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: radial-gradient(circle at 50% 10%, #0e2940 0%, #051422 60%, #020b12 100%);
+      color: var(--text);
+      font-family: var(--font);
+      min-height: 100vh;
+      padding: 20px 16px 80px;
+    }
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+    header { text-align: center; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #6ee7b7;
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-size: 26px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #a7f3d0, #34d399, #10b981);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .subhead { color: var(--text-muted); font-size: 14px; margin-top: 4px; }
+
+    /* DASHBOARD CARDS */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .metric-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 18px;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    }
+    .metric-lbl { font-size: 12px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
+    .metric-val {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      margin-top: 6px;
+    }
+    .val-green { color: #34d399; }
+    .val-gold { color: #fbbf24; }
+    .val-blue { color: #38bdf8; }
+
+    /* CARD CHUNG */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 22px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    }
+    .card-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #a7f3d0;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* FORM TẠO ĐƠN */
+    .input-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .input-group { display: flex; flex-direction: column; gap: 6px; }
+    .input-group.full { grid-column: 1 / -1; }
+    label { font-size: 13px; font-weight: 600; color: #cbd5e1; }
+    input, select {
+      background: rgba(8, 17, 28, 0.85);
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-family: var(--font);
+      font-size: 14px;
+      outline: none;
+    }
+    input:focus, select:focus {
+      border-color: #34d399;
+      box-shadow: 0 0 10px rgba(52, 211, 153, 0.25);
+    }
+    .btn-create {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #03251c;
+      border: none;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+      margin-top: 14px;
+    }
+    .btn-create:hover { transform: translateY(-2px); }
+
+    /* BẢNG ĐƠN HÀNG */
+    .orders-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 13px;
+    }
+    .orders-table th {
+      text-align: left;
+      padding: 10px;
+      background: rgba(8, 17, 28, 0.8);
+      color: #94a3b8;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .orders-table td {
+      padding: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .badge-status {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 11px;
+    }
+
+    /* ĐÓNG GÓI BÁN LẠI (MONETIZE) */
+    .monetize-box {
+      background: linear-gradient(135deg, rgba(30, 58, 138, 0.4) 0%, rgba(15, 29, 43, 0.8) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      border-radius: 20px;
+      padding: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .metrics-grid { grid-template-columns: 1fr; }
+      .input-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="badge">
+        <span>⚙️</span> GOOGLE APPS SCRIPT MINI CRM 24/7
+      </div>
+      <h1>CRM BÁN HÀNG & QUỸ BÁO HIẾU MẸ</h1>
+      <p class="subhead">Lưu trữ đơn hàng tự động vào Google Sheets • Tự động gửi Email hóa đơn & Tính tiền biếu Mẹ</p>
+    </header>
+
+    <!-- METRICS DASHBOARD -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-lbl">Doanh Thu Tích Lũy</div>
+        <div class="metric-val val-blue" id="metric-revenue">0 đ</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-lbl">Lãi Ròng Biếu Mẹ</div>
+        <div class="metric-val val-green" id="metric-profit">0 đ</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-lbl">Tổng Đơn Hàng</div>
+        <div class="metric-val val-gold" id="metric-orders">0 Đơn</div>
+      </div>
+    </div>
+
+    <!-- TẠO ĐƠN HÀNG MỚI (LƯU VÀO GOOGLE SHEETS) -->
+    <div class="card">
+      <div class="card-title">
+        <span>➕</span> Thêm Đơn Hàng Mới (Tự Động Lưu Vào Google Sheets)
+      </div>
+
+      <div class="input-grid">
+        <div class="input-group">
+          <label>Tên Khách Hàng:</label>
+          <input type="text" id="cust-name" placeholder="Ví dụ: Chị Lan (Cầu Giấy)">
+        </div>
+        <div class="input-group">
+          <label>Số Điện Thoại:</label>
+          <input type="text" id="cust-phone" placeholder="0988xxxxxx">
+        </div>
+        <div class="input-group">
+          <label>Email Nhận Hóa Đơn (Tự động gửi qua Gmail):</label>
+          <input type="email" id="cust-email" placeholder="example@gmail.com">
+        </div>
+        <div class="input-group">
+          <label>Sản Phẩm Đặt Mua:</label>
+          <input type="text" id="cust-prod" placeholder="Ví dụ: 2 Máy Niệm Phật Bỏ Túi" value="1 Máy Niệm Phật Bỏ Túi">
+        </div>
+        <div class="input-group">
+          <label>Tổng Tiền Thanh Toán (VNĐ):</label>
+          <input type="number" id="cust-amount" value="220000" oninput="updateEstProfit()">
+        </div>
+        <div class="input-group">
+          <label>Tiền Lãi Dự Kiến Biếu Mẹ (VNĐ):</label>
+          <input type="number" id="cust-profit" value="90000">
+        </div>
+      </div>
+
+      <button class="btn-create" onclick="submitOrder()">
+        <span>🚀</span> Lưu Đơn Hàng & Đồng Bộ Lên Google Sheets Ngay
+      </button>
+
+      <div id="order-msg" style="margin-top: 12px; font-size: 13px; color: #34d399; display: none;"></div>
+    </div>
+
+    <!-- BẢNG ĐƠN HÀNG GẦN ĐÂY -->
+    <div class="card">
+      <div class="card-title" style="justify-content: space-between;">
+        <span>📦 Danh Sách Đơn Hàng Gần Đây</span>
+        <a id="sheet-link" href="#" target="_blank" style="font-size: 12px; color: #38bdf8; text-decoration: none;">📊 Mở Google Sheet Gốc</a>
+      </div>
+
+      <div style="overflow-x: auto;">
+        <table class="orders-table">
+          <thead>
+            <tr>
+              <th>Mã Đơn</th>
+              <th>Thời Gian</th>
+              <th>Khách Hàng</th>
+              <th>Sản Phẩm</th>
+              <th>Số Tiền</th>
+              <th>Lãi Biếu Mẹ</th>
+              <th>Trạng Thái</th>
+            </tr>
+          </thead>
+          <tbody id="orders-tbody">
+            <tr><td colspan="7" style="text-align: center; color: #64748b;">Đang tải dữ liệu từ Google Sheets...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- MÔ HÌNH ĐÓNG GÓI BÁN LẠI CHO CHỦ SHOP (KIẾM TIỀN ĐỈNH CAO) -->
+    <div class="monetize-box">
+      <h3 style="color: #38bdf8; font-size: 16px; margin-bottom: 8px;">💡 CÁCH KIẾM TIỀN NHIỀU NHẤT VỚI HỆ THỐNG NÀY:</h3>
+      <p style="font-size: 13px; color: #cbd5e1; line-height: 1.6;">
+        Ngoài việc tự dùng bán hàng, bạn có thể **bán giải pháp Mini CRM Google Apps Script này cho các chủ shop online, hộ kinh doanh gia đình**.
+        <br>• Họ không muốn bỏ ra 300k - 500k/tháng thuê KiotViet hay Sapo.
+        <br>• Bạn nhân bản file Script & Sheet này, cài đặt cho họ và thu phí dịch vụ <strong>299.000 VNĐ - 499.000 VNĐ / shop</strong>.
+        <br>• Mỗi ngày chỉ cần hỗ trợ 1 chủ shop cài đặt: bạn đã có ngay <strong>10 - 15 triệu/tháng</strong> gửi về cho Mẹ!
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function updateEstProfit() {
+      const amt = Number(document.getElementById('cust-amount').value) || 0;
+      document.getElementById('cust-profit').value = Math.round(amt * 0.4);
+    }
+
+    function loadData() {
+      if (typeof google !== 'undefined' && google.script && google.script.run) {
+        google.script.run
+          .withSuccessHandler((data) => {
+            if (data.success) {
+              document.getElementById('metric-revenue').innerText = data.totalRevenue.toLocaleString('vi-VN') + ' đ';
+              document.getElementById('metric-profit').innerText = data.totalProfit.toLocaleString('vi-VN') + ' đ';
+              document.getElementById('metric-orders').innerText = data.totalOrders + ' Đơn';
+              if (data.sheetUrl) {
+                document.getElementById('sheet-link').href = data.sheetUrl;
+              }
+              renderOrdersTable(data.recentOrders);
+            }
+          })
+          .getDashboardMetrics();
+      } else {
+        // Mock data nếu chạy preview
+        document.getElementById('metric-revenue').innerText = "1,850,000 đ";
+        document.getElementById('metric-profit').innerText = "720,000 đ";
+        document.getElementById('metric-orders').innerText = "8 Đơn";
+        renderOrdersTable([
+          { id: "DH102931", time: "Hôm nay 09:15", name: "Chị Thảo (Đống Đa)", product: "1 Máy Niệm Phật Bỏ Túi", amount: 220000, profit: 90000, status: "Đã Hoàn Thành" },
+          { id: "DH102932", time: "Hôm nay 10:45", name: "Anh Nam (Thanh Xuân)", product: "1 Chuỗi Hạt Bồ Đề", amount: 180000, profit: 70000, status: "Đã Hoàn Thành" }
+        ]);
+      }
+    }
+
+    function renderOrdersTable(list) {
+      const tbody = document.getElementById('orders-tbody');
+      tbody.innerHTML = '';
+      if (!list || list.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: #64748b;">Chưa có đơn hàng nào trong Sheet.</td></tr>';
+        return;
+      }
+      list.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${item.id}</strong></td>
+          <td>${item.time}</td>
+          <td>${item.name}</td>
+          <td>${item.product}</td>
+          <td>${item.amount.toLocaleString('vi-VN')} đ</td>
+          <td style="color: #34d399; font-weight: bold;">+${item.profit.toLocaleString('vi-VN')} đ</td>
+          <td><span class="badge-status">${item.status}</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function submitOrder() {
+      const name = document.getElementById('cust-name').value.trim();
+      const phone = document.getElementById('cust-phone').value.trim();
+      const email = document.getElementById('cust-email').value.trim();
+      const prod = document.getElementById('cust-prod').value.trim();
+      const amount = document.getElementById('cust-amount').value;
+      const profit = document.getElementById('cust-profit').value;
+      const msg = document.getElementById('order-msg');
+
+      if (!name || !amount) {
+        alert("Vui lòng nhập tên khách hàng và số tiền!");
+        return;
+      }
+
+      msg.style.display = 'block';
+      msg.innerText = "⏳ Đang gửi dữ liệu lên Google Sheets và kích hoạt Gmail...";
+
+      const orderData = { name, phone, email, product: prod, amount, profit };
+
+      if (typeof google !== 'undefined' && google.script && google.script.run) {
+        google.script.run
+          .withSuccessHandler((res) => {
+            if (res.success) {
+              msg.innerHTML = `✅ ${res.message} (<a href="${res.sheetUrl}" target="_blank" style="color: #67e8f9;">Mở Google Sheet</a>)`;
+              loadData();
+              document.getElementById('cust-name').value = '';
+              document.getElementById('cust-phone').value = '';
+              document.getElementById('cust-email').value = '';
+            } else {
+              msg.innerText = "⚠️ " + res.message;
+            }
+          })
+          .withFailureHandler((err) => {
+            msg.innerText = "Lỗi kết nối: " + err.message;
+          })
+          .processNewOrder(orderData);
+      } else {
+        setTimeout(() => {
+          msg.innerText = `✅ Đã lưu đơn hàng mẫu thành công!`;
+        }, 500);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', loadData);
+  </script>
+</body>
+</html>

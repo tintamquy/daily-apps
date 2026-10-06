@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lời Phật Dạy & Vấn Đáp Trí Tuệ | Buddha Wisdom 24/7</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #f59e0b;
+      --primary-dark: #b45309;
+      --bg-dark: #0c0a09;
+      --card-bg: rgba(28, 25, 23, 0.85);
+      --card-border: rgba(245, 158, 11, 0.3);
+      --text: #fafaf9;
+      --text-muted: #a8a29e;
+      --font-body: 'Be Vietnam Pro', sans-serif;
+      --font-title: 'Playfair Display', serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: radial-gradient(circle at 50% 10%, #292524 0%, #1c1917 60%, #0c0a09 100%);
+      color: var(--text);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      padding: 20px 16px 80px;
+    }
+    .wrapper {
+      max-width: 820px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+    header { text-align: center; }
+    .badge-zen {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #fde68a;
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-family: var(--font-title);
+      font-size: 28px;
+      color: #fef08a;
+      text-shadow: 0 2px 20px rgba(245, 158, 11, 0.3);
+    }
+    .sub { color: var(--text-muted); font-size: 14px; margin-top: 4px; }
+
+    /* CARD VẤN ĐÁP */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 22px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fde68a;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .topic-btn {
+      background: rgba(41, 37, 36, 0.8);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+      color: #e7e5e4;
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s;
+    }
+    .topic-btn:hover, .topic-btn.active {
+      background: rgba(245, 158, 11, 0.2);
+      border-color: #f59e0b;
+      color: #fef08a;
+      transform: translateY(-2px);
+    }
+
+    .answer-box {
+      background: rgba(12, 10, 9, 0.9);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 14px;
+    }
+    .answer-verse {
+      font-family: var(--font-title);
+      font-size: 17px;
+      color: #fef08a;
+      line-height: 1.7;
+      margin-bottom: 12px;
+      border-left: 3px solid #f59e0b;
+      padding-left: 14px;
+    }
+    .answer-pali {
+      font-size: 12px;
+      color: #d97706;
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+    .answer-action {
+      font-size: 14px;
+      color: #d6d3d1;
+      line-height: 1.6;
+    }
+
+    /* ĐĂNG KÝ EMAIL TỰ ĐỘNG QUA GOOGLE APPS SCRIPT */
+    .subscribe-box {
+      background: linear-gradient(135deg, rgba(69, 26, 3, 0.7) 0%, rgba(28, 25, 23, 0.9) 100%);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      border-radius: 20px;
+      padding: 24px;
+    }
+    .input-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+    input {
+      flex: 1;
+      min-width: 200px;
+      background: rgba(12, 10, 9, 0.8);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: #fff;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 14px;
+      outline: none;
+    }
+    input:focus { border-color: #f59e0b; box-shadow: 0 0 10px rgba(245, 158, 11, 0.3); }
+    .btn-submit {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #0c0a09;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-submit:hover { transform: translateY(-2px); }
+
+    /* MÁY TẠO THIỆP CHÚC PHÚC & CÔNG ĐỨC */
+    .card-creator { text-align: center; }
+    #certCanvas {
+      max-width: 100%;
+      border-radius: 16px;
+      border: 2px solid rgba(245, 158, 11, 0.4);
+      margin: 14px auto;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      background: #1c1917;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+    <header>
+      <div class="badge-zen">
+        <span>☸️</span> HỆ THỐNG VẤN ĐÁP PHẬT PHÁP & NUÔI DƯỠNG TUỆ GIÁC
+      </div>
+      <h1>LỜI PHẬT DẠY & VẤN ĐÁP TRÍ TUỆ</h1>
+      <p class="sub">Chữa lành tâm hồn, định hướng cuộc đời bằng Tam Tạng Kinh Điển</p>
+    </header>
+
+    <!-- PHẦN 1: VẤN ĐÁP THEO CHỦ ĐỀ -->
+    <div class="card">
+      <div class="card-title">
+        <span>🌸</span> Bạn Đang Trăn Trở Về Điều Gì Trong Cuộc Sống?
+      </div>
+      <div class="topics-grid">
+        <button class="topic-btn active" onclick="showAnswer(0)">🌪️ Lo âu & Bất An</button>
+        <button class="topic-btn" onclick="showAnswer(1)">💸 Tiền Bạc & Khủng Hoảng</button>
+        <button class="topic-btn" onclick="showAnswer(2)">👨‍👩‍👧 Mâu Thuẫn Gia Đình</button>
+        <button class="topic-btn" onclick="showAnswer(3)">🔥 Sân Hận & Bực Bội</button>
+        <button class="topic-btn" onclick="showAnswer(4)">🍃 Mất Mát & Vô Thường</button>
+        <button class="topic-btn" onclick="showAnswer(5)">🌫️ Mất Phương Hướng</button>
+        <button class="topic-btn" onclick="showAnswer(6)">🪷 Tự Ti & Thất Bại</button>
+        <button class="topic-btn" onclick="showAnswer(7)">🧘 Cách Tọa Thiền Tịnh Tâm</button>
+      </div>
+
+      <div class="answer-box">
+        <div class="answer-pali" id="ans-source">Kinh Pháp Cú, Kệ số 1</div>
+        <div class="answer-verse" id="ans-verse">"Tâm làm chủ các pháp..."</div>
+        <div class="answer-action" id="ans-action">Lời khai thị thực hành...</div>
+      </div>
+    </div>
+
+    <!-- PHẦN 2: ĐĂNG KÝ GỬI EMAIL TỰ ĐỘNG QUA GMAIL BACKEND -->
+    <div class="subscribe-box">
+      <div class="card-title">
+        <span>✉️</span> Nhận 1 Lời Phật Dạy Vào 06:00 Sáng Mỗi Ngày Qua Gmail
+      </div>
+      <p style="font-size: 13px; color: #fef08a; line-height: 1.5;">
+        Hệ thống tự động sử dụng Google Apps Script Trigger gửi bài học chánh niệm và câu kinh chúc lành tới hòm thư của bạn mỗi sáng. Miễn phí trọn đời cho cộng đồng Phật tử.
+      </p>
+      <div class="input-row">
+        <input type="text" id="sub-name" placeholder="Họ và tên hoặc Pháp danh của bạn">
+        <input type="email" id="sub-email" placeholder="Địa chỉ email nhận thư (Gmail)">
+        <button class="btn-submit" onclick="submitSubscription()">
+          <span>🙏</span> Đăng Ký Ngay
+        </button>
+      </div>
+      <div id="sub-result" style="margin-top: 10px; font-size: 13px; color: #a7f3d0; display: none;"></div>
+    </div>
+
+    <!-- PHẦN 3: TẠO THIỆP PHƯỚC LÀNH & CÔNG ĐỨC CÁ NHÂN HÓA -->
+    <div class="card card-creator">
+      <div class="card-title" style="justify-content: center;">
+        <span>🎨</span> Tạo Thiệp Phật Pháp Chúc Bình An Gửi Tặng Cha Mẹ & Bạn Bè
+      </div>
+      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">
+        Nhập tên để tự động vẽ thiệp vàng cát tường tải về gửi Zalo chúc phúc:
+      </p>
+      <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 14px; max-width: 480px; margin-left: auto; margin-right: auto;">
+        <input type="text" id="card-name" placeholder="Nhập tên người nhận (ví dụ: Kính tặng Mẹ Yêu)" value="Kính Chúc Cha Mẹ An Lạc">
+        <button class="btn-submit" onclick="drawCertificate()">Vẽ Thiệp</button>
+      </div>
+
+      <canvas id="certCanvas" width="680" height="420"></canvas>
+      <div>
+        <button class="btn-submit" style="margin: 10px auto;" onclick="downloadCert()">
+          <span>📥</span> Tải Thiệp Ảnh Về Máy
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const ANSWERS = [
+      {
+        source: "Kinh Pháp Cú (Dhammapada), Kệ số 348",
+        verse: "Hãy buông bỏ quá khứ, buông bỏ tương lai, buông bỏ luôn hiện tại. Với tâm tư giải thoát, vượt bờ kia sinh tử, bạn sẽ không còn chịu khổ đau tái diễn.",
+        action: "💡 Phương pháp thực hành: Hãy dừng việc suy đoán về ngày mai và ân hận về ngày qua. Ngồi thẳng lưng, hít một hơi thật sâu biết mình đang thở vào, thở ra mỉm cười biết mình đang còn sống trong hiện tại này."
+      },
+      {
+        source: "Kinh Sigalovada (Kinh Giáo Thọ Thi-Ca-La-Việt)",
+        verse: "Người trí tuệ quản lý tài sản chia làm 4 phần: Một phần để chi dùng sinh hoạt, hai phần để tái đầu tư kinh doanh, một phần dành dụm phòng khi nguy cấp.",
+        action: "💡 Phương pháp thực hành: Tiền tài là phương tiện, không phải cứu cánh. Khi tài chính khó khăn, hãy giữ giới trong sạch, không khởi tâm tham bất chính, tập trung làm việc thiện lương và gieo phước bố thí từ những điều nhỏ nhất."
+      },
+      {
+        source: "Kinh Tăng Chi Bộ (Anguttara Nikaya), Phẩm Báo Ân Cha Mẹ",
+        verse: "Nếu một bên vai cõng cha, một bên vai cõng mẹ suốt trăm năm, cũng chưa trả hết ơn sinh thành. Chỉ khi giúp cha mẹ an trú vào Chánh Tín, Giới Đức và Trí Tuệ mới thật sự là đền đáp trọn vẹn.",
+        action: "💡 Phương pháp thực hành: Khi có bất hòa trong gia đình, hãy quán chiếu: 'Người này là duyên lành nhiều kiếp của ta'. Hãy lắng nghe nhiều hơn phản kháng, dùng lời ái ngữ dịu dàng để hóa giải oán kết."
+      },
+      {
+        source: "Kinh Pháp Cú (Dhammapada), Kệ số 222",
+        verse: "Ai ngăn được cơn giận dữ nổi lên như chiếc xe đang chạy xiết, người ấy Ta gọi là bậc thiện tài, kẻ khác chỉ là kẻ cầm cương vụng về.",
+        action: "💡 Phương pháp thực hành: Cơn giận tựa như nắm hòn than nóng ném vào người khác, người bị bỏng đầu tiên chính là bản thân mình. Khi sắp nổi giận, hãy giữ im lặng trong 10 nhịp thở."
+      },
+      {
+        source: "Kinh Kim Cương (Vajracchedika Prajnaparamita Sutra)",
+        verse: "Tất cả các pháp hữu vi, như mộng huyễn, như bọt nước, như sương mai, như điện chớp. Hãy thường quán chiếu như thế.",
+        action: "💡 Phương pháp thực hành: Hết thảy vạn vật tụ rồi lại tan. Nhìn thấu sự vô thường không phải để bi quan, mà để trân quý từng phút giây hiện tại khi còn được ở bên cạnh người thân."
+      },
+      {
+        source: "Kinh Pháp Cú, Kệ số 276",
+        verse: "Chính các con phải nỗ lực, Như Lai chỉ là bậc chỉ đường. Những ai dấn thân tu tập sẽ thoát khỏi cạm bẫy của ma vương.",
+        action: "💡 Phương pháp thực hành: Đừng chờ đợi phép màu từ bên ngoài. Hãy bắt đầu từ việc nhỏ nhất: giữ 5 giới trong sạch, lao động chăm chỉ, phụng dưỡng cha mẹ và tích lũy phước đức mỗi ngày."
+      },
+      {
+        source: "Kinh Đại Niệm Xứ (Mahasatipatthana Sutta)",
+        verse: "Đây là con đường duy nhất dẫn đến thanh tịnh cho chúng sinh, diệt trừ sầu bi, chấm dứt khổ ưu, đó là Tứ Niệm Xứ.",
+        action: "💡 Phương pháp thực hành: Thất bại chỉ là bài học kinh nghiệm. Bản chất chân thật của bạn vượt lên trên mọi danh xưng, bằng cấp hay tài sản bên ngoài. Hãy mỉm cười và đứng dậy bắt đầu lại."
+      },
+      {
+        source: "Kinh Quán Niệm Hơi Thở (Anapanasati Sutta)",
+        verse: "Thở vào dài, biết thở vào dài. Thở ra dài, biết thở ra dài. Cảm giác toàn thân, tôi thở vào. Cảm giác toàn thân, tôi thở ra.",
+        action: "💡 Phương pháp thực hành: Ngồi xếp bằng thoải mái, lưng thẳng, buông lỏng hai vai. Đặt trọn vẹn sự chú ý tại chóp mũi hoặc bụng phồng xẹp. Khi tâm phóng đi đâu, nhẹ nhàng đưa tâm trở về với hơi thở."
+      }
+    ];
+
+    function showAnswer(idx) {
+      document.querySelectorAll('.topic-btn').forEach((b, i) => {
+        b.classList.toggle('active', i === idx);
+      });
+      const data = ANSWERS[idx];
+      document.getElementById('ans-source').innerText = data.source;
+      document.getElementById('ans-verse').innerText = `"${data.verse}"`;
+      document.getElementById('ans-action').innerText = data.action;
+    }
+
+    function submitSubscription() {
+      const name = document.getElementById('sub-name').value.trim();
+      const email = document.getElementById('sub-email').value.trim();
+      const resEl = document.getElementById('sub-result');
+
+      if (!email || email.indexOf('@') === -1) {
+        alert("Vui lòng nhập địa chỉ email hợp lệ!");
+        return;
+      }
+
+      resEl.style.display = 'block';
+      resEl.innerText = "⏳ Đang kết nối máy chủ Google Apps Script...";
+
+      // Kiểm tra xem có môi trường Google Script không
+      if (typeof google !== 'undefined' && google.script && google.script.run) {
+        google.script.run
+          .withSuccessHandler((res) => {
+            if (res.success) {
+              resEl.innerHTML = `✅ ${res.message}`;
+            } else {
+              resEl.innerHTML = `⚠️ ${res.message}`;
+            }
+          })
+          .withFailureHandler((err) => {
+            resEl.innerText = "Lỗi kết nối: " + err.message;
+          })
+          .registerDailyWisdom(name, email, "Tâm An & Trí Tuệ");
+      } else {
+        // Chế độ chạy trực tiếp (Demo)
+        setTimeout(() => {
+          resEl.innerHTML = `✅ Đã ghi nhận đăng ký của Đạo Hữu <strong>${name || 'bạn'}</strong> (${email})! Hệ thống Google Apps Script sẽ tự động kích hoạt gửi thư mỗi sáng lúc 06:00.`;
+        }, 600);
+      }
+    }
+
+    /* VẼ THIỆP PHƯỚC LÀNH BẰNG CANVAS */
+    function drawCertificate() {
+      const canvas = document.getElementById('certCanvas');
+      const ctx = canvas.getContext('2d');
+      const name = document.getElementById('card-name').value || "Kính Chúc Cha Mẹ Bình An";
+
+      // Nền gradient hoàng kim thiền môn
+      const grad = ctx.createRadialGradient(340, 210, 50, 340, 210, 380);
+      grad.addColorStop(0, '#451a03');
+      grad.addColorStop(0.6, '#1c1917');
+      grad.addColorStop(1, '#0c0a09');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 680, 420);
+
+      // Khung viền hoa văn vàng
+      ctx.strokeStyle = '#f59e0b';
+      ctx.lineWidth = 3;
+      ctx.strokeRect(20, 20, 640, 380);
+      ctx.strokeStyle = '#fde68a';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(26, 26, 628, 368);
+
+      // Icon & Tiêu đề
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#fde68a';
+      ctx.font = '36px serif';
+      ctx.fillText('☸️', 340, 75);
+
+      ctx.font = 'bold 22px "Playfair Display", serif';
+      ctx.fillStyle = '#fef08a';
+      ctx.fillText('THIỆP PHẬT PHÁP CHÚC BÌNH AN & PHƯỚC ĐỨC', 340, 115);
+
+      // Tên người nhận
+      ctx.font = 'italic bold 28px "Playfair Display", serif';
+      ctx.fillStyle = '#f59e0b';
+      ctx.fillText(name, 340, 185);
+
+      // Câu chúc kinh điển
+      ctx.font = '16px "Be Vietnam Pro", sans-serif';
+      ctx.fillStyle = '#f5f5f4';
+      ctx.fillText('"Nguyện cầu Tam Bảo gia hộ thân tâm thường an lạc,', 340, 245);
+      ctx.fillText('Tai qua nạn khỏi, phước thọ miên trường,', 340, 275);
+      ctx.fillText('Bồ Đề tâm kiên cố, vạn sự cát tường viên thành."', 340, 305);
+
+      // Dấu ấn
+      ctx.font = '12px "Be Vietnam Pro", sans-serif';
+      ctx.fillStyle = '#a8a29e';
+      ctx.fillText('Nam Mô A Di Đà Phật • Ngày ' + new Date().toLocaleDateString('vi-VN'), 340, 365);
+    }
+
+    function downloadCert() {
+      const canvas = document.getElementById('certCanvas');
+      const link = document.createElement('a');
+      link.download = 'Thiep_Phat_Phap_Binh_An.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      showAnswer(0);
+      drawCertificate();
+    });
+  </script>
+</body>
+</html>
