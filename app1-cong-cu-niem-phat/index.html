@@ -453,26 +453,44 @@
     <div class="drive-sync-card">
       <div class="drive-sync-header">
         <div class="drive-sync-title">
-          <span>☁️</span> LƯU TRỮ CÔNG ĐỨC QUA MÃ ID CÁ NHÂN
+          <span>☁️</span> LƯU TRỮ CÔNG CỨ QUA MÃ ID & GOOGLE DRIVE
         </div>
         <div style="font-size: 12px; color: #a7f3d0;" id="sync-status-lbl">
-          🟢 Đã sẵn sàng đồng bộ
+          🟢 Sẵn sàng lưu trữ đa thiết bị
         </div>
       </div>
 
       <div class="drive-input-group">
         <input type="text" id="user-dharma-id" class="drive-id-input" placeholder="Nhập Mã ID (Số ĐT hoặc Pháp Danh, ví dụ: 0988302161)" value="0988302161">
         <button class="btn-drive-action btn-drive-gold" onclick="saveToCloudDrive()">
-          <span>☁️</span> Lưu Lên Drive
+          <span>☁️</span> Lưu Theo Mã ID
         </button>
         <button class="btn-drive-action" onclick="loadFromCloudDrive()">
           <span>📥</span> Nạp Công Đức
         </button>
       </div>
 
-      <div class="drive-helper">
-        💡 <strong>Cách đổi thiết bị không mất dữ liệu:</strong> Ở máy mới, bạn chỉ cần gõ đúng Mã ID (ví dụ: <code>0988302161</code>) và bấm <strong>"Nạp Công Đức"</strong> là toàn bộ số câu đã niệm sẽ lập tức hiện ra! Hoặc bấm 
-        <a href="javascript:void(0)" onclick="openTransferQR()" style="color: #38bdf8; text-decoration: underline;">Quét Mã QR Chuyển Máy</a>.
+      <!-- THANH CÔNG CỤ DỰ PHÒNG GOOGLE DRIVE & QR -->
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px;">
+        <button class="control-pill" onclick="downloadBackupFile()" style="font-size: 11.5px; padding: 6px 12px;">
+          <span>💾</span> Tải File Sao Lưu (.json)
+        </button>
+        <label class="control-pill" style="font-size: 11.5px; padding: 6px 12px; cursor: pointer; margin: 0;">
+          <span>📂</span> Khôi Phục Từ File
+          <input type="file" id="backup-file-input" accept=".json" style="display: none;" onchange="restoreFromBackupFile(event)">
+        </label>
+        <button class="control-pill" onclick="openTransferQR()" style="font-size: 11.5px; padding: 6px 12px;">
+          <span>📲</span> QR Chuyển Máy
+        </button>
+        <a href="https://script.google.com/macros/s/AKfycbw1fG1RmL2Kw6VsPF9qTRlDzg43W4vxQHwRRl4zhRvZN24yglDe8NsZkmVoBRVtwQDNFA/exec" target="_blank" class="control-pill" style="font-size: 11.5px; padding: 6px 12px; text-decoration: none;">
+          <span>📊</span> Bảng Tính Drive
+        </a>
+      </div>
+
+      <div class="drive-helper" style="margin-top: 12px;">
+        💡 <strong>Cách đổi máy không bao giờ mất số niệm:</strong><br>
+        1. <strong>Dùng Mã ID:</strong> Gõ Mã ID (ví dụ: <code>0988302161</code>) và bấm <em>"Lưu Theo Mã ID"</em>. Ở điện thoại mới, chỉ cần gõ đúng Mã ID này và bấm <em>"Nạp Công Đức"</em>.<br>
+        2. <strong>Lưu lên Google Drive:</strong> Bấm <em>"Tải File Sao Lưu"</em> rồi lưu vào Google Drive của bạn. Sang máy mới chỉ cần chọn file đó là xong ngay.
       </div>
     </div>
 
@@ -669,8 +687,8 @@
     const STORAGE_KEY = 'niem_phat_cong_cu_persistent_v3';
     const ID_KEY = 'niem_phat_saved_dharma_id';
     
-    // API Web App Google Drive Cloud Sync
-    const GAS_SYNC_API = 'https://script.google.com/macros/s/AKfycbyIdbX5iUYA4Y7q7KS7C2_-9WrbhzCX1EyijRWZ-0wIgAfV_LAf8qLu2ELZOmecKiG-/exec';
+    // API Web App Google Drive Cloud Sync (Hỗ trợ JSONP & Drive Sheets)
+    const GAS_SYNC_API = 'https://script.google.com/macros/s/AKfycbw1fG1RmL2Kw6VsPF9qTRlDzg43W4vxQHwRRl4zhRvZN24yglDe8NsZkmVoBRVtwQDNFA/exec';
 
     function getLocalDateStr() {
       const d = new Date();
@@ -850,10 +868,14 @@
       }
       saveState();
 
-      const statusEl = document.getElementById('sync-status-lbl');
-      statusEl.innerText = "⏳ Đang lưu lên Google Drive...";
+      // Lưu bản sao dự phòng theo Mã ID vào localStorage
+      localStorage.setItem('id_backup_' + userId, JSON.stringify(appState));
+      localStorage.setItem('last_active_id', userId);
 
-      // Gửi lên Google Apps Script Web App
+      const statusEl = document.getElementById('sync-status-lbl');
+      statusEl.innerText = "⏳ Đang ghi nhận lên đám mây...";
+
+      // Gửi lên Google Apps Script Web App (ghi vào Google Sheet trên Drive)
       const saveUrl = `${GAS_SYNC_API}?action=save&userId=${encodeURIComponent(userId)}&totalCount=${appState.totalCount}&todayCount=${appState.todayCount}&streakDays=${appState.streakDays}&lastDate=${appState.lastDate}&chantTitle=${encodeURIComponent(appState.currentChant)}`;
 
       fetch(saveUrl, { mode: 'no-cors' })
@@ -862,10 +884,26 @@
           showToast(`✅ Đã lưu ${appState.totalCount.toLocaleString('vi-VN')} câu niệm vào Mã ID: ${userId}!`);
         })
         .catch(err => {
-          statusEl.innerText = "✅ Đã ghi nhận mã ID: " + userId;
-          showToast(`Đã lưu công đức cục bộ cho Mã ID: ${userId}`);
+          statusEl.innerText = "✅ Đã lưu cục bộ cho Mã ID: " + userId;
+          showToast(`Đã lưu công đức cho Mã ID: ${userId}`);
         });
     }
+
+    // Callback toàn cục cho JSONP từ Google Apps Script
+    window.onDriveLoaded = function(res) {
+      const statusEl = document.getElementById('sync-status-lbl');
+      if (res && res.success && res.found && res.data) {
+        appState.totalCount = Number(res.data.totalCount) || appState.totalCount;
+        appState.todayCount = Number(res.data.todayCount) || appState.todayCount;
+        appState.streakDays = Number(res.data.streakDays) || appState.streakDays;
+        saveState();
+        renderUI();
+        statusEl.innerText = "✅ Đã nạp thành công từ Google Drive!";
+        showToast(`🎉 Phục hồi thành công ${appState.totalCount.toLocaleString('vi-VN')} câu công đức!`);
+      } else {
+        checkLocalBackupFallback();
+      }
+    };
 
     function loadFromCloudDrive() {
       const userId = document.getElementById('user-dharma-id').value.trim();
@@ -875,38 +913,96 @@
       }
 
       const statusEl = document.getElementById('sync-status-lbl');
-      statusEl.innerText = "⏳ Đang tìm kiếm trên Google Drive...";
+      statusEl.innerText = "⏳ Đang kết nối nạp dữ liệu...";
 
-      const loadUrl = `${GAS_SYNC_API}?action=load&userId=${encodeURIComponent(userId)}`;
+      // Thử nạp qua JSONP để vượt qua CORS
+      const existingScript = document.getElementById('gas-jsonp-script');
+      if (existingScript) existingScript.remove();
 
-      fetch(loadUrl)
-        .then(res => res.json())
-        .then(res => {
-          if (res.success && res.found && res.data) {
-            appState.totalCount = Number(res.data.totalCount) || appState.totalCount;
-            appState.todayCount = Number(res.data.todayCount) || appState.todayCount;
-            appState.streakDays = Number(res.data.streakDays) || appState.streakDays;
+      const script = document.createElement('script');
+      script.id = 'gas-jsonp-script';
+      script.src = `${GAS_SYNC_API}?action=load&userId=${encodeURIComponent(userId)}&callback=onDriveLoaded&t=${Date.now()}`;
+      
+      script.onerror = function() {
+        checkLocalBackupFallback();
+      };
+
+      document.body.appendChild(script);
+
+      // Timeout dự phòng 2.5 giây nếu mạng Google chậm
+      setTimeout(() => {
+        if (statusEl.innerText.includes("kết nối")) {
+          checkLocalBackupFallback();
+        }
+      }, 2500);
+    }
+
+    function checkLocalBackupFallback() {
+      const userId = document.getElementById('user-dharma-id').value.trim();
+      const statusEl = document.getElementById('sync-status-lbl');
+      const localData = localStorage.getItem('id_backup_' + userId);
+      if (localData) {
+        try {
+          const parsed = JSON.parse(localData);
+          appState = { ...appState, ...parsed };
+          saveState();
+          renderUI();
+          statusEl.innerText = "✅ Đã nạp từ bản sao lưu gần nhất!";
+          showToast(`🎉 Đã nạp lại ${appState.totalCount.toLocaleString('vi-VN')} câu niệm từ bộ nhớ máy!`);
+          return;
+        } catch(e) {}
+      }
+      statusEl.innerText = "ℹ️ Chưa tìm thấy dữ liệu cho mã ID này.";
+      showToast("Chưa thấy bản lưu trực tuyến. Nếu đổi máy, bạn hãy bấm 'Quét Mã QR Chuyển Máy' hoặc 'Khôi Phục Từ File' nhé!");
+    }
+
+    // Tải file sao lưu cá nhân về máy để cất vào Google Drive
+    function downloadBackupFile() {
+      const userId = document.getElementById('user-dharma-id').value.trim() || 'PhatTu';
+      const backupData = {
+        app: "SoCongCuNiemPhat",
+        version: "2.0",
+        userId: userId,
+        exportDate: new Date().toISOString(),
+        state: appState
+      };
+      const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `Cong_Cu_Niem_Phat_${userId}_${getLocalDateStr()}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("💾 Đã tải file sao lưu! Hãy cất vào Google Drive của bạn để lưu trọn đời.");
+    }
+
+    // Khôi phục từ file sao lưu Google Drive đã tải về
+    function restoreFromBackupFile(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        try {
+          const data = JSON.parse(event.target.result);
+          if (data && data.state) {
+            appState = { ...appState, ...data.state };
+            if (data.userId) {
+              document.getElementById('user-dharma-id').value = data.userId;
+            }
             saveState();
             renderUI();
-            statusEl.innerText = "✅ Đã nạp thành công từ Google Drive!";
-            showToast(`🎉 Phục hồi thành công ${appState.totalCount.toLocaleString('vi-VN')} câu công đức của Mã ID: ${userId}!`);
+            showToast(`🎉 Phục hồi thành công ${appState.totalCount.toLocaleString('vi-VN')} câu niệm từ file sao lưu!`);
           } else {
-            statusEl.innerText = "ℹ️ " + (res.message || "Chưa có dữ liệu.");
-            alert("Chưa tìm thấy dữ liệu trên Google Drive cho Mã ID này. Nếu đây là máy mới, hãy chắc chắn bạn đã nhấn 'Lưu Lên Drive' từ máy cũ!");
+            alert("File sao lưu không đúng định dạng!");
           }
-        })
-        .catch(err => {
-          // Fallback thử tìm trong localStorage theo mã ID
-          const localCheck = localStorage.getItem('cloud_backup_' + userId);
-          if (localCheck) {
-            appState = { ...appState, ...JSON.parse(localCheck) };
-            renderUI();
-            showToast("Đã khôi phục dữ liệu từ bản lưu gần nhất!");
-          } else {
-            statusEl.innerText = "⚠️ Cần mở Drive cấp quyền lần đầu.";
-            alert("Mẹo: Bạn có thể bấm nút 'Quét Mã QR Chuyển Máy' bên dưới để chuyển trực tiếp sang máy mới trong 1 giây mà không cần cấu hình mạng!");
-          }
-        });
+        } catch(err) {
+          alert("Không thể đọc file: " + err);
+        }
+      };
+      reader.readAsText(file);
+      e.target.value = '';
     }
 
     function autoSyncQuietly() {
