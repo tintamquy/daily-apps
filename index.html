@@ -3,54 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hệ Sinh Thái Ứng Dụng Mỗi Ngày | Phật Pháp & Báo Hiếu Phụng Dưỡng Mẹ</title>
+  <title>Cổng Ứng Dụng Mỗi Ngày | Phật Pháp Chánh Niệm & Cỗ Máy Kiếm Tiền Tự Động</title>
+  <meta name="description" content="Hệ sinh thái ứng dụng hữu ích chia sẻ ngay cho cộng đồng: Rút thẻ Lời Phật Dạy, Đài niệm Phật chạy ngầm, Cỗ máy tạo Hook triệu view TikTok và CRM tự động.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&family=Montserrat:wght@700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --gold: #f59e0b;
+      --gold-light: #fef08a;
+      --pink: #ec4899;
+      --purple: #8b5cf6;
+      --green: #10b981;
+      --bg: radial-gradient(circle at 50% 0%, #17113a 0%, #0c081e 50%, #030208 100%);
+      --card-bg: rgba(24, 18, 45, 0.75);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --font: 'Be Vietnam Pro', sans-serif;
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: radial-gradient(circle at 50% 0%, #172554 0%, #0f172a 50%, #020617 100%);
-      color: #f8fafc;
-      font-family: 'Be Vietnam Pro', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
       min-height: 100vh;
-      padding: 30px 20px 80px;
+      padding: 30px 16px 80px;
     }
     .container {
-      max-width: 960px;
+      max-width: 1000px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 28px;
+      gap: 30px;
     }
     header { text-align: center; }
-    .hero-badge {
+    .badge-top {
       display: inline-flex;
       align-items: center;
       gap: 6px;
       background: rgba(245, 158, 11, 0.15);
       border: 1px solid rgba(245, 158, 11, 0.4);
-      color: #fde68a;
+      color: var(--gold-light);
       padding: 6px 18px;
       border-radius: 999px;
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 700;
       margin-bottom: 12px;
     }
     h1 {
-      font-size: 32px;
-      font-weight: 800;
-      background: linear-gradient(135deg, #fef08a 0%, #f59e0b 50%, #fbbf24 100%);
+      font-size: 34px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #fef08a 0%, #f59e0b 50%, #ec4899 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
       margin-bottom: 8px;
     }
-    .lead { color: #94a3b8; font-size: 15px; }
+    .lead { color: var(--text-muted); font-size: 15px; }
 
-    .banner-gas {
-      background: linear-gradient(135deg, rgba(6, 78, 59, 0.7) 0%, rgba(30, 58, 138, 0.7) 100%);
-      border: 1px solid rgba(52, 211, 153, 0.4);
-      border-radius: 20px;
+    /* BANNER CHIẾN LƯỢC */
+    .strategy-banner {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.25) 0%, rgba(236, 72, 153, 0.2) 100%);
+      border: 1px solid rgba(139, 92, 246, 0.4);
+      border-radius: 22px;
       padding: 22px 26px;
       display: flex;
       align-items: center;
@@ -58,60 +74,70 @@
       gap: 20px;
       flex-wrap: wrap;
     }
-    .gas-title { font-size: 16px; font-weight: 800; color: #a7f3d0; margin-bottom: 4px; }
-    .gas-desc { font-size: 13px; color: #e2e8f0; line-height: 1.5; }
+    .strat-h { font-size: 16px; font-weight: 800; color: #e9d5ff; margin-bottom: 4px; }
+    .strat-p { font-size: 13px; color: #cbd5e1; line-height: 1.6; }
+
+    /* DANH MỤC 4 ỨNG DỤNG */
+    .section-title {
+      font-size: 20px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+      margin-top: 10px;
+    }
 
     .grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
     }
     .card {
-      background: rgba(30, 41, 59, 0.75);
+      background: var(--card-bg);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 24px;
-      padding: 26px;
+      border-radius: 22px;
+      padding: 24px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       backdrop-filter: blur(14px);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.4);
-      transition: all 0.3s;
+      box-shadow: 0 16px 35px rgba(0,0,0,0.4);
+      transition: all 0.25s;
     }
-    .card:hover { transform: translateY(-4px); }
-    .card-dharma {
-      border-color: rgba(245, 158, 11, 0.4);
-      background: linear-gradient(135deg, rgba(30, 27, 75, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(245, 158, 11, 0.5);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.6);
     }
-    .card-income {
-      border-color: rgba(16, 185, 129, 0.4);
-      background: linear-gradient(135deg, rgba(6, 78, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
-    }
-    .card-icon { font-size: 42px; margin-bottom: 12px; }
-    .card-badge {
+    .card-tag {
       display: inline-block;
       font-size: 11px;
-      text-transform: uppercase;
       font-weight: 800;
-      letter-spacing: 1px;
-      padding: 3px 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 4px 10px;
       border-radius: 6px;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
-    .card-title { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 10px; }
-    .card-desc { font-size: 13px; color: #cbd5e1; line-height: 1.6; margin-bottom: 18px; }
-    
-    .btn-group { display: flex; flex-direction: column; gap: 8px; }
-    .btn {
+    .tag-dharma { background: rgba(245, 158, 11, 0.2); color: #fde68a; border: 1px solid rgba(245, 158, 11, 0.4); }
+    .tag-viral { background: rgba(236, 72, 153, 0.2); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.4); }
+    .tag-money { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.4); }
+
+    .card-icon { font-size: 38px; margin-bottom: 8px; }
+    .card-title { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+    .card-desc { font-size: 13px; color: #94a3b8; line-height: 1.6; margin-bottom: 18px; }
+
+    .btn-launch {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 6px;
       padding: 12px 18px;
       border-radius: 12px;
-      font-weight: 700;
-      text-decoration: none;
       font-size: 13px;
+      font-weight: 800;
+      text-decoration: none;
       transition: all 0.2s;
     }
     .btn-gold {
@@ -119,111 +145,126 @@
       color: #0f172a;
       box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35);
     }
+    .btn-pink {
+      background: linear-gradient(135deg, #ec4899, #8b5cf6);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(236, 72, 153, 0.35);
+    }
     .btn-green {
       background: linear-gradient(135deg, #10b981, #059669);
       color: #042f2e;
       box-shadow: 0 4px 15px rgba(16, 185, 129, 0.35);
     }
-    .btn-sub {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #e2e8f0;
-    }
-    .btn-sub:hover { background: rgba(255, 255, 255, 0.15); }
 
-    .monetize-strategy {
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      border-radius: 20px;
-      padding: 24px;
-    }
-    .strat-title { color: #38bdf8; font-size: 16px; font-weight: 800; margin-bottom: 10px; }
-
-    @media (max-width: 760px) {
-      .grid { grid-template-columns: 1fr; }
+    footer {
+      text-align: center;
+      font-size: 13px;
+      color: #64748b;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
+
   <div class="container">
     <header>
-      <div class="hero-badge">
-        <span>☸️</span> KẾT HỢP GOOGLE APPS SCRIPT & GITHUB PAGES CLOUD
+      <div class="badge-top">
+        <span>☸️</span> HỆ SINH THÁI TỰ ĐỘNG HÓA VIRAL & KIẾM TIỀN TOÀN DIỆN
       </div>
-      <h1>HỆ SINH THÁI ỨNG DỤNG MỖI NGÀY</h1>
-      <p class="lead">Một nửa vì Phật Pháp thanh tịnh và công đức • Một nửa kiếm tiền thực chiến phụng dưỡng Cha Mẹ</p>
+      <h1>MỖI NGÀY ỨNG DỤNG MỚI CHO CỘNG ĐỒNG</h1>
+      <p class="lead">Lan tỏa giáo pháp thanh tịnh • Tạo dòng tiền tự động không giới hạn để mang về cho Mẹ</p>
     </header>
 
-    <!-- BANNER GOOGLE APPS SCRIPT CLOUD -->
-    <div class="banner-gas">
+    <!-- BANNER CHIẾN LƯỢC TỰ ĐỘNG HÓA -->
+    <div class="strategy-banner">
       <div>
-        <div class="gas-title">⚡ SỨC MẠNH KẾT HỢP GOOGLE APPS SCRIPT (SCRIPT.GOOGLE.COM):</div>
-        <div class="gas-desc">
-          Các ứng dụng được triển khai trực tiếp trên hạ tầng Google Apps Script — tự động ghi dữ liệu vào <strong>Google Sheets</strong>, tự động kích hoạt <strong>Gmail</strong> gửi hóa đơn/kinh điển và chạy <strong>Triggers</strong> 06:00 sáng mỗi ngày hoàn toàn tự động!
+        <div class="strat-h">🚀 ĐỊNH HƯỚNG MỚI: CHIA SẺ LÀ DÙNG NGAY - KHÔNG CẦN TÌM KHÁCH</div>
+        <div class="strat-p">
+          Toàn bộ ứng dụng đều được thiết kế theo mô hình <strong>Viral Tự Nhiên & Giá Trị Tức Thì</strong>: người dùng nhận được giá trị ngay lập tức, tự bấm chia sẻ lên mạng xã hội kéo traffic miễn phí, và tự động quét mã <strong>VietQR chuyển tiền về tài khoản</strong> của bạn 24/7!
         </div>
       </div>
-      <a href="https://script.google.com/home" target="_blank" class="btn btn-green" style="white-space: nowrap;">
-        <span>⚙️</span> Mở Google Apps Script Console
-      </a>
+      <div style="font-size: 13px; color: #34d399; font-weight: 800;">
+        🟢 100% Hoạt Động Trực Tuyến
+      </div>
+    </div>
+
+    <!-- KHỐI 1: CÁC CÔNG CỤ PHẬT GIÁO VIRAL -->
+    <div class="section-title">
+      <span>🌸</span> ỨNG DỤNG PHÁT TRIỂN PHẬT PHÁP (LAN TỎA CỘNG ĐỒNG)
     </div>
 
     <div class="grid">
-      <!-- CẶP ỨNG DỤNG 1: PHẬT PHÁP -->
-      <div class="card card-dharma">
+      <!-- App 3 -->
+      <div class="card">
         <div>
-          <div class="card-icon">🪷</div>
-          <span class="card-badge" style="background: rgba(245, 158, 11, 0.2); color: #fde68a;">ỨNG DỤNG PHẬT PHÁP 24/7</span>
-          <h2 class="card-title">Lời Phật Dạy & Vấn Đáp Trí Tuệ</h2>
+          <span class="card-tag tag-dharma">MỚI RA MẮT • VIRAL STORY</span>
+          <div class="card-icon">🎋</div>
+          <h2 class="card-title">Rút Thẻ Lời Phật Dạy Cát Tường & Đài Niệm Phật</h2>
           <p class="card-desc">
-            Vấn đáp 8 chủ đề đời sống (tiền bạc, lo âu, gia đình, sân hận) trích từ Tam Tạng Kinh Điển. Tích hợp tự động gửi email lời Phật dạy 06:00 sáng mỗi ngày qua Gmail và vẽ thiệp bình an tặng Cha Mẹ.
+            Chạm rút thẻ thông điệp Lời Phật Dạy mỗi sáng kèm lời khuyên thực hành chánh niệm, nút chia sẻ thiệp 1 chạm lên Story Zalo/Facebook và đài niệm Phật chạy ngầm.
           </p>
         </div>
-        <div class="btn-group">
-          <a href="https://script.google.com/macros/s/AKfycbyuIOadLR5hUl0c5LezLxL1b4XXaC6vMsSSo-ciPQeN2VYyhpmSjNmGAVUrYLylYD_z/exec" class="btn btn-gold" target="_blank">
-            <span>☸️</span> Mở Web App Trên Google Apps Script
-          </a>
-          <a href="app1-cong-cu-niem-phat/index.html" class="btn btn-sub" target="_blank">
-            <span>🪵</span> Mở Sổ Công Cứ Niệm Phật (108 Hạt & Mõ Gỗ)
-          </a>
-          <a href="https://script.google.com/d/1Fa8Ji03dmoUyi5Pkd2tyCgbISjdCXieLP2xct1LSo3VlekIQRq1uzw8h/edit" class="btn btn-sub" target="_blank">
-            <span>🛠️</span> Xem Mã Nguồn Trên script.google.com
-          </a>
-        </div>
+        <a href="app3-rut-the-loi-phat-day/index.html" class="btn-launch btn-gold" target="_blank">
+          <span>✨</span> Mở App Rút Thẻ May Mắn
+        </a>
       </div>
 
-      <!-- CẶP ỨNG DỤNG 2: KIẾM TIỀN CHO MẸ -->
-      <div class="card card-income">
+      <!-- App 1 -->
+      <div class="card">
         <div>
-          <div class="card-icon">💰</div>
-          <span class="card-badge" style="background: rgba(16, 185, 129, 0.2); color: #6ee7b7;">ỨNG DỤNG KIẾM TIỀN CHO MẸ</span>
+          <span class="card-tag tag-dharma">CÔNG ĐỨC TU TẬP</span>
+          <div class="card-icon">🪷</div>
+          <h2 class="card-title">Sổ Công Cứ Niệm Phật & Nhắc Lịch Tu Học</h2>
+          <p class="card-desc">
+            Vòng tràng hạt 108 hạt sáng rực, âm thanh mõ gỗ & chuông bát ngân vang chuẩn thiền môn qua Web Audio, nhắc lịch 4 khóa tu trong ngày và hồi hướng công đức.
+          </p>
+        </div>
+        <a href="app1-cong-cu-niem-phat/index.html" class="btn-launch btn-gold" target="_blank">
+          <span>🪵</span> Mở Sổ Công Cứ Niệm Phật
+        </a>
+      </div>
+    </div>
+
+    <!-- KHỐI 2: CÁC CÔNG CỤ KIẾM TIỀN TỰ ĐỘNG -->
+    <div class="section-title">
+      <span>💰</span> CÔNG CỤ TẠO DÒNG TIỀN TỰ ĐỘNG (MANG TIỀN VỀ CHO MẸ)
+    </div>
+
+    <div class="grid">
+      <!-- App 4 -->
+      <div class="card">
+        <div>
+          <span class="card-tag tag-viral">CỰC HOT • KIẾM TIỀN TỰ ĐỘNG</span>
+          <div class="card-icon">🎬</div>
+          <h2 class="card-title">Cỗ Máy Tạo Hook 3s Triệu View & Kịch Bản AI</h2>
+          <p class="card-desc">
+            Giải quyết nỗi đau video bị lướt qua cho hàng trăm nghìn Creator & TikToker. Tự động thu tiền qua mã VietQR mở khóa gói VIP 69k và nút Donate cafe 20k tự động chuyển thẳng về tài khoản của bạn!
+          </p>
+        </div>
+        <a href="app4-ai-viral-hook-generator/index.html" class="btn-launch btn-pink" target="_blank">
+          <span>⚡</span> Mở Cỗ Máy Tạo Hook Triệu View
+        </a>
+      </div>
+
+      <!-- App 2 & CRM -->
+      <div class="card">
+        <div>
+          <span class="card-tag tag-money">KINH DOANH & PHẦN MỀM</span>
+          <div class="card-icon">📦</div>
           <h2 class="card-title">Mini CRM Bán Hàng & Chăm Sóc Tự Động</h2>
           <p class="card-desc">
-            Hệ thống CRM chạy trên Google Sheets: Quản lý đơn hàng, tự động tính lãi ròng biếu Mẹ, gửi email xác nhận cho khách và tạo mã VietQR chuyển khoản 1 chạm. Có thể bán lại giải pháp này kiếm tiền ngay!
+            Gian hàng sản phẩm có sẵn + Giải pháp CRM Google Sheets bán cho các chủ shop online với giá 299k - 499k/bản. Tự động hóa gửi hóa đơn và quản lý lợi nhuận tích lũy biếu Mẹ.
           </p>
         </div>
-        <div class="btn-group">
-          <a href="https://script.google.com/macros/s/AKfycbxgPAsC39bbE4Ru80K85UecSlRwJIXlYGyv14uc64K5X6DF7unz8MOQIEXUhM4AAXUS/exec" class="btn btn-green" target="_blank">
-            <span>🚀</span> Mở Web App CRM Trên Apps Script
-          </a>
-          <a href="app2-kinh-doanh-cho-me/index.html" class="btn btn-sub" target="_blank">
-            <span>🛍️</span> Mở Gian Hàng Bán Hàng Trực Tiếp
-          </a>
-          <a href="https://script.google.com/d/1e7Rs-8lZMkybujiE31JlHHnWxIJSjytiO08hC0XqeDhDdvMogK7niowV/edit" class="btn btn-sub" target="_blank">
-            <span>🛠️</span> Xem Mã Nguồn Trên script.google.com
-          </a>
-        </div>
+        <a href="app2-kinh-doanh-cho-me/index.html" class="btn-launch btn-green" target="_blank">
+          <span>🚀</span> Mở Gian Hàng & CRM Bán Hàng
+        </a>
       </div>
     </div>
 
-    <!-- CHIẾN LƯỢC KIẾM TIỀN THẬT -->
-    <div class="monetize-strategy">
-      <div class="strat-title">💵 CHIẾN LƯỢC TẠO THU NHẬP THỰC TẾ 15 - 30 TRIỆU/THÁNG GỬI VỀ CHO MẸ:</div>
-      <p style="font-size: 13px; color: #cbd5e1; line-height: 1.7;">
-        <strong>1. Bán sản phẩm vật lý / đặc sản qua gian hàng:</strong> Chuỗi hạt, máy niệm Phật, mật ong rừng, nụ trầm với lãi 60k - 90k/đơn. Chỉ cần 5 đơn/ngày = 350.000 đ/ngày lãi biếu Mẹ.<br>
-        <strong>2. Đóng gói bán giải pháp Google Apps Script CRM cho chủ shop:</strong> Các chủ shop kinh doanh nhỏ không muốn trả 300k - 500k/tháng cho phần mềm bên ngoài. Bạn cài đặt hệ thống Google Sheet + Web App này cho họ với phí <strong>299.000 đ - 499.000 đ / bản</strong>. 1 tuần chỉ cần bán 5 bản là có ngay 1.5 - 2.5 triệu gửi về cho Mẹ!<br>
-        <strong>3. Toàn bộ mã nguồn & Web App đã online 24/7</strong> trên máy chủ Google và GitHub, sẵn sàng gửi link demo cho khách hàng duyệt ngay!
-      </p>
-    </div>
+    <footer>
+      Hệ sinh thái ứng dụng tự động hóa hằng ngày • Phát hành công khai cho cộng đồng trên toàn cầu
+    </footer>
   </div>
 </body>
 </html>

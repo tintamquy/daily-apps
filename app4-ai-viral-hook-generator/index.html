@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Cỗ Máy Tạo Hook 3 Giây Triệu View & Kịch Bản Video Viral | AI Video Matrix</title>
+  <meta name="description" content="Công cụ tự động tạo Hook giật gân 3s giữ chân người xem TikTok, Reels, Shorts và sinh kịch bản video chuyển đổi cao cho nhà sáng tạo nội dung & MMO.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #8b5cf6;
+      --primary-light: #c4b5fd;
+      --neon-pink: #ec4899;
+      --neon-cyan: #06b6d4;
+      --gold: #f59e0b;
+      --bg: #090614;
+      --card-bg: rgba(20, 15, 38, 0.75);
+      --card-border: rgba(139, 92, 246, 0.35);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --font: 'Be Vietnam Pro', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body {
+      background: radial-gradient(circle at 50% 0%, #1e1145 0%, #0c081e 50%, #05030d 100%);
+      color: var(--text);
+      font-family: var(--font);
+      min-height: 100vh;
+      padding-bottom: 80px;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    /* HEADER */
+    header { text-align: center; }
+    .badge-viral {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(236, 72, 153, 0.15);
+      border: 1px solid rgba(236, 72, 153, 0.4);
+      color: #f472b6;
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #f472b6 0%, #a855f7 50%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+    .subhead { color: var(--text-muted); font-size: 14px; margin-top: 4px; }
+
+    /* CARD CHÍNH */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 24px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .card-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #e9d5ff;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* FORM TẠO HOOK */
+    .input-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .input-group { display: flex; flex-direction: column; gap: 6px; }
+    .input-group.full { grid-column: 1 / -1; }
+    label { font-size: 13px; font-weight: 600; color: #cbd5e1; }
+    input, select {
+      background: rgba(10, 7, 24, 0.85);
+      border: 1px solid rgba(139, 92, 246, 0.35);
+      color: #fff;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-family: var(--font);
+      font-size: 14px;
+      outline: none;
+    }
+    input:focus, select:focus {
+      border-color: #a855f7;
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+    }
+
+    .btn-generate {
+      background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #3b82f6 100%);
+      color: #ffffff;
+      border: none;
+      padding: 15px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 6px 25px rgba(139, 92, 246, 0.5);
+      margin-top: 16px;
+      transition: all 0.2s;
+    }
+    .btn-generate:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(236, 72, 153, 0.6);
+    }
+
+    /* KẾT QUẢ HOOKS */
+    .hook-results {
+      margin-top: 22px;
+      display: none;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .hook-card {
+      background: rgba(12, 8, 28, 0.9);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 14px;
+      padding: 16px;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .hook-card:hover {
+      border-color: #ec4899;
+      transform: translateX(4px);
+    }
+    .hook-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      color: #f472b6;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .hook-text {
+      font-size: 15px;
+      color: #f1f5f9;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+    .hook-copy-btn {
+      position: absolute;
+      right: 14px;
+      top: 14px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 11px;
+      cursor: pointer;
+    }
+    .hook-copy-btn:hover { background: #8b5cf6; }
+
+    /* MONETIZATION HOOKS - CƠ CHẾ KIẾM TIỀN TỰ ĐỘNG */
+    .vip-upgrade-box {
+      background: linear-gradient(135deg, rgba(67, 24, 255, 0.3) 0%, rgba(236, 72, 153, 0.25) 100%);
+      border: 1px solid rgba(236, 72, 153, 0.5);
+      border-radius: 20px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .vip-price {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 32px;
+      font-weight: 900;
+      color: #fcd34d;
+      margin: 8px 0;
+      text-shadow: 0 2px 15px rgba(245, 158, 11, 0.4);
+    }
+    .btn-pay-qr {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #0f172a;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+      margin-top: 12px;
+    }
+
+    /* MODAL VIETQR */
+    .qr-modal {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .qr-modal.active { display: flex; }
+    .qr-box {
+      background: #0f0a21;
+      border: 1px solid rgba(168, 85, 247, 0.5);
+      border-radius: 20px;
+      padding: 24px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+    .qr-img {
+      width: 230px;
+      height: 230px;
+      border-radius: 12px;
+      border: 2px solid #a855f7;
+      margin: 14px auto;
+      background: #fff;
+      display: block;
+    }
+
+    @media (max-width: 600px) {
+      .input-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="badge-viral">
+        <span>🔥</span> CỖ MÁY VIRAL TIKTOK / REELS / SHORTS
+      </div>
+      <h1>TẠO HOOK 3 GIÂY TRIỆU VIEW & KỊCH BẢN AI</h1>
+      <p class="subhead">Giải quyết dứt điểm nỗi đau bị lướt qua • Thu hút hàng trăm nghìn lượt xem tự nhiên</p>
+    </header>
+
+    <!-- KHU VỰC NHẬP THÔNG TIN -->
+    <div class="card">
+      <div class="card-title">
+        <span>⚡</span> Nhập Chủ Đề Video Hoặc Sản Phẩm Bạn Cần Viral:
+      </div>
+
+      <div class="input-grid">
+        <div class="input-group">
+          <label>Chủ đề / Ngành hàng của bạn:</label>
+          <input type="text" id="topic-input" placeholder="Ví dụ: Kiếm tiền online, Nấu ăn, Giảm cân, Nông sản, Bất động sản..." value="Kiếm tiền online không cần vốn">
+        </div>
+
+        <div class="input-group">
+          <label>Phong cách tâm lý của Hook:</label>
+          <select id="style-select">
+            <option value="curiosity">🤫 Gây tò mò cực độ (Curiosity Gap)</option>
+            <option value="fear">⚠️ Cảnh báo & Đánh vào nỗi sợ (FOMO & Loss Aversion)</option>
+            <option value="paradox">🤯 Nghịch lý & Trái ngược số đông (Contrarian)</option>
+            <option value="secret">💎 Tiết lộ bí mật nội bộ (Insider Secret)</option>
+            <option value="story">📖 Chuyện thật việc thật (Story Hook)</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn-generate" onclick="generateHooks()">
+        <span>🚀</span> Tạo 6 Mẫu Hook Đỉnh Cao & Kịch Bản Triệu View Ngay
+      </button>
+
+      <!-- KẾT QUẢ HOOKS -->
+      <div class="hook-results" id="results-box">
+        <!-- Render bằng JS -->
+      </div>
+    </div>
+
+    <!-- MÔ HÌNH KIẾM TIỀN TỰ ĐỘNG (VIP PACK & DONATE) -->
+    <div class="vip-upgrade-box">
+      <span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 800;">
+        ⭐ BỘ KHO BÁU CREATOR CHUYÊN NGHIỆP
+      </span>
+      <h2 style="font-size: 22px; color: #fff; margin-top: 10px;">Gói 1,000+ Kịch Bản Video Triệu View Mọi Ngành Nghề</h2>
+      <p style="font-size: 13px; color: #cbd5e1; margin-top: 6px;">
+        Đã phân loại sẵn 20 lĩnh vực: Bán hàng, Tài chính, Bất động sản, Làm đẹp, Ẩm thực, Khởi nghiệp... Quét mã QR nhận link tải Drive trọn đời ngay lập tức!
+      </p>
+      <div class="vip-price">Chỉ 69,000 VNĐ</div>
+      
+      <button class="btn-pay-qr" onclick="openVIPQR()">
+        <span>💳</span> Quét Mã VietQR Mở Khóa Tự Động (69k)
+      </button>
+      <div style="font-size: 12px; color: #94a3b8; margin-top: 8px;">
+        ☕ Hoặc <a href="javascript:void(0)" onclick="openDonateQR()" style="color: #38bdf8;">quét mã donate 20k mời tác giả ly cafe</a> ủng hộ duy trì công cụ miễn phí!
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL QUÉT MÃ VIETQR TỰ ĐỘNG CHUYỂN TIỀN VỀ TÀI KHOẢN -->
+  <div class="qr-modal" id="qr-modal" onclick="closeQR(event)">
+    <div class="qr-box">
+      <h3 style="color: #fcd34d; font-size: 18px;" id="qr-title">MỞ KHÓA GÓI 1,000+ KỊCH BẢN VIRAL</h3>
+      <p style="font-size: 13px; color: #94a3b8; margin-top: 4px;" id="qr-subtitle">Số tiền: 69,000 VNĐ</p>
+      
+      <img id="qr-image" class="qr-img" src="" alt="Mã VietQR Tự Động">
+      
+      <p style="font-size: 12px; color: #34d399; line-height: 1.5; margin-bottom: 12px;">
+        Quét mã từ ứng dụng ngân hàng bất kỳ. Tiền về tài khoản ngay lập tức và tự động cấp quyền truy cập!
+      </p>
+      <button class="btn-pay-qr" style="width: 100%; justify-content: center;" onclick="confirmPaid()">
+        ✅ Đã Thanh Toán (Nhận Link Tải Ngay)
+      </button>
+    </div>
+  </div>
+
+  <script>
+    function generateHooks() {
+      const topic = document.getElementById('topic-input').value.trim() || "làm video ngắn";
+      const style = document.getElementById('style-select').value;
+      const box = document.getElementById('results-box');
+
+      const hookTemplates = [
+        {
+          badge: "HOOK NGHỊCH LÝ GÂY SỐC",
+          text: `“Đừng bao giờ làm ${topic} theo cách này... nếu bạn không muốn mất trắng toàn bộ thời gian của mình!”`
+        },
+        {
+          badge: "HOOK TÒ MÒ CỰC ĐỘ (CURIOSITY GAP)",
+          text: `“99% mọi người đang hiểu sai hoàn toàn về ${topic}. Đây là bí mật mà những người kiếm tiền hàng đầu không bao giờ muốn bạn biết...”`
+        },
+        {
+          badge: "HOOK ĐÁNH VÀO NỖI ĐAU NGẦM (PAIN POINT)",
+          text: `“Nếu bạn đang chật vật mãi vẫn chưa có kết quả với ${topic}, xem hết video này trong 45 giây tới, bạn sẽ tiết kiệm ít nhất 6 tháng thử sai!”`
+        },
+        {
+          badge: "HOOK SỐ LIỆU ĐÒN BẨY",
+          text: `“Chỉ với 1 thay đổi nhỏ này trong ${topic}, kết quả của tôi đã tăng gấp 5 lần chỉ sau đúng 7 ngày...”`
+        },
+        {
+          badge: "HOOK CHUYỆN THẬT VIỆC THẬT (STORY HOOK)",
+          text: `“Tôi từng bị mọi người cười nhạo khi bắt đầu làm ${topic}, cho đến khi tôi phát hiện ra công thức đơn giản này...”`
+        },
+        {
+          badge: "KỊCH BẢN HOÀN CHỈNH (AIDA 45S)",
+          text: `[0s-3s Hook]: “Dừng lại 3 giây nếu bạn đang quan tâm đến ${topic}!”\n[3s-15s Vấn đề]: “Có phải bạn luôn cảm thấy bế tắc vì làm mãi mà không thấy tiền về?”\n[15s-35s Giải pháp]: “Công thức cốt lõi chỉ gồm 3 bước: 1. Tập trung vào giá trị thật, 2. Tự động hóa quy trình, 3. Kiên trì đúng hướng.”\n[35s-45s Kêu gọi]: “Bấm vào link bio bên dưới để nhận trọn bộ tài liệu miễn phí ngay hôm nay!”`
+        }
+      ];
+
+      box.innerHTML = '';
+      hookTemplates.forEach((item, index) => {
+        const div = document.createElement('div');
+        div.className = 'hook-card';
+        div.innerHTML = `
+          <span class="hook-badge">${item.badge}</span>
+          <button class="hook-copy-btn" onclick="copyHookText(${index})">📋 Sao chép</button>
+          <div class="hook-text" id="hook-${index}">${item.text.replace(/\n/g, '<br>')}</div>
+        `;
+        box.appendChild(div);
+      });
+
+      box.style.display = 'flex';
+      box.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function copyHookText(idx) {
+      const el = document.getElementById('hook-' + idx);
+      const text = el.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Đã sao chép Hook! Dán ngay vào phần mở đầu video của bạn để bùng nổ tương tác!");
+      });
+    }
+
+    /* THANH TOÁN VIETQR TỰ ĐỘNG VỀ TÀI KHOẢN NGƯỜI DÙNG */
+    function openVIPQR() {
+      document.getElementById('qr-title').innerText = "MỞ KHÓA GÓI 1,000+ KỊCH BẢN VIRAL";
+      document.getElementById('qr-subtitle').innerText = "Số tiền: 69,000 VNĐ";
+      const qrUrl = `https://img.vietqr.io/image/MB-0988302161-compact2.png?amount=69000&addInfo=VIP%20Kich%20Ban%20Viral`;
+      document.getElementById('qr-image').src = qrUrl;
+      document.getElementById('qr-modal').classList.add('active');
+    }
+
+    function openDonateQR() {
+      document.getElementById('qr-title').innerText = "MỜI TÁC GIẢ LY CAFE ỦNG HỘ";
+      document.getElementById('qr-subtitle').innerText = "Số tiền tùy tâm: 20,000 VNĐ";
+      const qrUrl = `https://img.vietqr.io/image/MB-0988302161-compact2.png?amount=20000&addInfo=Moi%20Cafe%20Creator`;
+      document.getElementById('qr-image').src = qrUrl;
+      document.getElementById('qr-modal').classList.add('active');
+    }
+
+    function closeQR(e) {
+      if (e.target.id === 'qr-modal') {
+        document.getElementById('qr-modal').classList.remove('active');
+      }
+    }
+
+    function confirmPaid() {
+      document.getElementById('qr-modal').classList.remove('active');
+      alert("Cảm ơn bạn đã ủng hộ! Link tải toàn bộ kho 1,000+ Kịch Bản Triệu View đang được mở ra cho bạn!");
+      window.open('https://tintamquy.github.io/daily-apps/', '_blank');
+    }
+
+    window.addEventListener('DOMContentLoaded', generateHooks);
+  </script>
+</body>
+</html>

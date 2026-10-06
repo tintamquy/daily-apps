@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Rút Thẻ Lời Phật Dạy Cát Tường & Đài Niệm Phật Chánh Niệm</title>
+  <meta name="description" content="Rút thẻ thông điệp Lời Phật Dạy đầu ngày, nghe đài niệm Phật chạy ngầm tĩnh tâm, chia sẻ phước lành cho gia đình và bạn bè.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #f59e0b;
+      --gold-light: #fef08a;
+      --gold-glow: rgba(245, 158, 11, 0.45);
+      --bg: radial-gradient(circle at 50% 15%, #2a1b18 0%, #150f14 50%, #080608 100%);
+      --card-bg: rgba(30, 24, 28, 0.85);
+      --card-border: rgba(245, 158, 11, 0.35);
+      --text: #fdfaf7;
+      --text-muted: #a89a94;
+      --font: 'Be Vietnam Pro', sans-serif;
+      --font-serif: 'Playfair Display', serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      min-height: 100vh;
+      padding-bottom: 70px;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* HEADER */
+    header { text-align: center; padding-top: 10px; }
+    .badge-zen {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: var(--gold-light);
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    h1 {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #fffbeb, #fcd34d, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 4px 20px rgba(245, 158, 11, 0.25);
+    }
+    .subhead { color: var(--text-muted); font-size: 13px; margin-top: 4px; }
+
+    /* KHU VỰC RÚT THẺ */
+    .draw-section {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 26px;
+      padding: 28px 20px;
+      text-align: center;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1);
+      position: relative;
+    }
+
+    /* HỦ THẺ TRÚC HOẶC THẺ SEN */
+    .jar-box {
+      width: 140px;
+      height: 140px;
+      margin: 0 auto 16px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #b45309 0%, #78350f 60%, #451a03 100%);
+      border: 3px solid rgba(251, 191, 36, 0.6);
+      box-shadow: 0 10px 30px rgba(120, 53, 15, 0.6), 0 0 40px var(--gold-glow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s;
+      animation: gentleFloat 3s infinite ease-in-out;
+    }
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    .jar-box:active { transform: scale(0.92); }
+    .jar-icon { font-size: 46px; }
+
+    .btn-draw {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: #0f172a;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 999px;
+      font-size: 16px;
+      font-weight: 800;
+      font-family: var(--font);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.45);
+      transition: all 0.2s;
+    }
+    .btn-draw:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(245, 158, 11, 0.6);
+    }
+
+    /* THẺ PHÁP CÚ XUẤT HIỆN VỚI HIỆU ỨNG 3D */
+    .card-display {
+      margin-top: 24px;
+      display: none;
+      perspective: 1000px;
+    }
+    .card-display.active {
+      display: block;
+      animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes slideUpFade {
+      0% { opacity: 0; transform: translateY(20px) scale(0.95); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .the-card {
+      background: linear-gradient(135deg, #1c1417 0%, #2e1d1f 50%, #150d11 100%);
+      border: 2px solid #f59e0b;
+      border-radius: 20px;
+      padding: 26px 22px;
+      position: relative;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 35px rgba(245, 158, 11, 0.3);
+      text-align: left;
+    }
+    .card-number {
+      font-size: 12px;
+      color: #fde68a;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(245, 158, 11, 0.25);
+      padding-bottom: 8px;
+    }
+    .card-verse {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      line-height: 1.7;
+      color: #fffbeb;
+      margin-bottom: 14px;
+      font-style: italic;
+    }
+    .card-source {
+      font-size: 12px;
+      color: #fbbf24;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .card-insight {
+      background: rgba(0, 0, 0, 0.35);
+      border-left: 3px solid #f59e0b;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      color: #e2d9d2;
+      line-height: 1.6;
+    }
+
+    /* ACTION BUTTONS TRÊN THẺ */
+    .card-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+    .action-btn {
+      flex: 1;
+      min-width: 140px;
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border: none;
+      font-family: var(--font);
+      transition: all 0.2s;
+    }
+    .btn-share {
+      background: #0284c7;
+      color: #fff;
+    }
+    .btn-share:hover { background: #0369a1; }
+    .btn-save {
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(245, 158, 11, 0.5);
+      color: #fde68a;
+    }
+
+    /* ĐÀI NIỆM PHẬT & NHẠC THIỀN CHẠY NGẦM */
+    .radio-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 22px;
+      padding: 20px;
+      backdrop-filter: blur(12px);
+    }
+    .radio-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .radio-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fde68a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .radio-controls {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .audio-btn {
+      background: rgba(45, 35, 40, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #e5e5e5;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s;
+    }
+    .audio-btn.active {
+      background: rgba(245, 158, 11, 0.25);
+      border-color: #f59e0b;
+      color: #fef08a;
+      box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="badge-zen">
+        <span>🪷</span> THÔNG ĐIỆP CHÁNH NIỆM ĐẦU NGÀY
+      </div>
+      <h1>RÚT THẺ LỜI PHẬT DẠY</h1>
+      <p class="subhead">Gieo một duyên lành, định tĩnh một ngày • Nghe đài niệm Phật thanh tịnh</p>
+    </header>
+
+    <!-- KHU VỰC RÚT THẺ -->
+    <div class="draw-section">
+      <div class="jar-box" onclick="drawCard()">
+        <div class="jar-icon">🎋</div>
+      </div>
+      <p style="font-size: 14px; color: var(--gold-light); margin-bottom: 14px;">
+        Chắp tay tĩnh tâm trong 3 giây và nhấn nút bên dưới để rút thẻ:
+      </p>
+      <button class="btn-draw" onclick="drawCard()">
+        <span>✨</span> Rút Thẻ Thông Điệp Hôm Nay
+      </button>
+
+      <!-- KHU VỰC HIỂN THỊ THẺ -->
+      <div class="card-display" id="card-display">
+        <div class="the-card">
+          <div class="card-number">
+            <span id="card-idx">THẺ SỐ 01</span>
+            <span>🌸 CÁT TƯỜNG NHƯ Ý</span>
+          </div>
+          <div class="card-verse" id="card-verse">
+            "Chiến thắng vạn quân giặc, không bằng tự thắng mình. Tự thắng là chiến công, oanh liệt nhất trần gian."
+          </div>
+          <div class="card-source" id="card-source">
+            — Kinh Pháp Cú, Kệ số 103 (Dhammapada)
+          </div>
+          <div class="card-insight" id="card-insight">
+            💡 <strong>Lời khuyên cho bạn hôm nay:</strong> Thay vì tranh cãi hơn thua với người khác, hãy quan sát tâm mình. Chiến thắng được sự nóng giận và tham ái trong lòng là bạn đã nắm giữ được bình an trọn vẹn nhất.
+          </div>
+
+          <div class="card-actions">
+            <button class="action-btn btn-share" onclick="shareCard()">
+              <span>📢</span> Chia Sẻ Lên Zalo / Facebook
+            </button>
+            <button class="action-btn btn-save" onclick="drawCard()">
+              <span>🔄</span> Rút Thẻ Khác
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ĐÀI NIỆM PHẬT & TĨNH TÂM ÂM THANH CHẠY NỀN -->
+    <div class="radio-card">
+      <div class="radio-header">
+        <div class="radio-title">
+          <span>📻</span> Đài Niệm Phật & Nhạc Thiền (Chạy Ngầm)
+        </div>
+        <span style="font-size: 12px; color: var(--text-muted);" id="radio-status">Đang dừng</span>
+      </div>
+
+      <div class="radio-controls">
+        <button class="audio-btn" id="btn-audio-1" onclick="toggleAudioTrack(1)">
+          <span>🌸 Niệm A Di Đà Phật</span>
+          <span class="audio-icon">▶️</span>
+        </button>
+        <button class="audio-btn" id="btn-audio-2" onclick="toggleAudioTrack(2)">
+          <span>💧 Chú Đại Bi Hùng Tráng</span>
+          <span class="audio-icon">▶️</span>
+        </button>
+        <button class="audio-btn" id="btn-audio-3" onclick="toggleAudioTrack(3)">
+          <span>🌊 Tiếng Chuông Bát & Suối Reo</span>
+          <span class="audio-icon">▶️</span>
+        </button>
+        <button class="audio-btn" id="btn-audio-4" onclick="toggleAudioTrack(4)">
+          <span>🪵 Mõ Thiền Tĩnh Tọa</span>
+          <span class="audio-icon">▶️</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const CARDS = [
+      {
+        verse: "Hận thù diệt hận thù, đời này không thể có. Từ bi diệt hận thù, là định luật ngàn thu.",
+        source: "Kinh Pháp Cú (Dhammapada), Kệ số 5",
+        insight: "💡 Hôm nay nếu có ai làm bạn phật lòng, đừng đáp trả bằng sự tức giận. Lấy lòng bao dung mỉm cười cho qua, phước báu sẽ nhân lên gấp bội."
+      },
+      {
+        verse: "Tâm dẫn đầu các pháp, tâm làm chủ tạo tác. Nếu với tâm thanh tịnh, nói năng hay hành động, an lạc sẽ theo ta, như bóng chẳng rời hình.",
+        source: "Kinh Pháp Cú (Dhammapada), Kệ số 2",
+        insight: "💡 Mọi hoàn cảnh bên ngoài đều phản chiếu tâm bạn. Giữ cho tâm sáng suốt, thiện lương thì đi đến đâu cũng gặp quý nhân phù trợ."
+      },
+      {
+        verse: "Người siêng năng tỉnh giác, phòng hộ các căn lành, như hòn đảo kiên cố, giữa biển sóng cuồng phong.",
+        source: "Kinh Pháp Cú (Dhammapada), Kệ số 25",
+        insight: "💡 Hãy tập trung vào công việc của chính mình, bớt nghe chuyện thị phi xung quanh. Bạn là chỗ dựa vững chãi nhất cho gia đình và cha mẹ."
+      },
+      {
+        verse: "Không làm các điều ác, nguyện làm các việc lành, giữ tâm ý trong sạch, là lời chư Phật dạy.",
+        source: "Kinh Pháp Cú (Dhammapada), Kệ số 183",
+        insight: "💡 Hôm nay hãy làm ít nhất một việc tốt nhỏ: nói một lời an ủi, giúp đỡ người khó khăn hoặc dành một lời chúc an lành cho Cha Mẹ."
+      },
+      {
+        verse: "Dễ thay điều sai quấy, hại mình chẳng có ích. Khó thay làm việc lành, mang lại hạnh phúc thật.",
+        source: "Kinh Pháp Cú (Dhammapada), Kệ số 163",
+        insight: "💡 Kiên trì làm ăn chân chính có thể chậm rãi, nhưng bền vững trọn đời. Phước đức cha mẹ để lại cho con cháu quý hơn ngàn vạn bạc vàng."
+      },
+      {
+        verse: "Hãy buông bỏ quá khứ, buông bỏ tương lai, buông bỏ luôn hiện tại. Với tâm tư giải thoát, bạn sẽ không còn chịu khổ đau.",
+        source: "Kinh Pháp Cú (Dhammapada), Kệ số 348",
+        insight: "💡 Điều gì đã qua hãy để cho nó qua. Tập trung trọn vẹn vào từng phút giây hiện tại, sống có trách nhiệm và tràn đầy nhiệt huyết."
+      }
+    ];
+
+    function drawCard() {
+      const idx = Math.floor(Math.random() * CARDS.length);
+      const card = CARDS[idx];
+
+      document.getElementById('card-idx').innerText = 'THẺ SỐ ' + (idx + 1).toString().padStart(2, '0');
+      document.getElementById('card-verse').innerText = `"${card.verse}"`;
+      document.getElementById('card-source').innerText = `— ${card.source}`;
+      document.getElementById('card-insight').innerHTML = card.insight;
+
+      const display = document.getElementById('card-display');
+      display.classList.remove('active');
+      void display.offsetWidth; // trigger reflow
+      display.classList.add('active');
+
+      display.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function shareCard() {
+      const text = document.getElementById('card-verse').innerText + "\n" + document.getElementById('card-source').innerText + "\n\n👉 Rút thẻ Lời Phật Dạy may mắn mỗi ngày tại: " + window.location.href;
+      if (navigator.share) {
+        navigator.share({
+          title: 'Thông điệp Lời Phật Dạy Cát Tường',
+          text: text,
+          url: window.location.href
+        }).catch(e => {});
+      } else {
+        navigator.clipboard.writeText(text).then(() => {
+          alert("Đã sao chép thông điệp cát tường! Bạn có thể dán (Paste) lên Zalo hoặc Facebook để lan tỏa điều lành đến mọi người!");
+        });
+      }
+    }
+
+    /* ĐÀI PHÁT ÂM THANH WEB AUDIO SYNTH */
+    let audioCtx = null;
+    let activeTrack = null;
+    let synthInterval = null;
+
+    function getAudioContext() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      return audioCtx;
+    }
+
+    function toggleAudioTrack(trackId) {
+      const buttons = document.querySelectorAll('.audio-btn');
+      
+      if (activeTrack === trackId) {
+        // Tắt track
+        stopAudio();
+        buttons.forEach(b => b.classList.remove('active'));
+        document.getElementById('radio-status').innerText = 'Đang dừng';
+        activeTrack = null;
+        return;
+      }
+
+      stopAudio();
+      activeTrack = trackId;
+      buttons.forEach(b => b.classList.remove('active'));
+      document.getElementById('btn-audio-' + trackId).classList.add('active');
+      document.getElementById('radio-status').innerText = '🟢 Đang phát';
+
+      const ctx = getAudioContext();
+      if (trackId === 1 || trackId === 4) {
+        // Mõ gõ đều đặn
+        playMokugyoBeat();
+        synthInterval = setInterval(playMokugyoBeat, 1800);
+      } else if (trackId === 2 || trackId === 3) {
+        // Chuông bát & thanh âm thiền ngân vang
+        playSingingBowlBeat();
+        synthInterval = setInterval(playSingingBowlBeat, 3500);
+      }
+    }
+
+    function stopAudio() {
+      if (synthInterval) {
+        clearInterval(synthInterval);
+        synthInterval = null;
+      }
+    }
+
+    function playMokugyoBeat() {
+      try {
+        const ctx = getAudioContext();
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.frequency.setValueAtTime(450, now);
+        osc.frequency.exponentialRampToValueAtTime(280, now + 0.08);
+        gain.gain.setValueAtTime(0.8, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.15);
+      } catch(e) {}
+    }
+
+    function playSingingBowlBeat() {
+      try {
+        const ctx = getAudioContext();
+        const now = ctx.currentTime;
+        [587.33, 1174.66, 1762.0].forEach((f, i) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.frequency.setValueAtTime(f, now);
+          gain.gain.setValueAtTime([0.4, 0.2, 0.08][i], now);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 3.0);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + 3.0);
+        });
+      } catch(e) {}
+    }
+
+    window.addEventListener('DOMContentLoaded', drawCard);
+  </script>
+</body>
+</html>
