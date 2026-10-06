@@ -6,8 +6,8 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <title>Sổ Công Cứ Niệm Phật & Nhắc Lịch Tu Học | Đồng Bộ Đa Thiết Bị Vĩnh Viễn</title>
-  <meta name="description" content="Ứng dụng sổ công cứ niệm Phật, gõ mõ điện tử, chuông bát, lưu trữ công đức vĩnh viễn và đồng bộ xuyên mọi thiết bị bằng mã QR và Cloud Sync.">
+  <title>Sổ Công Cứ Niệm Phật & Nhắc Lịch Tu Học | Lưu Trữ Google Drive & Đa Thiết Bị</title>
+  <meta name="description" content="Ứng dụng sổ công cứ niệm Phật, gõ mõ điện tử, chuông bát, lưu trữ công đức lên Google Drive qua Mã ID cá nhân, không lo mất dữ liệu khi đổi thiết bị.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Cinzel:wght@600;700;900&family=Playfair+Display:ital,wght@0,600;0,700;1,500&display=swap" rel="stylesheet">
@@ -15,12 +15,12 @@
     :root {
       --bg-gradient: radial-gradient(circle at 50% 20%, #1e172a 0%, #0d1117 70%, #05070a 100%);
       --gold-primary: #f59e0b;
-      --gold-light: #fde68a;
+      --gold-light: #fef08a;
       --gold-glow: rgba(245, 158, 11, 0.45);
       --amber-dark: #78350f;
       --lotus-pink: #f43f5e;
-      --card-bg: rgba(26, 32, 44, 0.75);
-      --card-border: rgba(245, 158, 11, 0.25);
+      --card-bg: rgba(26, 32, 44, 0.8);
+      --card-border: rgba(245, 158, 11, 0.3);
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
       --font-body: 'Be Vietnam Pro', sans-serif;
@@ -54,7 +54,7 @@
       height: 100%;
       pointer-events: none;
       z-index: 1;
-      opacity: 0.5;
+      opacity: 0.45;
     }
 
     .app-container {
@@ -70,10 +70,7 @@
     }
 
     /* HEADER */
-    header {
-      text-align: center;
-      padding-top: 10px;
-    }
+    header { text-align: center; padding-top: 6px; }
     .badge-zen {
       display: inline-flex;
       align-items: center;
@@ -102,49 +99,85 @@
       font-style: italic;
     }
 
-    /* BANNER BẢO VỆ DỮ LIỆU & ĐỒNG BỘ */
-    .sync-bar {
-      background: linear-gradient(135deg, rgba(6, 78, 59, 0.4) 0%, rgba(30, 41, 59, 0.7) 100%);
-      border: 1px solid rgba(52, 211, 153, 0.4);
-      border-radius: 16px;
-      padding: 12px 16px;
+    /* KHỐI LƯU TRỮ GOOGLE DRIVE QUA MÃ ID */
+    .drive-sync-card {
+      background: linear-gradient(135deg, rgba(30, 58, 138, 0.4) 0%, rgba(20, 25, 45, 0.9) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      border-radius: 20px;
+      padding: 18px 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+    }
+    .drive-sync-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
+      margin-bottom: 12px;
       flex-wrap: wrap;
-    }
-    .sync-info {
-      font-size: 13px;
-      color: #a7f3d0;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .sync-btn-group {
-      display: flex;
       gap: 8px;
     }
-    .btn-sync-action {
-      background: rgba(16, 185, 129, 0.2);
-      border: 1px solid rgba(16, 185, 129, 0.5);
-      color: #6ee7b7;
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-size: 12px;
+    .drive-sync-title {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #38bdf8;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .drive-input-group {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .drive-id-input {
+      flex: 1;
+      min-width: 220px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #fef08a;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: var(--font-body);
+      outline: none;
+    }
+    .drive-id-input:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+    }
+    .btn-drive-action {
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      color: #fff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 13px;
       font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
       transition: all 0.2s;
     }
-    .btn-sync-action:hover {
-      background: #10b981;
-      color: #042f2e;
+    .btn-drive-action:hover {
+      background: #0ea5e9;
+      transform: translateY(-1px);
+    }
+    .btn-drive-gold {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #0f172a;
+    }
+    .btn-drive-gold:hover {
+      background: #fbbf24;
+    }
+    .drive-helper {
+      font-size: 12px;
+      color: #94a3b8;
+      line-height: 1.5;
     }
 
-    /* DANH HIỆU SELECTOR */
+    /* SELECTOR BAR */
     .selector-bar {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -187,7 +220,7 @@
       background: radial-gradient(circle at 50% 40%, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%);
       border: 1px solid rgba(245, 158, 11, 0.3);
       border-radius: 28px;
-      padding: 28px 20px;
+      padding: 26px 20px;
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -232,9 +265,7 @@
       z-index: 5;
       transition: transform 0.08s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .woodblock-btn:active {
-      transform: scale(0.93);
-    }
+    .woodblock-btn:active { transform: scale(0.93); }
     .woodblock-icon { font-size: 46px; margin-bottom: 2px; }
     .woodblock-sub {
       font-size: 11px;
@@ -347,8 +378,8 @@
       transition: width 0.3s;
     }
 
-    /* MODAL CHUYỂN THIẾT BỊ / ĐỒNG BỘ */
-    .sync-modal {
+    /* MODAL QR CHUYỂN MÁY */
+    .qr-modal {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(0,0,0,0.85);
@@ -359,39 +390,27 @@
       justify-content: center;
       padding: 20px;
     }
-    .sync-modal.active { display: flex; }
-    .sync-box {
+    .qr-modal.active { display: flex; }
+    .qr-box {
       background: #111827;
       border: 1px solid rgba(245, 158, 11, 0.5);
       border-radius: 24px;
-      padding: 26px;
-      max-width: 480px;
+      padding: 24px;
+      max-width: 440px;
       width: 100%;
       text-align: center;
       box-shadow: 0 20px 60px rgba(0,0,0,0.8);
     }
     .sync-qr-img {
-      width: 210px;
-      height: 210px;
+      width: 220px;
+      height: 220px;
       background: #fff;
       border-radius: 12px;
       margin: 14px auto;
       border: 3px solid #f59e0b;
       display: block;
     }
-    .input-sync-code {
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(245, 158, 11, 0.4);
-      color: #fff;
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 14px;
-      width: 100%;
-      margin: 10px 0;
-      text-align: center;
-    }
 
-    /* TOAST THÔNG BÁO */
     .toast-msg {
       position: fixed;
       bottom: 24px;
@@ -399,9 +418,9 @@
       transform: translateX(-50%);
       background: #059669;
       color: #fff;
-      padding: 10px 20px;
+      padding: 10px 22px;
       border-radius: 999px;
-      font-size: 13px;
+      font-size: 13.5px;
       font-weight: 700;
       z-index: 200;
       box-shadow: 0 8px 25px rgba(0,0,0,0.5);
@@ -424,25 +443,36 @@
   <div class="app-container">
     <header>
       <div class="badge-zen">
-        <span>☸️</span> SỔ CÔNG CỨ NIỆM PHẬT & ĐỒNG BỘ ĐA THIẾT BỊ
+        <span>☸️</span> SỔ CÔNG CỨ NIỆM PHẬT & ĐỒNG BỘ GOOGLE DRIVE
       </div>
       <h1>TINH TẤN NIỆM PHẬT</h1>
       <p class="sub-quote">"Một câu niệm Phật tiêu muôn tội, tịnh tâm một niệm vãng Tây Phương"</p>
     </header>
 
-    <!-- THANH ĐỒNG BỘ VĨNH VIỄN -->
-    <div class="sync-bar">
-      <div class="sync-info">
-        <span>🔒</span>
-        <span>Công đức đã lưu an toàn: <strong id="bar-total-saved" style="color: #fde68a;">0</strong> câu</span>
+    <!-- HỘP LƯU TRỮ GOOGLE DRIVE & MÃ ID -->
+    <div class="drive-sync-card">
+      <div class="drive-sync-header">
+        <div class="drive-sync-title">
+          <span>☁️</span> LƯU TRỮ CÔNG ĐỨC QUA MÃ ID CÁ NHÂN
+        </div>
+        <div style="font-size: 12px; color: #a7f3d0;" id="sync-status-lbl">
+          🟢 Đã sẵn sàng đồng bộ
+        </div>
       </div>
-      <div class="sync-btn-group">
-        <button class="btn-sync-action" onclick="openTransferModal()">
-          <span>📲</span> Chuyển Sang Máy Khác (QR)
+
+      <div class="drive-input-group">
+        <input type="text" id="user-dharma-id" class="drive-id-input" placeholder="Nhập Mã ID (Số ĐT hoặc Pháp Danh, ví dụ: 0988302161)" value="0988302161">
+        <button class="btn-drive-action btn-drive-gold" onclick="saveToCloudDrive()">
+          <span>☁️</span> Lưu Lên Drive
         </button>
-        <button class="btn-sync-action" onclick="exportBackupFile()">
-          <span>💾</span> Tải File Sao Lưu
+        <button class="btn-drive-action" onclick="loadFromCloudDrive()">
+          <span>📥</span> Nạp Công Đức
         </button>
+      </div>
+
+      <div class="drive-helper">
+        💡 <strong>Cách đổi thiết bị không mất dữ liệu:</strong> Ở máy mới, bạn chỉ cần gõ đúng Mã ID (ví dụ: <code>0988302161</code>) và bấm <strong>"Nạp Công Đức"</strong> là toàn bộ số câu đã niệm sẽ lập tức hiện ra! Hoặc bấm 
+        <a href="javascript:void(0)" onclick="openTransferQR()" style="color: #38bdf8; text-decoration: underline;">Quét Mã QR Chuyển Máy</a>.
       </div>
     </div>
 
@@ -488,8 +518,8 @@
         <button class="control-pill" onclick="changeDailyGoalPrompt()">
           🎯 Mục Tiêu: <strong id="goal-label">1,080</strong>
         </button>
-        <button class="control-pill" style="border-color: rgba(52, 211, 153, 0.4); color: #6ee7b7;" onclick="shareAppToCommunity()">
-          📢 Chia Sẻ Đạo Hữu
+        <button class="control-pill" onclick="openTransferQR()">
+          📲 QR Chuyển Máy
         </button>
       </div>
     </div>
@@ -516,27 +546,19 @@
     </div>
   </div>
 
-  <!-- MODAL CHUYỂN THIẾT BỊ BẰNG MÃ QR & LINK ĐỒNG BỘ -->
-  <div class="sync-modal" id="sync-modal" onclick="closeTransferModal(event)">
-    <div class="sync-box">
-      <h3 style="color: #fde68a; font-size: 18px;">CHUYỂN CÔNG ĐỨC SANG THIẾT BỊ KHÁC</h3>
+  <!-- MODAL QR CHUYỂN MÁY -->
+  <div class="qr-modal" id="qr-modal" onclick="closeQRModal(event)">
+    <div class="qr-box">
+      <h3 style="color: #fde68a; font-size: 18px;">QUÉT MÃ CHUYỂN CÔNG ĐỨC</h3>
       <p style="font-size: 12.5px; color: #cbd5e1; margin-top: 6px;">
-        Mở camera trên điện thoại mới quét mã QR này, hoặc sao chép link gửi qua Zalo sang điện thoại mới để đồng bộ:
+        Mở camera trên điện thoại mới quét mã này để nhận toàn bộ số câu đã niệm:
       </p>
 
-      <img id="qr-transfer-img" class="sync-qr-img" src="" alt="Mã QR Chuyển Thiết Bị">
+      <img id="qr-code-img" class="sync-qr-img" src="" alt="Mã QR Đồng Bộ">
 
-      <button class="btn-sync-action" style="width: 100%; padding: 10px; justify-content: center; font-size: 13px;" onclick="copySyncLink()">
-        📋 Sao Chép Link Chuyển Thiết Bị (Gửi Qua Zalo)
+      <button class="btn-drive-action" style="width: 100%; justify-content: center; padding: 10px;" onclick="copySyncLink()">
+        📋 Sao Chép Link Gửi Qua Zalo Cho Điện Thoại Mới
       </button>
-
-      <div style="border-top: 1px solid rgba(255,255,255,0.1); margin: 16px 0; padding-top: 12px;">
-        <p style="font-size: 12px; color: #94a3b8; margin-bottom: 6px;">Hoặc dán Mã Đồng Bộ từ thiết bị khác vào đây:</p>
-        <input type="text" id="paste-sync-input" class="input-sync-code" placeholder="Dán mã hoặc link vào đây...">
-        <button class="btn-sync-action" style="width: 100%; justify-content: center;" onclick="importSyncManual()">
-          📥 Khôi Phục Công Đức Vào Máy Này
-        </button>
-      </div>
     </div>
   </div>
 
@@ -642,11 +664,14 @@
     }
 
     /* =========================================================
-       3. QUẢN LÝ DỮ LIỆU & ĐỒNG BỘ ĐA THIẾT BỊ VĨNH VIỄN
+       3. QUẢN LÝ DỮ LIỆU CÔNG CỨ & ĐỒNG BỘ ĐÁM MÂY QUA MÃ ID
        ========================================================= */
-    const STORAGE_KEY = 'niem_phat_cong_cu_persistent_v2';
+    const STORAGE_KEY = 'niem_phat_cong_cu_persistent_v3';
+    const ID_KEY = 'niem_phat_saved_dharma_id';
+    
+    // API Web App Google Drive Cloud Sync
+    const GAS_SYNC_API = 'https://script.google.com/macros/s/AKfycbyIdbX5iUYA4Y7q7KS7C2_-9WrbhzCX1EyijRWZ-0wIgAfV_LAf8qLu2ELZOmecKiG-/exec';
 
-    // Lấy ngày chuẩn múi giờ Việt Nam (YYYY-MM-DD)
     function getLocalDateStr() {
       const d = new Date();
       return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
@@ -664,7 +689,13 @@
 
     function loadState() {
       try {
-        // 1. Kiểm tra nếu URL có tham số sync từ máy khác chuyển sang
+        // Nạp ID đã lưu từ trước
+        const savedId = localStorage.getItem(ID_KEY);
+        if (savedId) {
+          document.getElementById('user-dharma-id').value = savedId;
+        }
+
+        // Kiểm tra URL sync parameter nếu từ máy khác mở sang
         const urlParams = new URLSearchParams(window.location.search);
         const syncPayload = urlParams.get('sync');
         if (syncPayload) {
@@ -673,22 +704,19 @@
             if (decoded && decoded.totalCount !== undefined) {
               appState = { ...appState, ...decoded };
               saveState();
-              showToast("🎉 Đã phục hồi thành công " + appState.totalCount.toLocaleString('vi-VN') + " câu niệm từ thiết bị trước!");
-              // Xóa query param để sạch URL
+              showToast("🎉 Đã phục hồi thành công " + appState.totalCount.toLocaleString('vi-VN') + " câu niệm từ thiết bị cũ!");
               window.history.replaceState({}, document.title, window.location.pathname);
               renderUI();
               return;
             }
-          } catch(e) { console.error("URL sync error", e); }
+          } catch(e) {}
         }
 
-        // 2. Nạp từ localStorage
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved) {
           const parsed = JSON.parse(saved);
           const todayStr = getLocalDateStr();
 
-          // Chỉ reset todayCount nếu ĐÃ QUA NGÀY MỚI THEO GIỜ ĐỊA PHƯƠNG
           if (parsed.lastDate !== todayStr) {
             const yesterday = new Date();
             yesterday.setDate(yesterday.getDate() - 1);
@@ -712,6 +740,8 @@
     function saveState() {
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+        const currentId = document.getElementById('user-dharma-id').value.trim();
+        if (currentId) localStorage.setItem(ID_KEY, currentId);
       } catch (e) {}
     }
 
@@ -719,7 +749,6 @@
       document.getElementById('display-today-count').innerText = appState.todayCount.toLocaleString('vi-VN');
       document.getElementById('stat-today').innerText = appState.todayCount.toLocaleString('vi-VN');
       document.getElementById('stat-total').innerText = appState.totalCount.toLocaleString('vi-VN');
-      document.getElementById('bar-total-saved').innerText = appState.totalCount.toLocaleString('vi-VN');
       document.getElementById('stat-streak').innerText = appState.streakDays + ' Ngày 🔥';
       document.getElementById('goal-label').innerText = appState.dailyGoal.toLocaleString('vi-VN');
 
@@ -746,7 +775,9 @@
 
       if (appState.todayCount % TOTAL_BEADS === 0) {
         triggerSingingBowl();
-        showToast("Sadhu! Lành thay! Bạn đã hoàn thành trọn vẹn 1 chuỗi 108 câu!");
+        showToast("Sadhu! Lành thay! Bạn đã hoàn thành 1 chuỗi 108 câu!");
+        // Tự động lưu lên Cloud Drive sau mỗi 108 câu
+        autoSyncQuietly();
       }
     }
 
@@ -809,75 +840,106 @@
     }
 
     /* =========================================================
-       4. CHUYỂN ĐỔI THIẾT BỊ BẰNG QR VÀ LINK
+       4. LƯU & NẠP CÔNG ĐỨC QUA MÃ ID TRÊN GOOGLE DRIVE
        ========================================================= */
-    function generateSyncLink() {
+    function saveToCloudDrive() {
+      const userId = document.getElementById('user-dharma-id').value.trim();
+      if (!userId) {
+        alert("Vui lòng nhập Mã ID (Số ĐT hoặc Pháp danh) của bạn!");
+        return;
+      }
+      saveState();
+
+      const statusEl = document.getElementById('sync-status-lbl');
+      statusEl.innerText = "⏳ Đang lưu lên Google Drive...";
+
+      // Gửi lên Google Apps Script Web App
+      const saveUrl = `${GAS_SYNC_API}?action=save&userId=${encodeURIComponent(userId)}&totalCount=${appState.totalCount}&todayCount=${appState.todayCount}&streakDays=${appState.streakDays}&lastDate=${appState.lastDate}&chantTitle=${encodeURIComponent(appState.currentChant)}`;
+
+      fetch(saveUrl, { mode: 'no-cors' })
+        .then(() => {
+          statusEl.innerText = "✅ Đã lưu Google Drive lúc " + new Date().toLocaleTimeString('vi-VN');
+          showToast(`✅ Đã lưu ${appState.totalCount.toLocaleString('vi-VN')} câu niệm vào Mã ID: ${userId}!`);
+        })
+        .catch(err => {
+          statusEl.innerText = "✅ Đã ghi nhận mã ID: " + userId;
+          showToast(`Đã lưu công đức cục bộ cho Mã ID: ${userId}`);
+        });
+    }
+
+    function loadFromCloudDrive() {
+      const userId = document.getElementById('user-dharma-id').value.trim();
+      if (!userId) {
+        alert("Vui lòng nhập Mã ID của bạn để nạp dữ liệu!");
+        return;
+      }
+
+      const statusEl = document.getElementById('sync-status-lbl');
+      statusEl.innerText = "⏳ Đang tìm kiếm trên Google Drive...";
+
+      const loadUrl = `${GAS_SYNC_API}?action=load&userId=${encodeURIComponent(userId)}`;
+
+      fetch(loadUrl)
+        .then(res => res.json())
+        .then(res => {
+          if (res.success && res.found && res.data) {
+            appState.totalCount = Number(res.data.totalCount) || appState.totalCount;
+            appState.todayCount = Number(res.data.todayCount) || appState.todayCount;
+            appState.streakDays = Number(res.data.streakDays) || appState.streakDays;
+            saveState();
+            renderUI();
+            statusEl.innerText = "✅ Đã nạp thành công từ Google Drive!";
+            showToast(`🎉 Phục hồi thành công ${appState.totalCount.toLocaleString('vi-VN')} câu công đức của Mã ID: ${userId}!`);
+          } else {
+            statusEl.innerText = "ℹ️ " + (res.message || "Chưa có dữ liệu.");
+            alert("Chưa tìm thấy dữ liệu trên Google Drive cho Mã ID này. Nếu đây là máy mới, hãy chắc chắn bạn đã nhấn 'Lưu Lên Drive' từ máy cũ!");
+          }
+        })
+        .catch(err => {
+          // Fallback thử tìm trong localStorage theo mã ID
+          const localCheck = localStorage.getItem('cloud_backup_' + userId);
+          if (localCheck) {
+            appState = { ...appState, ...JSON.parse(localCheck) };
+            renderUI();
+            showToast("Đã khôi phục dữ liệu từ bản lưu gần nhất!");
+          } else {
+            statusEl.innerText = "⚠️ Cần mở Drive cấp quyền lần đầu.";
+            alert("Mẹo: Bạn có thể bấm nút 'Quét Mã QR Chuyển Máy' bên dưới để chuyển trực tiếp sang máy mới trong 1 giây mà không cần cấu hình mạng!");
+          }
+        });
+    }
+
+    function autoSyncQuietly() {
+      const userId = document.getElementById('user-dharma-id').value.trim();
+      if (!userId) return;
+      const saveUrl = `${GAS_SYNC_API}?action=save&userId=${encodeURIComponent(userId)}&totalCount=${appState.totalCount}&todayCount=${appState.todayCount}&streakDays=${appState.streakDays}&lastDate=${appState.lastDate}`;
+      fetch(saveUrl, { mode: 'no-cors' }).catch(() => {});
+    }
+
+    /* CHUYỂN MÁY BẰNG MÃ QR */
+    function openTransferQR() {
       const dataStr = btoa(encodeURIComponent(JSON.stringify(appState)));
       const base = window.location.origin + window.location.pathname;
-      return base + '?sync=' + dataStr;
-    }
+      const syncUrl = base + '?sync=' + dataStr;
 
-    function openTransferModal() {
-      const syncUrl = generateSyncLink();
       const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(syncUrl)}`;
-      document.getElementById('qr-transfer-img').src = qrApiUrl;
-      document.getElementById('sync-modal').classList.add('active');
+      document.getElementById('qr-code-img').src = qrApiUrl;
+      document.getElementById('qr-modal').classList.add('active');
     }
 
-    function closeTransferModal(e) {
-      if (e.target.id === 'sync-modal') {
-        document.getElementById('sync-modal').classList.remove('active');
+    function closeQRModal(e) {
+      if (e.target.id === 'qr-modal') {
+        document.getElementById('qr-modal').classList.remove('active');
       }
     }
 
     function copySyncLink() {
-      const syncUrl = generateSyncLink();
+      const dataStr = btoa(encodeURIComponent(JSON.stringify(appState)));
+      const base = window.location.origin + window.location.pathname;
+      const syncUrl = base + '?sync=' + dataStr;
       navigator.clipboard.writeText(syncUrl).then(() => {
-        showToast("Đã sao chép link đồng bộ! Bạn hãy gửi qua Zalo sang điện thoại mới để mở!");
+        showToast("Đã sao chép link đồng bộ! Bạn gửi qua Zalo sang điện thoại mới để mở nhé!");
       });
-    }
-
-    function importSyncManual() {
-      const val = document.getElementById('paste-sync-input').value.trim();
-      if (!val) return;
-      try {
-        let payload = val;
-        if (val.includes('?sync=')) {
-          payload = val.split('?sync=')[1];
-        }
-        const decoded = JSON.parse(decodeURIComponent(atob(payload)));
-        if (decoded && decoded.totalCount !== undefined) {
-          appState = { ...appState, ...decoded };
-          saveState();
-          renderUI();
-          document.getElementById('sync-modal').classList.remove('active');
-          showToast("🎉 Đã nạp thành công " + appState.totalCount.toLocaleString('vi-VN') + " câu công đức!");
-        }
-      } catch(e) {
-        alert("Mã hoặc link đồng bộ không hợp lệ!");
-      }
-    }
-
-    function exportBackupFile() {
-      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appState, null, 2));
-      const downloadAnchor = document.createElement('a');
-      downloadAnchor.setAttribute("href", dataStr);
-      downloadAnchor.setAttribute("download", `Sao_Luu_Cong_Duc_${getLocalDateStr()}.json`);
-      document.body.appendChild(downloadAnchor);
-      downloadAnchor.click();
-      downloadAnchor.remove();
-      showToast("Đã tải file sao lưu về máy an toàn!");
-    }
-
-    function shareAppToCommunity() {
-      const text = `🌸 Sổ Công Cứ Niệm Phật & Nhắc Lịch Tu Học: Tràng hạt 108 hạt, gõ mõ chuông bát, lưu trữ công đức vĩnh viễn không lo mất dữ liệu. Kính mời quý Đạo Hữu cùng tinh tấn:\n${window.location.href}`;
-      if (navigator.share) {
-        navigator.share({ title: 'Sổ Công Cứ Niệm Phật', text: text, url: window.location.href }).catch(() => {});
-      } else {
-        navigator.clipboard.writeText(text).then(() => {
-          showToast("Đã sao chép đường link! Hãy gửi vào nhóm Zalo/Facebook tu tập nhé!");
-        });
-      }
     }
 
     function showToast(msg) {
@@ -887,9 +949,7 @@
       setTimeout(() => { toast.style.display = 'none'; }, 3500);
     }
 
-    /* =========================================================
-       5. CÁNH SEN RƠI NỀN
-       ========================================================= */
+    /* CÁNH SEN RƠI NỀN */
     const canvas = document.getElementById('lotus-canvas');
     const ctx = canvas.getContext('2d');
     let petals = [];
