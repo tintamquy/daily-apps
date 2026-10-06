@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Khóa Học Pháp & Luật Dành Cho Cư Sĩ (07/12 - 12/12/2026)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #090d16;
+      --card-bg: rgba(17, 24, 39, 0.85);
+      --card-border: rgba(245, 158, 11, 0.25);
+      --gold-primary: #f59e0b;
+      --gold-light: #fde68a;
+      --gold-glow: rgba(245, 158, 11, 0.35);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --font-title: 'Cinzel', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(180, 83, 9, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(217, 119, 6, 0.12) 0%, transparent 40%);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 24px 16px;
+    }
+
+    /* HEADER BANNER */
+    .hero-card {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98));
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 32px 24px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, #b45309, #f59e0b, #fbbf24, #b45309);
+    }
+
+    .badge-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      color: var(--gold-light);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-family: var(--font-title);
+      font-size: 26px;
+      color: #fef08a;
+      letter-spacing: 0.5px;
+      line-height: 1.35;
+      margin-bottom: 14px;
+      text-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+    }
+    @media(min-width: 640px) { h1 { font-size: 32px; } }
+
+    .sub-quote {
+      color: #cbd5e1;
+      font-size: 14.5px;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+
+    /* HIGHLIGHT SPECS */
+    .specs-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      text-align: left;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 18px;
+      margin: 20px 0;
+    }
+    @media(min-width: 600px) { .specs-grid { grid-template-columns: 1fr 1fr; } }
+    .spec-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13.5px;
+    }
+    .spec-item strong { color: var(--gold-light); min-width: 95px; }
+
+    /* ACTION BUTTONS */
+    .btn-create-wrap {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #0f172a;
+      font-weight: 800;
+      font-size: 15px;
+      padding: 14px 28px;
+      border-radius: 999px;
+      text-decoration: none;
+      box-shadow: 0 10px 25px var(--gold-glow);
+      transition: all 0.25s;
+    }
+    .btn-action:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(245, 158, 11, 0.5);
+    }
+    .btn-secondary {
+      background: rgba(30, 41, 59, 0.85);
+      border: 1px solid var(--card-border);
+      color: #38bdf8;
+      box-shadow: none;
+    }
+    .btn-secondary:hover {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: #38bdf8;
+    }
+
+    /* SECTION CARD */
+    .content-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 24px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(10px);
+    }
+    .card-title {
+      font-family: var(--font-title);
+      font-size: 18px;
+      color: var(--gold-light);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid rgba(245, 158, 11, 0.2);
+      padding-bottom: 10px;
+    }
+
+    /* SCHEDULE TIMELINE */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .timeline-item {
+      display: flex;
+      gap: 12px;
+      font-size: 13.5px;
+      background: rgba(15, 23, 42, 0.5);
+      padding: 10px 14px;
+      border-radius: 10px;
+      border-left: 3px solid var(--gold-primary);
+    }
+    .timeline-time {
+      font-weight: 700;
+      color: #38bdf8;
+      min-width: 90px;
+      font-size: 13px;
+    }
+    .timeline-desc { color: #e2e8f0; }
+
+    /* RULES LIST */
+    .rules-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 13.5px;
+      color: #cbd5e1;
+    }
+    .rules-list li {
+      position: relative;
+      padding-left: 20px;
+    }
+    .rules-list li::before {
+      content: '✦';
+      position: absolute;
+      left: 0;
+      color: var(--gold-primary);
+    }
+
+    /* Q&A LIST */
+    .qa-box {
+      background: rgba(15, 23, 42, 0.6);
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .qa-q { font-weight: 700; color: #fde68a; font-size: 14px; margin-bottom: 4px; }
+    .qa-a { font-size: 13px; color: #94a3b8; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- HERO CARD -->
+    <div class="hero-card">
+      <div class="badge-top">
+        <span>☸️</span> KHÓA HỌC PHÁP & LUẬT DÀNH CHO CƯ SĨ
+      </div>
+      <h1>ĐƠN ĐĂNG KÝ KHÓA HỌC PHÁP & LUẬT</h1>
+      <p class="sub-quote">"Nhằm tạo thiện duyên cho hàng cư sĩ tại gia hiểu rõ giáo lý vi diệu (Dhamma) và tinh thần giới luật (Vinaya) ứng dụng vào đời sống hàng ngày"</p>
+
+      <div class="specs-grid">
+        <div class="spec-item">
+          <strong>✦ Giảng sư:</strong>
+          <span>4 Sayadaw từ Hệ thống Trường Luật Mahavihara</span>
+        </div>
+        <div class="spec-item">
+          <strong>✦ Chuyển ngữ:</strong>
+          <span>Sư Kulavamsa (Sư Hậu)</span>
+        </div>
+        <div class="spec-item">
+          <strong>✦ Thời gian:</strong>
+          <span>07/12/2026 — 12/12/2026 (6 ngày trọn khóa)</span>
+        </div>
+        <div class="spec-item">
+          <strong>✦ Địa điểm:</strong>
+          <span>TP. Hà Nội (Gửi thông báo sau khi duyệt hồ sơ)</span>
+        </div>
+        <div class="spec-item">
+          <strong>✦ Chi phí:</strong>
+          <span style="color: #4ade80; font-weight: bold;">Hoàn toàn MIỄN PHÍ</span>
+        </div>
+        <div class="spec-item">
+          <strong>✦ Hotline BTC:</strong>
+          <span>0983 210 387 (Phương Tú) - 0903 235 249 (Vân Trang)</span>
+        </div>
+      </div>
+
+      <div class="btn-create-wrap">
+        <a href="https://script.google.com/macros/s/AKfycbzutWpY0nnNjt4iwUjTy6p29-N7zhkW0uxDr-utUYf9zb3n16H1eLYeLMhJ8Q_uia__/exec?action=create" target="_blank" class="btn-action">
+          <span>🚀</span> BẤM TẠO FORM GOOGLE DRIVE NGAY
+        </a>
+        <a href="https://script.google.com/d/1YDPwFBkHQOP4jEGivakp7_UumKqyIxKK2dK6vyzu3EN64oiJ_bkW0DPn/edit" target="_blank" class="btn-action btn-secondary">
+          <span>⚙️</span> Mở Google Apps Script Editor
+        </a>
+      </div>
+    </div>
+
+    <!-- TIỂU SỬ GIẢNG SƯ -->
+    <div class="content-card">
+      <div class="card-title">
+        <span>☸️</span> TIỂU SỬ GIẢNG SƯ: 4 SAYADAW & SƯ KULAVAMSA (SƯ HẬU)
+      </div>
+      <p style="font-size: 14px; color: #cbd5e1; margin-bottom: 12px;">
+        <strong>Hệ thống Viện Luật Mahavihara:</strong> Là cái nôi đào tạo Giới luật (Vinaya) và Tam tạng Pāḷi hàng đầu trong Phật giáo Nam truyền Theravāda, gìn giữ mạng mạch chánh pháp nguyên thủy từ thời Đức Thế Tôn.
+      </p>
+      <p style="font-size: 14px; color: #cbd5e1; margin-bottom: 12px;">
+        <strong>4 Sayadaw Giảng Sư:</strong> Bốn bậc Trưởng lão, Giảng sư uyên bác về Luật tạng (Vinaya Piṭaka) và Thắng Pháp (Abhidhamma), có nhiều năm kinh nghiệm hướng dẫn chư Tăng và Cư sĩ xây dựng nếp sống phạm hạnh thanh tịnh.
+      </p>
+      <p style="font-size: 14px; color: #cbd5e1;">
+        <strong>Sư Chuyển Ngữ Kulavamsa (Sư Hậu):</strong> Bậc tu sĩ tinh thông Pāḷi và tiếng Myanmar, đảm nhận chuyển ngữ trực tiếp từng bài pháp chuẩn xác, mạch lạc đến hàng thiện nam tín nữ Việt Nam.
+      </p>
+    </div>
+
+    <!-- THỜI KHÓA HẰNG NGÀY -->
+    <div class="content-card">
+      <div class="card-title">
+        <span>⏰</span> THỜI KHÓA TU HỌC HẰNG NGÀY (07/12 - 12/12/2026)
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-time">04:30 - 05:00</div>
+          <div class="timeline-desc">Thức chúng, vệ sinh cá nhân đầu ngày</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">05:00 - 06:15</div>
+          <div class="timeline-desc">Tọa thiền tịnh tâm, đảnh lễ Tam Bảo & Tụng kinh Phước lành (Paritta)</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">06:15 - 07:30</div>
+          <div class="timeline-desc">Dùng điểm tâm sáng & thu thúc thân khẩu ý trong chánh niệm</div>
+        </div>
+        <div class="timeline-item" style="border-left-color: #f59e0b; background: rgba(245, 158, 11, 0.1);">
+          <div class="timeline-time" style="color: #fbbf24;">08:00 - 10:30</div>
+          <div class="timeline-desc"><strong>【THỜI KHÓA 1】HỌC PHÁP (DHAMMA) & VI DIỆU PHÁP DÀNH CHO CƯ SĨ</strong><br>(Chư Sayadaw giảng giải - Sư Kulavamsa chuyển ngữ trực tiếp)</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">10:30 - 11:30</div>
+          <div class="timeline-desc">Thọ trai trưa chánh niệm (Dùng cơm trưa)</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">11:30 - 13:30</div>
+          <div class="timeline-desc">Chỉ tịnh trưa (Nghỉ ngơi, hồi phục thân tâm)</div>
+        </div>
+        <div class="timeline-item" style="border-left-color: #f59e0b; background: rgba(245, 158, 11, 0.1);">
+          <div class="timeline-time" style="color: #fbbf24;">14:00 - 16:30</div>
+          <div class="timeline-desc"><strong>【THỜI KHÓA 2】HỌC GIỚI LUẬT (VINAYA) ỨNG DỤNG ĐỜI SỐNG HẰNG NGÀY</strong><br>(Tìm hiểu các giới điều cư sĩ, cách hộ trì Tam Bảo đúng luật, tích tạo phước báu thanh tịnh)</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">16:30 - 17:30</div>
+          <div class="timeline-desc">Vệ sinh cá nhân, uống nước giải khát/dược liệu lọc (Khóa học không phục vụ bữa chiều)</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">17:30 - 18:30</div>
+          <div class="timeline-desc">Bữa ăn nhẹ dành riêng cho học viên có nhu cầu uống thuốc trị bệnh (đã đăng ký trước)</div>
+        </div>
+        <div class="timeline-item" style="border-left-color: #38bdf8; background: rgba(56, 189, 248, 0.1);">
+          <div class="timeline-time" style="color: #38bdf8;">18:30 - 20:30</div>
+          <div class="timeline-desc"><strong>【THỜI KHÓA 3】VẤN ĐÁP PHẬT PHÁP VỚI CHƯ SAYADAW (Q&A)</strong><br>(Giải tỏa mọi nghi nan về giáo lý, giới luật và kinh nghiệm thực hành trong đời sống)</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">20:30 - 21:00</div>
+          <div class="timeline-desc">Tọa thiền rải tâm từ (Mettā Bhavana), hồi hướng công đức</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">21:00</div>
+          <div class="timeline-desc">Học viên tại Hà Nội trở về nhà; Học viên ở xa nghỉ ngơi tại khu lưu trú (Im Lặng Thánh Thiện)</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">21:45</div>
+          <div class="timeline-desc">Chỉ tịnh (Đi ngủ trong chánh niệm)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOÀN VĂN NỘI QUY -->
+    <div class="content-card">
+      <div class="card-title">
+        <span>📜</span> NỘI QUY VÀ CHUẨN BỊ THAM DỰ KHÓA HỌC
+      </div>
+      <ul class="rules-list">
+        <li><strong>Trang phục:</strong> Thoải mái, kín đáo, lịch sự. Khuyến khích áo tràng, đồ lam hoặc quần áo màu trắng/nhã nhặn. Không mặc váy ngắn, áo mỏng hở.</li>
+        <li><strong>Vật dụng cá nhân:</strong> Khăn tắm, bàn chải, bình nước cá nhân, dép đi nhẹ, thuốc uống đặc trị cá nhân.</li>
+        <li><strong>Tư trang & Tiền bạc:</strong> Khóa học MIỄN PHÍ, hạn chế mang nhiều tiền mặt. Tự bảo quản tư trang, KHÔNG mang trang sức, đồ quý giá.</li>
+        <li><strong>Kỷ luật tự giác:</strong> Nghiêm túc tham gia đầy đủ các thời khóa. Không tự ý vắng mặt hoặc rời khỏi khu vực khóa học khi chưa báo BTC.</li>
+        <li><strong>Im lặng thánh thiện (Noble Silence):</strong> Giữ sự yên lặng, thu thúc thân khẩu ý, không tụ tập nói chuyện thế sự.</li>
+        <li><strong>Điện thoại:</strong> Tắt chuông hoặc chuyển im lặng, gửi BTC quản lý để tâm chuyên chú trọn vẹn vào giáo lý.</li>
+        <li><strong>Lưu trú đêm:</strong> Ưu tiên cho học viên từ các tỉnh xa ngoài Hà Nội. Học viên tại Hà Nội hoan hỷ đi về trong ngày.</li>
+      </ul>
+    </div>
+
+    <!-- CẤU TRÚC 25 CÂU HỎI -->
+    <div class="content-card">
+      <div class="card-title">
+        <span>📋</span> DANH MỤC 25 CÂU HỎI THU THẬP THÔNG TIN (ĐÃ LẬP TRÌNH VÀO APPS SCRIPT)
+      </div>
+      <div class="qa-box"><div class="qa-q">1. Họ và tên / Full name (Bắt buộc)</div><div class="qa-a">Họ tên đầy đủ trên căn cước công dân</div></div>
+      <div class="qa-box"><div class="qa-q">2. Số CCCD/CMND / Hộ chiếu (Bắt buộc)</div><div class="qa-a">Mã định danh để làm thủ tục thẻ học viên</div></div>
+      <div class="qa-box"><div class="qa-q">3. Giới tính / Sex (Bắt buộc)</div><div class="qa-a">Nam (Male) / Nữ (Female)</div></div>
+      <div class="qa-box"><div class="qa-q">4. Ngày tháng năm sinh (Bắt buộc)</div><div class="qa-a">Trường chọn ngày tháng năm sinh</div></div>
+      <div class="qa-box"><div class="qa-q">5. Số điện thoại có Zalo (Bắt buộc)</div><div class="qa-a">Kênh liên hệ chính để BTC mời vào nhóm Zalo khóa học</div></div>
+      <div class="qa-box"><div class="qa-q">6. Nghề nghiệp / Job (Bắt buộc)</div><div class="qa-a">Công việc hiện tại</div></div>
+      <div class="qa-box"><div class="qa-q">7. Địa chỉ nơi ở hiện tại (Bắt buộc)</div><div class="qa-a">Quận/Huyện, Tỉnh/Thành phố sinh sống</div></div>
+      <div class="qa-box"><div class="qa-q">8. Tình trạng hôn nhân</div><div class="qa-a">Độc thân / Có gia đình / Khác</div></div>
+      <div class="qa-box"><div class="qa-q">9. Quý vị là (Bắt buộc)</div><div class="qa-a">Cư sĩ nam (Upāsaka) / Cư sĩ nữ (Upāsikā)</div></div>
+      <div class="qa-box"><div class="qa-q">10. Họ tên người thân liên hệ khẩn cấp (Bắt buộc)</div><div class="qa-a">Tên người thân trong gia đình</div></div>
+      <div class="qa-box"><div class="qa-q">11. Số điện thoại người thân (Bắt buộc)</div><div class="qa-a">Số điện thoại liên hệ khi cần</div></div>
+      <div class="qa-box"><div class="qa-q">12. Bệnh lý thể chất (Bắt buộc)</div><div class="qa-a">Triệu chứng, thuốc đang dùng (nếu không có ghi KHÔNG)</div></div>
+      <div class="qa-box"><div class="qa-q">13. Vấn đề tâm lý (Bắt buộc)</div><div class="qa-a">Trầm cảm, mất ngủ kinh niên, suy nhược... (nếu không có ghi KHÔNG)</div></div>
+      <div class="qa-box"><div class="qa-q">14. Mang thai (nếu là nữ)</div><div class="qa-a">Nếu có cho biết tháng thứ mấy</div></div>
+      <div class="qa-box"><div class="qa-q">15. Chế độ ăn kiêng trị bệnh (Bắt buộc)</div><div class="qa-a">Thức ăn không dùng được / dị ứng</div></div>
+      <div class="qa-box"><div class="qa-q">16. Vai trò đăng ký (Bắt buộc)</div><div class="qa-a">Học viên / Phụng sự viên</div></div>
+      <div class="qa-box"><div class="qa-q">17. Các ngày tham gia (Bắt buộc)</div><div class="qa-a">Trọn khóa (07/12 - 12/12/2026), Từng ngày từ 07/12 đến 12/12...</div></div>
+      <div class="qa-box"><div class="qa-q">18. Cam kết tham dự trọn khóa (Bắt buộc)</div><div class="qa-a">Đồng ý tham gia trọn khóa / Phụng sự viên</div></div>
+      <div class="qa-box"><div class="qa-q">19. Đăng ký lưu trú / ngủ lại (Bắt buộc)</div><div class="qa-a">Có (ở xa ngoài Hà Nội) / Không (đi về trong ngày)</div></div>
+      <div class="qa-box"><div class="qa-q">20. Đăng ký ăn chiều để uống thuốc (Bắt buộc)</div><div class="qa-a">Có / Không</div></div>
+      <div class="qa-box"><div class="qa-q">21. Lý do tham dự khóa học (Bắt buộc)</div><div class="qa-a">Nguyện vọng học Pháp & Luật</div></div>
+      <div class="qa-box"><div class="qa-q">22. Nguồn biết thông tin khóa học (Bắt buộc)</div><div class="qa-a">Facebook, Zalo, Đạo tràng, người thân giới thiệu...</div></div>
+      <div class="qa-box"><div class="qa-q">23. Kinh nghiệm học Pháp & Luật (Bắt buộc)</div><div class="qa-a">Đã học Vi diệu pháp, Luật hay tham dự khóa tu nào trước đây</div></div>
+      <div class="qa-box"><div class="qa-q">24. Xác nhận tham gia nhóm Zalo khóa học (Bắt buộc)</div><div class="qa-a">Đã tham gia / Sẽ tham gia khi nhận lời mời</div></div>
+      <div class="qa-box"><div class="qa-q">25. LỜI CAM KẾT HỌC VIÊN (Bắt buộc)</div><div class="qa-a">Đã đọc nội quy & Cam kết chấp hành nghiêm túc cho đến hoàn mãn (Kèm Hotline BTC)</div></div>
+    </div>
+  </div>
+
+</body>
+</html>
