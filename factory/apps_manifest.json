@@ -1,0 +1,35 @@
+{
+  "createdDate": "2026-10-06T03:56:35.294Z",
+  "currentDay": 1,
+  "totalGeneratedApps": 2,
+  "appsHistory": [
+    {
+      "date": "2026-10-06",
+      "dayIndex": 1,
+      "dharmaApp": {
+        "name": "Sổ Công Cứ Niệm Phật & Nhắc Lịch Tu Học",
+        "folder": "app1-cong-cu-niem-phat",
+        "description": "Đếm tràng hạt 108, gõ mõ chuông bát Web Audio, nhắc lịch 4 khóa và hồi hướng công đức.",
+        "tags": [
+          "Niệm Phật",
+          "Tịnh Độ",
+          "Mõ Điện Tử",
+          "Công Cứ"
+        ]
+      },
+      "incomeApp": {
+        "name": "Trợ Lý Bán Hàng & Video Triệu View Báo Hiếu Mẹ",
+        "folder": "app2-kinh-doanh-cho-me",
+        "description": "Sinh kịch bản video TikTok/Reels 45s, bài đăng Facebook/Zalo, tính lãi ròng và sổ đơn tích lũy quỹ mẹ.",
+        "tags": [
+          "Bán Hàng",
+          "TikTok Script",
+          "Quỹ Báo Hiếu",
+          "Lợi Nhuận"
+        ]
+      },
+      "status": "COMPLETED",
+      "sharedCommunity": true
+    }
+  ]
+}

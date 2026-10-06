@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Gian Hàng & Trợ Lý Bán Hàng Kiếm Tiền Về Cho Mẹ | Real E-Commerce & Income</title>
+  <meta name="description" content="Nền tảng kinh doanh thực chiến: gian hàng sản phẩm chất lượng cao, đặt hàng Zalo 1 chạm, quét mã VietQR tự động và trình tạo kịch bản video kiếm tiền về cho Mẹ.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #10b981;
+      --primary-dark: #047857;
+      --primary-light: #d1fae5;
+      --rose: #f43f5e;
+      --gold: #f59e0b;
+      --bg: #09121d;
+      --card-bg: rgba(16, 29, 45, 0.75);
+      --card-border: rgba(16, 185, 129, 0.25);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --font: 'Be Vietnam Pro', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 10%, #0f283e 0%, #08111e 60%, #040810 100%);
+      color: var(--text);
+      font-family: var(--font);
+      min-height: 100vh;
+      padding-bottom: 70px;
+    }
+
+    .container {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    /* HEADER */
+    header {
+      text-align: center;
+      padding-top: 10px;
+    }
+    .badge-filial {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(244, 63, 94, 0.15);
+      border: 1px solid rgba(244, 63, 94, 0.35);
+      color: #fda4af;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-size: 26px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #a7f3d0 0%, #34d399 50%, #10b981 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 0.5px;
+    }
+    .subhead {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    /* QUỸ BÁO HIẾU MẸ DASHBOARD */
+    .fund-card {
+      background: linear-gradient(135deg, rgba(6, 78, 59, 0.8) 0%, rgba(15, 23, 42, 0.85) 100%);
+      border: 1px solid rgba(52, 211, 153, 0.4);
+      border-radius: 20px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 25px rgba(16, 185, 129, 0.2);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .fund-title {
+      font-size: 13px;
+      color: #a7f3d0;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .fund-amount {
+      font-size: 32px;
+      font-weight: 800;
+      color: #ffffff;
+      font-family: 'Montserrat', sans-serif;
+      margin-top: 4px;
+      text-shadow: 0 2px 10px rgba(16, 185, 129, 0.5);
+    }
+    .fund-target {
+      font-size: 13px;
+      color: #94a3b8;
+    }
+    .fund-btn {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #042f2e;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: var(--font);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .fund-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+    }
+
+    /* TABS */
+    .tab-bar {
+      display: flex;
+      gap: 8px;
+      background: rgba(15, 23, 42, 0.6);
+      padding: 6px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      overflow-x: auto;
+    }
+    .tab-btn {
+      flex: 1;
+      white-space: nowrap;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      font-family: var(--font);
+      transition: all 0.2s;
+    }
+    .tab-btn.active {
+      background: var(--primary);
+      color: #042f2e;
+      box-shadow: 0 2px 10px rgba(16, 185, 129, 0.3);
+    }
+
+    /* CARD CHUNG */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 22px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+    }
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #a7f3d0;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* GIAN HÀNG SẢN PHẨM THỰC TẾ */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 18px;
+    }
+    .product-card {
+      background: rgba(11, 20, 32, 0.85);
+      border: 1px solid rgba(52, 211, 153, 0.25);
+      border-radius: 16px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s;
+    }
+    .product-card:hover {
+      border-color: #34d399;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(16, 185, 129, 0.2);
+    }
+    .prod-badge {
+      display: inline-block;
+      align-self: flex-start;
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .prod-icon {
+      font-size: 40px;
+      text-align: center;
+      margin: 8px 0;
+    }
+    .prod-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .prod-desc {
+      font-size: 13px;
+      color: #94a3b8;
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+    .prod-price-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 10px;
+    }
+    .prod-price {
+      font-size: 20px;
+      font-weight: 800;
+      color: #34d399;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .prod-profit {
+      font-size: 12px;
+      color: #f59e0b;
+      font-weight: 600;
+    }
+    .btn-buy-zalo {
+      background: #0284c7;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-buy-zalo:hover {
+      background: #0369a1;
+      transform: translateY(-1px);
+    }
+    .btn-vietqr {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #a7f3d0;
+      padding: 8px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 12px;
+      cursor: pointer;
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-vietqr:hover {
+      background: rgba(16, 185, 129, 0.25);
+    }
+
+    /* MODAL VIETQR THANH TOÁN */
+    .qr-modal {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .qr-modal.active { display: flex; }
+    .qr-box {
+      background: #0f172a;
+      border: 1px solid rgba(52, 211, 153, 0.4);
+      border-radius: 20px;
+      padding: 24px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+    }
+    .qr-img {
+      width: 240px;
+      height: 240px;
+      border-radius: 12px;
+      border: 2px solid #34d399;
+      margin: 14px auto;
+      background: #fff;
+      display: block;
+    }
+
+    /* FORM & INPUTS */
+    .input-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .input-group.full { grid-column: 1 / -1; }
+    label { font-size: 13px; font-weight: 600; color: #cbd5e1; }
+    input, select, textarea {
+      background: rgba(11, 20, 32, 0.8);
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-family: var(--font);
+      font-size: 14px;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #34d399;
+      box-shadow: 0 0 10px rgba(52, 211, 153, 0.2);
+    }
+    textarea { resize: vertical; min-height: 80px; }
+
+    .generate-btn {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #ffffff;
+      border: none;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.35);
+    }
+
+    /* KẾT QUẢ BÀI VIẾT */
+    .result-box {
+      margin-top: 20px;
+      background: rgba(8, 15, 24, 0.9);
+      border: 1px solid rgba(52, 211, 153, 0.35);
+      border-radius: 16px;
+      padding: 18px;
+    }
+    .result-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 8px;
+    }
+    .result-badge {
+      background: rgba(16, 185, 129, 0.2);
+      color: #6ee7b7;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .copy-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .result-content {
+      white-space: pre-line;
+      line-height: 1.7;
+      font-size: 14px;
+      color: #e2e8f0;
+      max-height: 350px;
+      overflow-y: auto;
+    }
+
+    /* BẢNG TÍNH LỢI NHUẬN */
+    .calc-summary {
+      background: rgba(6, 78, 59, 0.3);
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      border-radius: 14px;
+      padding: 16px;
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      text-align: center;
+    }
+    .calc-item-num {
+      font-size: 20px;
+      font-weight: 800;
+      color: #34d399;
+      font-family: 'Montserrat', sans-serif;
+      margin-top: 4px;
+    }
+    .calc-item-lbl { font-size: 12px; color: var(--text-muted); }
+
+    /* DANH SÁCH ĐƠN HÀNG */
+    .orders-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      font-size: 13px;
+    }
+    .orders-table th {
+      text-align: left;
+      padding: 10px;
+      background: rgba(15, 23, 42, 0.8);
+      color: #94a3b8;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .orders-table td {
+      padding: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: #f1f5f9;
+    }
+    .status-badge {
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+    }
+
+    @media (max-width: 600px) {
+      .input-grid { grid-template-columns: 1fr; }
+      .fund-card { flex-direction: column; align-items: flex-start; }
+      .calc-summary { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="badge-filial">
+        <span>❤️</span> QUỸ HIẾU THẢO DÀNH TẶNG MẸ
+      </div>
+      <h1>GIAN HÀNG THỰC CHIẾN & KIẾM TIỀN CHO MẸ</h1>
+      <p class="subhead">Sản phẩm chất lượng cao • Nhận tiền chuyển khoản VietQR trực tiếp • Đặt hàng Zalo 1 chạm</p>
+    </header>
+
+    <!-- Quỹ Hiếu Thảo Card -->
+    <div class="fund-card">
+      <div>
+        <div class="fund-title">
+          <span>💰</span> TỔNG LÃI TÍCH LŨY ĐỂ DÀNH BIẾU MẸ
+        </div>
+        <div class="fund-amount" id="display-total-profit">0 VNĐ</div>
+        <div class="fund-target">Mục tiêu tháng này: <strong>10,000,000 VNĐ</strong> biếu Mẹ an dưỡng tuổi già</div>
+      </div>
+      <button class="fund-btn" onclick="quickAddOrderPrompt()">
+        <span>➕</span> Thêm Đơn Hàng Mới
+      </button>
+    </div>
+
+    <!-- Tabs chuyển đổi -->
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab('tab-shop')">🛒 Gian Hàng Thực Tế (Bán Ngay)</button>
+      <button class="tab-btn" onclick="switchTab('tab-copy')">📝 Tạo Bài Viết & Kịch Bản Video</button>
+      <button class="tab-btn" onclick="switchTab('tab-calc')">🧮 Tính Giá & Lãi Chuẩn</button>
+      <button class="tab-btn" onclick="switchTab('tab-orders')">📦 Sổ Đơn Hàng</button>
+    </div>
+
+    <!-- TAB 1: GIAN HÀNG SẢN PHẨM THỰC TẾ (CÓ THỂ KIẾM TIỀN THẬT NGAY) -->
+    <div id="tab-shop" class="card tab-content">
+      <div class="card-title">
+        <span>🛍️</span> Các Sản Phẩm Đang Mở Bán Cho Khách Hàng & Đạo Hữu
+      </div>
+      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+        Khách hàng có thể bấm đặt nhanh qua Zalo hoặc quét mã QR chuyển khoản trực tiếp vào tài khoản ngân hàng của bạn.
+      </p>
+
+      <div class="products-grid">
+        <!-- Sản phẩm 1 -->
+        <div class="product-card">
+          <div>
+            <span class="prod-badge">DÀNH CHO PHẬT TỬ</span>
+            <div class="prod-icon">📿</div>
+            <div class="prod-name">Chuỗi Tràng Hạt Bồ Đề 108 Hạt</div>
+            <div class="prod-desc">Gỗ thơm mộc tự nhiên, đánh bóng thủ công tinh xảo, trợ duyên đắc lực cho hành giả niệm Phật, lần chuỗi hàng ngày.</div>
+          </div>
+          <div>
+            <div class="prod-price-row">
+              <span class="prod-price">180,000 đ</span>
+              <span class="prod-profit">Lãi tích lũy: +70,000 đ</span>
+            </div>
+            <a href="https://zalo.me/0988302161?text=Toi%20muon%20dat%20Chuoi%20Trang%20Hat%20Bo%20De%20108%20Hat" target="_blank" class="btn-buy-zalo">
+              <span>💬</span> Đặt Mua Qua Zalo Ngay
+            </a>
+            <button class="btn-vietqr" onclick="openPaymentQR('Tràng Hạt Bồ Đề 108 Hạt', 180000)">
+              <span>💳</span> Quét Mã VietQR Chuyển Khoản
+            </button>
+          </div>
+        </div>
+
+        <!-- Sản phẩm 2 -->
+        <div class="product-card">
+          <div>
+            <span class="prod-badge">ĐẮT HÀNG NHẤT</span>
+            <div class="prod-icon">📻</div>
+            <div class="prod-name">Máy Niệm Phật Bỏ Túi Tinh Tấn</div>
+            <div class="prod-desc">Tích hợp sẵn 40 bài kinh, danh hiệu A Di Đà Phật, Chú Đại Bi. Pin sạc bền 24h, âm thanh trong trẻo, mang theo bên mình mọi lúc.</div>
+          </div>
+          <div>
+            <div class="prod-price-row">
+              <span class="prod-price">220,000 đ</span>
+              <span class="prod-profit">Lãi tích lũy: +90,000 đ</span>
+            </div>
+            <a href="https://zalo.me/0988302161?text=Toi%20muon%20dat%20May%20Niem%20Phat%20Bo%20Tui%20Tinh%20Tan" target="_blank" class="btn-buy-zalo">
+              <span>💬</span> Đặt Mua Qua Zalo Ngay
+            </a>
+            <button class="btn-vietqr" onclick="openPaymentQR('Máy Niệm Phật Bỏ Túi', 220000)">
+              <span>💳</span> Quét Mã VietQR Chuyển Khoản
+            </button>
+          </div>
+        </div>
+
+        <!-- Sản phẩm 3 -->
+        <div class="product-card">
+          <div>
+            <span class="prod-badge">BỒI BỔ SỨC KHỎE</span>
+            <div class="prod-icon">🍯</div>
+            <div class="prod-name">Mật Ong Hoa Rừng Tự Nhiên (500ml)</div>
+            <div class="prod-desc">Thu hoạch tự nhiên từ vùng núi cao, đặc sánh thơm ngọt dịu, tăng sức đề kháng, thích hợp bồi bổ cho Cha Mẹ và người lớn tuổi.</div>
+          </div>
+          <div>
+            <div class="prod-price-row">
+              <span class="prod-price">195,000 đ</span>
+              <span class="prod-profit">Lãi tích lũy: +75,000 đ</span>
+            </div>
+            <a href="https://zalo.me/0988302161?text=Toi%20muon%20dat%20Mat%20Ong%20Hoa%20Rung%20500ml" target="_blank" class="btn-buy-zalo">
+              <span>💬</span> Đặt Mua Qua Zalo Ngay
+            </a>
+            <button class="btn-vietqr" onclick="openPaymentQR('Mật Ong Rừng 500ml', 195000)">
+              <span>💳</span> Quét Mã VietQR Chuyển Khoản
+            </button>
+          </div>
+        </div>
+
+        <!-- Sản phẩm 4 -->
+        <div class="product-card">
+          <div>
+            <span class="prod-badge">THANH TỊNH TÂM HỒN</span>
+            <div class="prod-icon">🪔</div>
+            <div class="prod-name">Nụ Trầm Hương Tự Nhiên Dâng Phật</div>
+            <div class="prod-desc">100% bột trầm kiến tự nhiên không hóa chất, khói hương thanh nhẹ tẩy uế, tĩnh tâm trước mỗi giờ tọa thiền niệm Phật.</div>
+          </div>
+          <div>
+            <div class="prod-price-row">
+              <span class="prod-price">165,000 đ</span>
+              <span class="prod-profit">Lãi tích lũy: +65,000 đ</span>
+            </div>
+            <a href="https://zalo.me/0988302161?text=Toi%20muon%20dat%20Nu%20Tram%20Huong%20Tu%20Nhien" target="_blank" class="btn-buy-zalo">
+              <span>💬</span> Đặt Mua Qua Zalo Ngay
+            </a>
+            <button class="btn-vietqr" onclick="openPaymentQR('Nụ Trầm Hương Tự Nhiên', 165000)">
+              <span>💳</span> Quét Mã VietQR Chuyển Khoản
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: TẠO BÀI VIẾT & KỊCH BẢN VIDEO -->
+    <div id="tab-copy" class="card tab-content" style="display: none;">
+      <div class="card-title">
+        <span>✨</span> Máy Tạo Kịch Bản Video & Bài Viết Bán Hàng
+      </div>
+
+      <div class="input-grid">
+        <div class="input-group full">
+          <label>Tên sản phẩm / Dịch vụ của bạn:</label>
+          <input type="text" id="prod-name" placeholder="Ví dụ: Máy niệm Phật bỏ túi, Mật ong rừng, Chuỗi tràng hạt..." value="Máy niệm Phật bỏ túi mini">
+        </div>
+
+        <div class="input-group">
+          <label>Điểm nổi bật / Cam kết chất lượng:</label>
+          <input type="text" id="prod-usp" placeholder="Ví dụ: Âm thanh trong trẻo, 40 bài kinh, pin sạc bền..." value="Sẵn 40 bài kinh, âm thanh rõ ràng, pin bền cả ngày, nhỏ gọn tiện lợi">
+        </div>
+
+        <div class="input-group">
+          <label>Giá bán ưu đãi (kèm khuyến mãi nếu có):</label>
+          <input type="text" id="prod-price" placeholder="Ví dụ: 220k - Tặng kèm dây đeo và củ sạc..." value="220k - Tặng kèm dây đeo cao cấp & miễn phí ship toàn quốc">
+        </div>
+
+        <div class="input-group">
+          <label>Hình thức nội dung cần tạo:</label>
+          <select id="content-type">
+            <option value="tiktok_video">🎬 Kịch bản Video TikTok/Reels 45s (Dí dỏm, chân chất)</option>
+            <option value="fb_post">📱 Bài đăng Facebook/Zalo (Kèm icon, giữ chân khách)</option>
+            <option value="storytelling">📖 Kịch bản tâm sự chân thành (Chuyện làm kinh tế vì Mẹ)</option>
+            <option value="zalo_dm">💬 Mẫu tin nhắn chăm sóc khách quen & chốt đơn Zalo</option>
+          </select>
+        </div>
+
+        <div class="input-group">
+          <label>Số điện thoại / Zalo chốt đơn:</label>
+          <input type="text" id="prod-hotline" placeholder="Số điện thoại của bạn" value="0988 302 161">
+        </div>
+      </div>
+
+      <button class="generate-btn" style="width: 100%;" onclick="generateSalesContent()">
+        <span>🚀</span> Tạo Kịch Bản & Bài Viết Tự Động Ngay
+      </button>
+
+      <!-- Hộp hiển thị kết quả -->
+      <div class="result-box" id="result-box" style="display: none;">
+        <div class="result-header">
+          <span class="result-badge" id="result-type-badge">KỊCH BẢN VIDEO TIKTOK</span>
+          <button class="copy-btn" onclick="copyContent()">
+            <span>📋</span> Sao Chép Nội Dung
+          </button>
+        </div>
+        <div class="result-content" id="result-text"></div>
+      </div>
+    </div>
+
+    <!-- TAB 3: TÍNH GIÁ & LỢI NHUẬN -->
+    <div id="tab-calc" class="card tab-content" style="display: none;">
+      <div class="card-title">
+        <span>🧮</span> Công Cụ Tính Giá Bán Tối Ưu & Lãi Ròng Từng Đơn
+      </div>
+
+      <div class="input-grid">
+        <div class="input-group">
+          <label>Giá vốn nhập hàng (VNĐ):</label>
+          <input type="number" id="cost-import" value="110000" oninput="calculateMargin()">
+        </div>
+        <div class="input-group">
+          <label>Chi phí bao bì, hộp đóng gói (VNĐ):</label>
+          <input type="number" id="cost-pack" value="10000" oninput="calculateMargin()">
+        </div>
+        <div class="input-group">
+          <label>Phí ship / Hỗ trợ vận chuyển (VNĐ):</label>
+          <input type="number" id="cost-ship" value="25000" oninput="calculateMargin()">
+        </div>
+        <div class="input-group">
+          <label>Tỷ lệ lãi mong muốn (%):</label>
+          <input type="number" id="margin-pct" value="50" oninput="calculateMargin()">
+        </div>
+      </div>
+
+      <div class="calc-summary">
+        <div>
+          <div class="calc-item-lbl">Tổng Chi Phí Vốn</div>
+          <div class="calc-item-num" id="calc-total-cost">145,000 đ</div>
+        </div>
+        <div>
+          <div class="calc-item-lbl">Giá Bán Đề Xuất</div>
+          <div class="calc-item-num" id="calc-suggest-price" style="color: #f59e0b;">220,000 đ</div>
+        </div>
+        <div>
+          <div class="calc-item-lbl">Lãi Ròng Tích Lũy / Đơn</div>
+          <div class="calc-item-num" id="calc-net-profit" style="color: #10b981;">+75,000 đ</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 14px; font-size: 13px; color: #a7f3d0; text-align: center;">
+        💡 Mỗi ngày chỉ cần giao 5 đơn hàng: bạn để dành được <strong>375,000 VNĐ/ngày</strong> (11.2 triệu/tháng) biếu Mẹ!
+      </div>
+    </div>
+
+    <!-- TAB 4: QUẢN LÝ ĐƠN HÀNG -->
+    <div id="tab-orders" class="card tab-content" style="display: none;">
+      <div class="card-title" style="justify-content: space-between;">
+        <span>📦 Sổ Theo Dõi Đơn Hàng Hôm Nay</span>
+        <button class="fund-btn" style="padding: 6px 14px; font-size: 13px;" onclick="quickAddOrderPrompt()">
+          + Thêm Đơn
+        </button>
+      </div>
+
+      <div style="overflow-x: auto;">
+        <table class="orders-table">
+          <thead>
+            <tr>
+              <th>Thời Gian</th>
+              <th>Khách Hàng</th>
+              <th>Sản Phẩm</th>
+              <th>Doanh Thu</th>
+              <th>Tiền Lãi Biếu Mẹ</th>
+              <th>Trạng Thái</th>
+            </tr>
+          </thead>
+          <tbody id="orders-tbody">
+            <!-- Đơn hàng mẫu -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL QUÉT MÃ VIETQR THANH TOÁN -->
+  <div class="qr-modal" id="qr-modal" onclick="closePaymentQR(event)">
+    <div class="qr-box">
+      <h3 style="color: #34d399; font-size: 18px;">QUÉT MÃ THANH TOÁN VIETQR</h3>
+      <p style="font-size: 13px; color: #94a3b8; margin-top: 4px;" id="qr-prod-label">Sản phẩm: ...</p>
+      
+      <img id="qr-image" class="qr-img" src="" alt="Mã VietQR Chuyển Khoản">
+      
+      <div style="font-size: 14px; color: #fff; font-weight: 700; margin-bottom: 6px;" id="qr-amount-label">Số tiền: 0 VNĐ</div>
+      <p style="font-size: 12px; color: #a7f3d0; line-height: 1.5;">
+        Khách hàng mở ứng dụng ngân hàng (Vietcombank, MB, Techcombank, MoMo...) quét mã chuyển tiền trực tiếp. Tiền về tài khoản ngay lập tức!
+      </p>
+      <button class="fund-btn" style="width: 100%; margin-top: 14px; justify-content: center;" onclick="confirmQRReceived()">
+        ✅ Đã Nhận Được Tiền (Lưu Đơn Ngay)
+      </button>
+    </div>
+  </div>
+
+  <script>
+    /* DỮ LIỆU ĐƠN HÀNG */
+    const ORDERS_KEY = 'mom_orders_storage_v1';
+    let ordersList = [
+      { id: 1, time: 'Hôm nay 08:30', name: 'Đạo hữu Diệu Tâm', product: '1 Máy Niệm Phật Bỏ Túi', revenue: 220000, profit: 90000, status: 'Đã hoàn thành' },
+      { id: 2, time: 'Hôm nay 10:15', name: 'Chú Minh (Hà Đông)', product: '1 Chuỗi Hạt Bồ Đề 108 Hạt', revenue: 180000, profit: 70000, status: 'Đang giao' }
+    ];
+
+    function loadOrders() {
+      try {
+        const saved = localStorage.getItem(ORDERS_KEY);
+        if (saved) {
+          ordersList = JSON.parse(saved);
+        }
+      } catch(e) {}
+      renderOrders();
+      calculateTotalProfit();
+    }
+
+    function saveOrders() {
+      try {
+        localStorage.setItem(ORDERS_KEY, JSON.stringify(ordersList));
+      } catch(e) {}
+    }
+
+    function renderOrders() {
+      const tbody = document.getElementById('orders-tbody');
+      tbody.innerHTML = '';
+      ordersList.forEach(o => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${o.time}</td>
+          <td><strong>${o.name}</strong></td>
+          <td>${o.product}</td>
+          <td>${o.revenue.toLocaleString('vi-VN')} đ</td>
+          <td style="color: #34d399; font-weight: 700;">+${o.profit.toLocaleString('vi-VN')} đ</td>
+          <td><span class="status-badge">${o.status}</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function calculateTotalProfit() {
+      const total = ordersList.reduce((sum, o) => sum + (o.profit || 0), 0);
+      document.getElementById('display-total-profit').innerText = total.toLocaleString('vi-VN') + ' VNĐ';
+    }
+
+    function quickAddOrderPrompt() {
+      const name = prompt("Họ tên & khu vực khách hàng (ví dụ: Chị Hoa - Đống Đa):");
+      if (!name) return;
+      const prod = prompt("Tên sản phẩm:", "1 Máy Niệm Phật Bỏ Túi");
+      const rev = parseInt(prompt("Doanh thu bán (VNĐ):", "220000"), 10) || 220000;
+      const profit = parseInt(prompt("Tiền lãi tích lũy biếu Mẹ (VNĐ):", "90000"), 10) || 90000;
+
+      ordersList.unshift({
+        id: Date.now(),
+        time: 'Vừa xong',
+        name: name,
+        product: prod,
+        revenue: rev,
+        profit: profit,
+        status: 'Đã hoàn thành'
+      });
+      saveOrders();
+      renderOrders();
+      calculateTotalProfit();
+      alert("Đã lưu đơn hàng thành công! Số dư Quỹ Biếu Mẹ đã được cập nhật!");
+    }
+
+    /* MÃ THANH TOÁN VIETQR */
+    let currentQRItem = null;
+    function openPaymentQR(prodName, amount) {
+      currentQRItem = { prodName, amount };
+      document.getElementById('qr-prod-label').innerText = 'Sản phẩm: ' + prodName;
+      document.getElementById('qr-amount-label').innerText = 'Số tiền: ' + amount.toLocaleString('vi-VN') + ' VNĐ';
+      
+      // Tạo mã VietQR tự động qua Napas / VietQR QuickLink (Mặc định liên kết chuyển khoản an toàn)
+      const qrUrl = `https://img.vietqr.io/image/MB-0988302161-compact2.png?amount=${amount}&addInfo=Thanh%20toan%20${encodeURIComponent(prodName)}`;
+      document.getElementById('qr-image').src = qrUrl;
+      document.getElementById('qr-modal').classList.add('active');
+    }
+
+    function closePaymentQR(e) {
+      if (e.target.id === 'qr-modal') {
+        document.getElementById('qr-modal').classList.remove('active');
+      }
+    }
+
+    function confirmQRReceived() {
+      if (currentQRItem) {
+        const estProfit = Math.round(currentQRItem.amount * 0.4);
+        ordersList.unshift({
+          id: Date.now(),
+          time: 'Vừa xong',
+          name: 'Khách thanh toán VietQR',
+          product: currentQRItem.prodName,
+          revenue: currentQRItem.amount,
+          profit: estProfit,
+          status: 'Đã thanh toán QR'
+        });
+        saveOrders();
+        renderOrders();
+        calculateTotalProfit();
+      }
+      document.getElementById('qr-modal').classList.remove('active');
+      alert("Chúc mừng bạn! Đơn hàng thanh toán đã được ghi nhận vào Quỹ Báo Hiếu Mẹ!");
+    }
+
+    /* CHUYỂN TABS */
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+
+      document.getElementById(tabId).style.display = 'block';
+      event.target.classList.add('active');
+    }
+
+    /* BẢNG TÍNH LỢI NHUẬN */
+    function calculateMargin() {
+      const cImport = parseFloat(document.getElementById('cost-import').value) || 0;
+      const cPack = parseFloat(document.getElementById('cost-pack').value) || 0;
+      const cShip = parseFloat(document.getElementById('cost-ship').value) || 0;
+      const margin = parseFloat(document.getElementById('margin-pct').value) || 0;
+
+      const totalCost = cImport + cPack + cShip;
+      const sellPrice = Math.round((totalCost * (1 + margin / 100)) / 1000) * 1000;
+      const netProfit = sellPrice - totalCost;
+
+      document.getElementById('calc-total-cost').innerText = totalCost.toLocaleString('vi-VN') + ' đ';
+      document.getElementById('calc-suggest-price').innerText = sellPrice.toLocaleString('vi-VN') + ' đ';
+      document.getElementById('calc-net-profit').innerText = '+' + netProfit.toLocaleString('vi-VN') + ' đ';
+    }
+
+    /* MÁY TẠO BÀI BÁN HÀNG & KỊCH BẢN VIDEO THÔNG MINH */
+    function generateSalesContent() {
+      const name = document.getElementById('prod-name').value.trim();
+      const usp = document.getElementById('prod-usp').value.trim();
+      const price = document.getElementById('prod-price').value.trim();
+      const type = document.getElementById('content-type').value;
+      const phone = document.getElementById('prod-hotline').value.trim();
+
+      let result = '';
+      let badge = '';
+
+      if (type === 'tiktok_video') {
+        badge = 'KỊCH BẢN VIDEO TIKTOK / REELS (45 GIÂY)';
+        result = `🎬 KỊCH BẢN VIDEO 45 GIÂY: CHÂN THÀNH - HÚT KHÁCH TỰ NHIÊN
+📌 Góc quay: Đơn giản, ánh sáng tự nhiên.
+
+[0s - 3s] HOOK GIỮ CHÂN:
+(Cầm sản phẩm ${name} lên trước ống kính, nở nụ cười tươi)
+"Mọi người đừng bao giờ mua ${name} này... nếu chưa biết điều bí mật này nha!"
+
+[3s - 15s] GIỚI THIỆU THẬT THÀ:
+"Mấy hôm nay mẹ em cứ dặn: 'Con ơi, bán cho người ta cái gì thì phải chuẩn chỉ như cho gia đình mình dùng'.
+Đây là ${name}, chuẩn ${usp}. Từng món đều được chọn lọc kỹ càng, không có chuyện làm ăn ẩu đâu ạ!"
+
+[15s - 30s] TRẢI NGHIỆM TRỰC QUAN (PROOF):
+(Quay cận cảnh chất lượng sản phẩm, mở hộp, hướng dẫn dùng thử)
+"Mọi người nhìn độ hoàn thiện sắc nét này là đủ an tâm rồi đúng không ạ?"
+
+[30s - 45s] KÊU GỌI HÀNH ĐỘNG (CTA):
+"Hôm nay em trợ giá đặc biệt chỉ: ${price}!
+Mọi người nhận hàng cứ mở ra kiểm tra thoải mái rồi mới thanh toán.
+Bấm ngay vào link bên dưới hoặc nhắn Zalo em: ${phone} để nhận quà nha!"`;
+      } else if (type === 'fb_post') {
+        badge = 'BÀI ĐĂNG FACEBOOK / ZALO THÂN THIỆN';
+        result = `🌿 KINH DOANH TỪ TÂM - ${name.toUpperCase()} 🌿
+
+Gửi các cô chú, anh chị em và đạo hữu thân thương!
+
+Dạo này nhiều anh chị hỏi thăm: "Có loại ${name} nào chuẩn chất lượng, uy tín dùng bền lâu không?"
+
+Dạ em có sẵn nha! Đợt này nhà em về mẻ ${name} cực kỳ chất lượng:
+✨ ${usp}
+✨ Bao kiểm tra hàng trước khi nhận, đổi trả 100% nếu không hài lòng
+✨ Trực tiếp người nhà chọn lọc từng chiếc, an tâm tuyệt đối!
+
+🎁 ƯU ĐÃI TRI ÂN ĐẶC BIỆT HÔM NAY:
+👉 Chỉ: ${price}
+👉 Miễn phí vận chuyển toàn quốc cho quý khách nhắn sớm.
+
+Mọi người cần dùng hay biếu tặng người thân cứ nhắn em qua Zalo/SĐT: 📞 ${phone}
+Em lên đơn đóng gói cẩn thận giao tận nhà ngay ạ! ❤️`;
+      } else if (type === 'storytelling') {
+        badge = 'CÂU CHUYỆN KHỞI NGHIỆP VÌ MẸ (CHẠM CẢM XÚC)';
+        result = `Thấy mẹ cả đời tần tảo, em tự nhủ phải làm điều gì đó thật xứng đáng...
+
+Mỗi lần nhìn dáng mẹ gầy hơn, em tự bảo mình phải chăm chỉ làm ăn chân chính để có thêm đồng ra đồng vào biếu mẹ tuổi già an vui.
+
+Và món ${name} này chính là tâm huyết lớn nhất của em.
+Em không chạy theo hàng rẻ kém chất lượng, em chọn:
+- ${usp}
+- Uy tín tạo nên từ sự chân thật và lòng biết ơn.
+
+Mỗi đơn hàng mọi người ủng hộ hôm nay không chỉ là niềm vui mua được sản phẩm ngon chuẩn, mà còn tiếp thêm cho em động lực lớn lao trên con đường phụng dưỡng cha mẹ.
+
+Giá yêu thương: ${price}
+Liên hệ em: ${phone} (Em luôn sẵn sàng phục vụ chu đáo nhất!)`;
+      } else {
+        badge = 'MẪU TIN NHẮN ZALO CHĂM SÓC KHÁCH & CHỐT ĐƠN';
+        result = `Dạ em chào chị/anh ạ! ❤️
+Em thấy dạo này công việc của chị/anh có thuận lợi không ạ?
+
+Đợt này nhà em vừa về lô ${name} mới rất đẹp và chuẩn: ${usp}.
+Đặc biệt hôm nay em có suất ưu đãi riêng cho khách quý: ${price}.
+
+Em gửi qua cho chị/anh một bộ dùng thử trải nghiệm nha? Chị/anh cho em xin lại địa chỉ nhận hàng tiện nhất nhé ạ! Em cảm ơn chị nhiều! 🌸`;
+      }
+
+      document.getElementById('result-type-badge').innerText = badge;
+      document.getElementById('result-text').innerText = result;
+      document.getElementById('result-box').style.display = 'block';
+      document.getElementById('result-box').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function copyContent() {
+      const text = document.getElementById('result-text').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Đã sao chép nội dung thành công! Bạn có thể dán ngay vào Facebook, TikTok hoặc Zalo!");
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      loadOrders();
+      calculateMargin();
+    });
+  </script>
+</body>
+</html>

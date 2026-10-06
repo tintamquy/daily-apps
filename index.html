@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cổng Ứng Dụng Mỗi Ngày | Phật Pháp & Báo Hiếu Phụng Dưỡng Cha Mẹ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Cinzel:wght@700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #0f172a 60%, #020617 100%);
+      color: #f8fafc;
+      font-family: 'Be Vietnam Pro', sans-serif;
+      min-height: 100vh;
+      padding: 30px 20px 80px;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    header { text-align: center; }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      color: #fde68a;
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: 32px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fef08a 0%, #f59e0b 50%, #fbbf24 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+    .lead { color: #94a3b8; font-size: 15px; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .card {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      backdrop-filter: blur(12px);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+    }
+    .card-dharma {
+      border-color: rgba(245, 158, 11, 0.4);
+      background: linear-gradient(135deg, rgba(30, 27, 75, 0.7) 0%, rgba(15, 23, 42, 0.8) 100%);
+    }
+    .card-income {
+      border-color: rgba(16, 185, 129, 0.4);
+      background: linear-gradient(135deg, rgba(6, 78, 59, 0.7) 0%, rgba(15, 23, 42, 0.8) 100%);
+    }
+    .card-icon {
+      font-size: 42px;
+      margin-bottom: 14px;
+    }
+    .card-category {
+      font-size: 12px;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+    .card-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .card-desc {
+      font-size: 14px;
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    .btn-gold {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #0f172a;
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+    }
+    .btn-green {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #042f2e;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .banner-system {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .banner-info { font-size: 14px; color: #94a3b8; }
+    .banner-info strong { color: #fde68a; }
+
+    @media (max-width: 680px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="hero-badge">
+        <span>☸️</span> HỆ SINH THÁI TỰ ĐỘNG HÓA HẰNG NGÀY
+      </div>
+      <h1>MỖI NGÀY 2 ỨNG DỤNG Ý NGHĨA</h1>
+      <p class="lead">Một nửa vì Phật Pháp thanh tịnh và công đức • Một nửa vì chữ Hiếu và kinh doanh phụng dưỡng Cha Mẹ</p>
+    </header>
+
+    <div class="banner-system">
+      <div class="banner-info">
+        📅 <strong>HÔM NAY (NGÀY 1/30):</strong> Đã phát hành hoàn tất 2 ứng dụng đầu tiên. Hệ thống tự động lưu trữ và sẵn sàng tối ưu hàng ngày.
+      </div>
+      <div style="font-size: 13px; color: #34d399; font-weight: 700;">
+        🟢 Đang hoạt động trên máy
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- App 1 -->
+      <div class="card card-dharma">
+        <div>
+          <div class="card-icon">🪷</div>
+          <div class="card-category" style="color: #fbbf24;">ỨNG DỤNG PHẬT PHÁP</div>
+          <h2 class="card-title">Sổ Công Cứ Niệm Phật & Nhắc Lịch Tu Học</h2>
+          <p class="card-desc">
+            Trang bị vòng tràng hạt 108 hạt trực quan, mõ điện tử & chuông bát ngân vang chuẩn thiền môn qua Web Audio, nhắc lịch 4 khóa tu trong ngày và bài văn hồi hướng Tây Phương trang nghiêm.
+          </p>
+        </div>
+        <a href="app1-cong-cu-niem-phat/index.html" class="btn btn-gold" target="_blank">
+          <span>▶️</span> Mở Ứng Dụng Niệm Phật
+        </a>
+      </div>
+
+      <!-- App 2 -->
+      <div class="card card-income">
+        <div>
+          <div class="card-icon">❤️</div>
+          <div class="card-category" style="color: #34d399;">ỨNG DỤNG BÁO HIẾU MẸ</div>
+          <h2 class="card-title">Trợ Lý Bán Hàng & Video Triệu View Cho Mẹ</h2>
+          <p class="card-desc">
+            Tự động tạo kịch bản video TikTok 45 giây mộc mạc chân thật, bài đăng bán hàng Facebook/Zalo, công cụ tính giá vốn và lãi chuẩn, kèm sổ đơn tích lũy Quỹ Hiếu Thảo gửi về cho Mẹ.
+          </p>
+        </div>
+        <a href="app2-kinh-doanh-cho-me/index.html" class="btn btn-green" target="_blank">
+          <span>🚀</span> Mở Trợ Lý Bán Hàng
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Sổ Công Cứ Niệm Phật & Nhắc Lịch Tu Học | Pure Land Chanting & Merits</title>
+  <meta name="description" content="Ứng dụng sổ công cứ niệm Phật, gõ mõ điện tử, chuông bát, theo dõi tiến độ công đức và nhắc lịch tu học hàng ngày.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Cinzel:wght@600;700;900&family=Playfair+Display:ital,wght@0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient: radial-gradient(circle at 50% 20%, #1e172a 0%, #0d1117 70%, #05070a 100%);
+      --gold-primary: #f59e0b;
+      --gold-light: #fde68a;
+      --gold-glow: rgba(245, 158, 11, 0.45);
+      --amber-dark: #78350f;
+      --lotus-pink: #f43f5e;
+      --card-bg: rgba(26, 32, 44, 0.7);
+      --card-border: rgba(245, 158, 11, 0.2);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --font-body: 'Be Vietnam Pro', sans-serif;
+      --font-title: 'Cinzel', 'Playfair Display', serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    body {
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Canvas cánh sen rơi tĩnh tâm */
+    #lotus-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.55;
+    }
+
+    .app-container {
+      position: relative;
+      z-index: 2;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 16px 20px 80px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* HEADER */
+    header {
+      text-align: center;
+      padding-top: 10px;
+    }
+    .badge-zen {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      color: var(--gold-light);
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+    h1 {
+      font-family: var(--font-title);
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      background: linear-gradient(135deg, #fffbeb 0%, #fcd34d 50%, #f59e0b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 4px 20px rgba(245, 158, 11, 0.25);
+    }
+    .sub-quote {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      font-style: italic;
+    }
+
+    /* DANH HIỆU NIỆM SELECTOR */
+    .selector-bar {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    }
+    .selector-bar select {
+      background: rgba(15, 23, 42, 0.8);
+      color: #fef08a;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: var(--font-body);
+      outline: none;
+      flex: 1;
+      cursor: pointer;
+    }
+    .mode-switch-btn {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: var(--gold-light);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .mode-switch-btn:hover {
+      background: rgba(245, 158, 11, 0.28);
+      transform: translateY(-1px);
+    }
+
+    /* MAIN CHANTING ZONE */
+    .chanting-arena {
+      background: radial-gradient(circle at 50% 40%, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      border-radius: 28px;
+      padding: 30px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    /* VÒNG TRÀNG HẠT 108 HẠT */
+    .mala-wrapper {
+      position: relative;
+      width: 260px;
+      height: 260px;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .mala-svg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+    .mala-bead {
+      fill: #475569;
+      transition: fill 0.25s, r 0.25s;
+    }
+    .mala-bead.active {
+      fill: #fbbf24;
+      filter: drop-shadow(0 0 4px #f59e0b);
+    }
+    .mala-bead.current {
+      fill: #f43f5e;
+      r: 4.5;
+      filter: drop-shadow(0 0 6px #f43f5e);
+    }
+
+    /* NÚT MÕ ĐIỆN TỬ TRUNG TÂM */
+    .woodblock-btn {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #b45309 0%, #78350f 50%, #451a03 100%);
+      border: 3px solid rgba(251, 191, 36, 0.6);
+      box-shadow: 0 10px 30px rgba(120, 53, 15, 0.6), 0 0 40px var(--gold-glow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+      z-index: 5;
+      transition: transform 0.08s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.08s ease;
+    }
+    .woodblock-btn:active {
+      transform: scale(0.93);
+      box-shadow: 0 4px 15px rgba(120, 53, 15, 0.9), 0 0 60px rgba(245, 158, 11, 0.8);
+    }
+    .woodblock-icon {
+      font-size: 50px;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+      margin-bottom: 2px;
+    }
+    .woodblock-sub {
+      font-size: 11px;
+      color: #fde68a;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    /* SỐ ĐẾM TO TRỰC QUAN */
+    .count-display-group {
+      margin-top: 8px;
+    }
+    .current-number {
+      font-family: var(--font-title);
+      font-size: 56px;
+      font-weight: 900;
+      line-height: 1;
+      color: #fef08a;
+      text-shadow: 0 0 25px rgba(245, 158, 11, 0.5);
+    }
+    .bead-counter-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .bead-badge {
+      background: rgba(245, 158, 11, 0.2);
+      color: #fcd34d;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    /* GỢN SÓNG HIỆU ỨNG TẠI TÂM GÕ */
+    .tap-ripple {
+      position: absolute;
+      border-radius: 50%;
+      border: 2px solid rgba(251, 191, 36, 0.8);
+      pointer-events: none;
+      animation: rippleAnim 0.7s ease-out forwards;
+    }
+    @keyframes rippleAnim {
+      0% {
+        width: 160px;
+        height: 160px;
+        opacity: 0.9;
+      }
+      100% {
+        width: 320px;
+        height: 320px;
+        opacity: 0;
+      }
+    }
+
+    /* CÁC PHÍM ĐIỀU KHIỂN NHANH */
+    .quick-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .control-pill {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      color: var(--text-main);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .control-pill:hover {
+      background: rgba(245, 158, 11, 0.2);
+      border-color: rgba(245, 158, 11, 0.5);
+    }
+    .control-pill.active {
+      background: #f59e0b;
+      color: #0f172a;
+      font-weight: 700;
+      border-color: #f59e0b;
+      box-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
+    }
+
+    /* BẢNG TIẾN ĐỘ & CÔNG ĐỨC HÔM NAY */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 16px 12px;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    }
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .stat-value {
+      font-family: var(--font-title);
+      font-size: 22px;
+      font-weight: 700;
+      color: #fef08a;
+    }
+    .stat-target-bar {
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 999px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+    .stat-target-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #f59e0b, #fbbf24);
+      border-radius: 999px;
+      transition: width 0.3s;
+    }
+
+    /* NHẮC LỊCH TU TẬP 4 KHÓA */
+    .schedule-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 20px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
+    }
+    .card-header-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fef08a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .schedule-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .schedule-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(15, 23, 42, 0.6);
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .schedule-item.active-now {
+      border-color: rgba(245, 158, 11, 0.6);
+      background: rgba(245, 158, 11, 0.1);
+    }
+    .schedule-name {
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .schedule-time {
+      font-size: 13px;
+      color: var(--gold-light);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+    }
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #334155;
+      transition: .3s;
+      border-radius: 24px;
+    }
+    .toggle-slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+    input:checked + .toggle-slider {
+      background-color: #f59e0b;
+    }
+    input:checked + .toggle-slider:before {
+      transform: translateX(20px);
+    }
+
+    /* VĂN HỒI HƯỚNG & HÀNH TRÌNH TÂM NGUYỆN */
+    .dedication-card {
+      background: linear-gradient(135deg, rgba(30, 27, 75, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 20px;
+      padding: 22px;
+      text-align: center;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+    }
+    .dedication-verse {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      line-height: 1.8;
+      color: #fef3c7;
+      margin: 14px 0 18px;
+      font-style: italic;
+    }
+    .action-btn-gold {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: #0f172a;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: var(--font-body);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+      transition: all 0.2s;
+    }
+    .action-btn-gold:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.6);
+    }
+
+    /* MODAL HỒI HƯỚNG CÔNG ĐỨC */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+    .modal-box {
+      background: #111827;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      border-radius: 24px;
+      padding: 28px;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 50px rgba(245, 158, 11, 0.2);
+      animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes modalPop {
+      0% { transform: scale(0.85); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .modal-lotus {
+      font-size: 48px;
+      margin-bottom: 8px;
+      animation: pulseGlow 2s infinite alternate;
+    }
+    @keyframes pulseGlow {
+      0% { filter: drop-shadow(0 0 5px #f59e0b); }
+      100% { filter: drop-shadow(0 0 20px #fbbf24); }
+    }
+    .modal-title {
+      font-family: var(--font-title);
+      font-size: 22px;
+      color: #fef08a;
+      margin-bottom: 12px;
+    }
+    .modal-text {
+      font-size: 14px;
+      color: #cbd5e1;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 14px 18px;
+      border-radius: 12px;
+    }
+    .modal-close-btn {
+      background: #f59e0b;
+      color: #0f172a;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 999px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* FOOTER & KEYBOARD HELPER */
+    footer {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 12px;
+      color: #64748b;
+    }
+    .kbd {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
+      padding: 2px 6px;
+      font-size: 11px;
+      color: #f1f5f9;
+      font-family: monospace;
+    }
+
+    @media (max-width: 480px) {
+      .app-container {
+        padding: 12px 14px 60px;
+      }
+      h1 { font-size: 22px; }
+      .current-number { font-size: 46px; }
+      .woodblock-btn { width: 160px; height: 160px; }
+      .mala-wrapper { width: 230px; height: 230px; }
+      .stats-grid { grid-template-columns: 1fr 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cánh hoa sen rơi nền -->
+  <canvas id="lotus-canvas"></canvas>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header>
+      <div class="badge-zen">
+        <span>☸️</span> SỔ CÔNG CỨ NIỆM PHẬT & NHẮC LỊCH
+      </div>
+      <h1>TINH TẤN NIỆM PHẬT</h1>
+      <p class="sub-quote">"Một câu niệm Phật tiêu muôn tội, tịnh tâm một niệm vãng Tây Phương"</p>
+    </header>
+
+    <!-- Chọn Danh Hiệu & Âm Thanh -->
+    <div class="selector-bar">
+      <select id="chant-select" onchange="changeChantTitle()">
+        <option value="Nam Mô A Di Đà Phật" selected>🌸 Nam Mô A Di Đà Phật (6 chữ)</option>
+        <option value="A Di Đà Phật">✨ A Di Đà Phật (4 chữ)</option>
+        <option value="Nam Mô Quán Thế Âm Bồ Tát">💧 Nam Mô Quán Thế Âm Bồ Tát</option>
+        <option value="Nam Mô Bổn Sư Thích Ca Mâu Ni Phật">☸️ Nam Mô Bổn Sư Thích Ca Mâu Ni Phật</option>
+        <option value="Nam Mô Dược Sư Lưu Ly Quang Vương Phật">🌿 Nam Mô Dược Sư Lưu Ly Quang Phật</option>
+        <option value="Nam Mô Đại Hiếu Mục Kiền Liên Bồ Tát">🙏 Nam Mô Đại Hiếu Mục Kiền Liên</option>
+        <option value="Chú Đại Bi (1 Biến)">📜 Chú Đại Bi (1 Biến)</option>
+      </select>
+      <button class="mode-switch-btn" id="sound-mode-btn" onclick="toggleSoundType()">
+        <span id="sound-icon">🪵</span> <span id="sound-name">Mõ Gỗ</span>
+      </button>
+    </div>
+
+    <!-- KHU VỰC GÕ MÕ / TRÀNG HẠT CHÍNH -->
+    <div class="chanting-arena" id="arena">
+      <!-- Vòng tràng hạt 108 hạt SVG -->
+      <div class="mala-wrapper">
+        <svg class="mala-svg" viewBox="0 0 260 260" id="mala-svg"></svg>
+        
+        <!-- Nút gõ Mõ -->
+        <div class="woodblock-btn" id="woodblock" onclick="handleChantTap(event)">
+          <div class="woodblock-icon" id="center-icon">🪵</div>
+          <div class="woodblock-sub">Chạm Để Niệm</div>
+        </div>
+      </div>
+
+      <!-- Hiển thị số đếm -->
+      <div class="count-display-group">
+        <div class="current-number" id="display-today-count">0</div>
+        <div class="bead-counter-sub">
+          <span>Chuỗi 108 hạt:</span>
+          <span class="bead-badge" id="bead-index">0 / 108</span>
+          <span>• Vòng thứ: <strong id="bead-lap" style="color: #fef08a;">0</strong></span>
+        </div>
+      </div>
+
+      <!-- Quick control pills -->
+      <div class="quick-controls">
+        <button class="control-pill" id="auto-pill" onclick="toggleAutoChant()">
+          <span id="auto-icon">▶️</span> Tự Động Niệm
+        </button>
+        <button class="control-pill" onclick="triggerSingingBowl()">
+          🔔 Chuông Bát
+        </button>
+        <button class="control-pill" onclick="resetTodayCount()">
+          🔄 Đặt Lại
+        </button>
+        <button class="control-pill" onclick="changeDailyGoalPrompt()">
+          🎯 Mục Tiêu: <strong id="goal-label">1,080</strong>
+        </button>
+        <button class="control-pill" style="border-color: rgba(52, 211, 153, 0.4); color: #6ee7b7;" onclick="shareAppToCommunity()">
+          📢 Chia Sẻ Cho Đạo Hữu
+        </button>
+      </div>
+    </div>
+
+    <!-- THỐNG KÊ CÔNG ĐỨC -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Hôm Nay</div>
+        <div class="stat-value" id="stat-today">0</div>
+        <div class="stat-target-bar">
+          <div class="stat-target-fill" id="stat-progress" style="width: 0%;"></div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Chuỗi Tinh Tấn</div>
+        <div class="stat-value" id="stat-streak">1 Ngày 🔥</div>
+        <div class="stat-label" style="margin-top: 6px; font-size: 11px;">Không ngắt quãng</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Tổng Tích Lũy</div>
+        <div class="stat-value" id="stat-total">0</div>
+        <div class="stat-label" style="margin-top: 6px; font-size: 11px;">Công đức trọn đời</div>
+      </div>
+    </div>
+
+    <!-- NHẮC LỊCH NIỆM PHẬT 4 KHÓA TRONG NGÀY -->
+    <div class="schedule-card">
+      <div class="card-header-flex">
+        <div class="card-title">
+          <span>⏰</span> Nhắc Lịch Tu Học 4 Khóa
+        </div>
+        <button class="control-pill" style="padding: 4px 12px; font-size: 12px;" onclick="downloadCalendarICS()">
+          📅 Tải Lịch .ICS
+        </button>
+      </div>
+
+      <div class="schedule-list">
+        <div class="schedule-item" id="sched-1">
+          <div>
+            <div class="schedule-name">Khóa Sáng (Khai tâm niệm Phật)</div>
+            <div class="schedule-time">05:00 - 06:00</div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="chk-sched-1" checked onchange="saveScheduleSettings()">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="schedule-item" id="sched-2">
+          <div>
+            <div class="schedule-name">Khóa Trưa (Thực hành chánh niệm)</div>
+            <div class="schedule-time">11:30 - 12:30</div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="chk-sched-2" checked onchange="saveScheduleSettings()">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="schedule-item" id="sched-3">
+          <div>
+            <div class="schedule-name">Khóa Tối (Công cứ chính khóa)</div>
+            <div class="schedule-time">19:30 - 20:45</div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="chk-sched-3" checked onchange="saveScheduleSettings()">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="schedule-item" id="sched-4">
+          <div>
+            <div class="schedule-name">Khóa Khuya (An định trước giấc ngủ)</div>
+            <div class="schedule-time">22:00 - 22:30</div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="chk-sched-4" checked onchange="saveScheduleSettings()">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- BÀI VĂN HỒI HƯỚNG CÔNG ĐỨC -->
+    <div class="dedication-card">
+      <div class="card-title" style="justify-content: center; font-size: 18px;">
+        🌸 VĂN HỒI HƯỚNG TÂY PHƯƠNG
+      </div>
+      <div class="dedication-verse">
+        "Nguyện đem công đức niệm Phật này,<br>
+        Trang nghiêm Phật Tịnh Độ.<br>
+        Trên đền bốn ơn nặng,<br>
+        Dưới cứu khổ ba đường.<br>
+        Nếu có ai thấy nghe,<br>
+        Đều phát lòng Bồ Đề.<br>
+        Hết một báo thân này,<br>
+        Đồng sinh Cực Lạc quốc."
+      </div>
+      <button class="action-btn-gold" onclick="openDedicationModal()">
+        <span>🙏</span> Hồi Hướng Công Đức Hôm Nay
+      </button>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      Mẹo: Nhấn phím <span class="kbd">Space (Cách)</span> để gõ mõ • Hỗ trợ lưu trữ tự động trên thiết bị
+    </footer>
+  </div>
+
+  <!-- MODAL HỒI HƯỚNG CÔNG ĐỨC -->
+  <div class="modal-overlay" id="dedication-modal" onclick="closeDedicationModal(event)">
+    <div class="modal-box">
+      <div class="modal-lotus">🪷</div>
+      <div class="modal-title">NAM MÔ A DI ĐÀ PHẬT</div>
+      <div class="modal-text">
+        <p><strong>Lành thay! Sadhu!</strong></p>
+        <p style="margin: 8px 0;">Hôm nay bạn đã tinh tấn niệm được <strong><span id="modal-today-count" style="color: #fde68a;">0</span> câu</strong> danh hiệu Phật.</p>
+        <p>Nguyện xin đem toàn bộ công đức lành này hồi hướng cầu an cho Cha Mẹ hiện tiền tăng long phước thọ, thân tâm an lạc; cửu huyền thất tổ vãng sinh Tịnh Độ; và khắp pháp giới chúng sinh đồng triêm lợi lạc.</p>
+      </div>
+      <button class="modal-close-btn" onclick="confirmDedication()">Tâm Nguyện Viên Thành (Đóng)</button>
+    </div>
+  </div>
+
+  <script>
+    /* =========================================================
+       1. WEB AUDIO API SYNTHESIZER (TIẾNG MÕ & TIẾNG CHUÔNG BÁT)
+       Không cần file mp3 ngoài, âm thanh mộc, ngân chuẩn thiền môn
+       ========================================================= */
+    let audioCtx = null;
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    // Tiếng mõ gỗ (Wooden Fish Resonance)
+    function playMokugyoSound() {
+      try {
+        const ctx = getAudioContext();
+        const now = ctx.currentTime;
+
+        // Âm thanh đập gõ chính (Click/Impact)
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const filter = ctx.createBiquadFilter();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(420, now);
+        osc.frequency.exponentialRampToValueAtTime(260, now + 0.08);
+
+        filter.type = 'bandpass';
+        filter.frequency.setValueAtTime(540, now);
+        filter.Q.setValueAtTime(6.0, now);
+
+        gain.gain.setValueAtTime(1.0, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(now);
+        osc.stop(now + 0.13);
+
+        // Hài âm hộp gỗ rỗng (Resonant cavity)
+        const bodyOsc = ctx.createOscillator();
+        const bodyGain = ctx.createGain();
+        bodyOsc.type = 'triangle';
+        bodyOsc.frequency.setValueAtTime(210, now);
+        bodyGain.gain.setValueAtTime(0.4, now);
+        bodyGain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+
+        bodyOsc.connect(bodyGain);
+        bodyGain.connect(ctx.destination);
+
+        bodyOsc.start(now);
+        bodyOsc.stop(now + 0.16);
+      } catch (err) {
+        console.warn("Audio error:", err);
+      }
+    }
+
+    // Tiếng chuông bát / Khánh đồng (Temple Singing Bowl)
+    function triggerSingingBowl() {
+      try {
+        const ctx = getAudioContext();
+        const now = ctx.currentTime;
+
+        // Tần số chuông thiền: 587Hz (D5), 1174Hz, 1761Hz
+        const freqs = [587.33, 1174.66, 1762.0, 2349.32];
+        const gains = [0.6, 0.25, 0.12, 0.05];
+        const decays = [3.2, 2.4, 1.8, 1.2];
+
+        freqs.forEach((f, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(f, now);
+
+          gain.gain.setValueAtTime(gains[idx], now);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + decays[idx]);
+
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+
+          osc.start(now);
+          osc.stop(now + decays[idx]);
+        });
+      } catch (err) {
+        console.warn("Bowl Audio error:", err);
+      }
+    }
+
+    /* =========================================================
+       2. KHỞI TẠO VÒNG TRÀNG HẠT 108 HẠT (SVG)
+       ========================================================= */
+    const malaSvg = document.getElementById('mala-svg');
+    const TOTAL_BEADS = 108;
+    const beads = [];
+
+    function initMalaBeads() {
+      const centerX = 130;
+      const centerY = 130;
+      const radius = 112;
+
+      for (let i = 0; i < TOTAL_BEADS; i++) {
+        const angle = (i / TOTAL_BEADS) * 2 * Math.PI - (Math.PI / 2);
+        const cx = centerX + radius * Math.cos(angle);
+        const cy = centerY + radius * Math.sin(angle);
+
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('cx', cx.toFixed(2));
+        circle.setAttribute('cy', cy.toFixed(2));
+        circle.setAttribute('r', (i === 0 ? '4.8' : '3.2'));
+        circle.setAttribute('class', 'mala-bead');
+        circle.setAttribute('data-index', i);
+
+        malaSvg.appendChild(circle);
+        beads.push(circle);
+      }
+    }
+
+    function updateMalaBeads(currentIndex) {
+      const activeIdx = currentIndex % TOTAL_BEADS;
+      beads.forEach((bead, i) => {
+        if (i < activeIdx) {
+          bead.setAttribute('class', 'mala-bead active');
+        } else if (i === activeIdx) {
+          bead.setAttribute('class', 'mala-bead current');
+        } else {
+          bead.setAttribute('class', 'mala-bead');
+        }
+      });
+    }
+
+    /* =========================================================
+       3. QUẢN LÝ DỮ LIỆU CÔNG CỨ & LOCALSTORAGE
+       ========================================================= */
+    const STORAGE_KEY = 'phapluat_cong_cu_niem_phat_v1';
+
+    let appState = {
+      todayCount: 0,
+      totalCount: 0,
+      dailyGoal: 1080,
+      streakDays: 1,
+      lastDate: new Date().toISOString().split('T')[0],
+      soundType: 'mokugyo', // 'mokugyo' or 'bowl'
+      currentChant: 'Nam Mô A Di Đà Phật',
+      schedules: { 1: true, 2: true, 3: true, 4: true }
+    };
+
+    function loadState() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          const todayStr = new Date().toISOString().split('T')[0];
+
+          if (parsed.lastDate !== todayStr) {
+            // Qua ngày mới -> cập nhật streak
+            const diffDays = Math.round((new Date(todayStr) - new Date(parsed.lastDate)) / (1000 * 60 * 60 * 24));
+            if (diffDays === 1 && parsed.todayCount > 0) {
+              parsed.streakDays = (parsed.streakDays || 1) + 1;
+            } else if (diffDays > 1) {
+              parsed.streakDays = 1;
+            }
+            parsed.todayCount = 0;
+            parsed.lastDate = todayStr;
+          }
+          appState = { ...appState, ...parsed };
+        }
+      } catch (e) {
+        console.error("Load state error", e);
+      }
+      renderUI();
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+      } catch (e) {
+        console.error("Save state error", e);
+      }
+    }
+
+    function renderUI() {
+      document.getElementById('display-today-count').innerText = appState.todayCount.toLocaleString('vi-VN');
+      document.getElementById('stat-today').innerText = appState.todayCount.toLocaleString('vi-VN');
+      document.getElementById('stat-total').innerText = appState.totalCount.toLocaleString('vi-VN');
+      document.getElementById('stat-streak').innerText = appState.streakDays + ' Ngày 🔥';
+      document.getElementById('goal-label').innerText = appState.dailyGoal.toLocaleString('vi-VN');
+
+      // Vòng tràng hạt
+      const currentBead = appState.todayCount % TOTAL_BEADS;
+      const laps = Math.floor(appState.todayCount / TOTAL_BEADS);
+      document.getElementById('bead-index').innerText = currentBead + ' / 108';
+      document.getElementById('bead-lap').innerText = laps;
+      updateMalaBeads(currentBead);
+
+      // Thanh tiến độ %
+      const pct = Math.min(100, Math.round((appState.todayCount / appState.dailyGoal) * 100));
+      document.getElementById('stat-progress').style.width = pct + '%';
+
+      // Chế độ âm thanh
+      document.getElementById('sound-icon').innerText = appState.soundType === 'mokugyo' ? '🪵' : '🔔';
+      document.getElementById('sound-name').innerText = appState.soundType === 'mokugyo' ? 'Mõ Gỗ' : 'Chuông Bát';
+      document.getElementById('center-icon').innerText = appState.soundType === 'mokugyo' ? '🪵' : '🔔';
+    }
+
+    /* =========================================================
+       4. XỬ LÝ CHẠM ĐỂ NIỆM PHẬT
+       ========================================================= */
+    function handleChantTap(e) {
+      if (appState.soundType === 'mokugyo') {
+        playMokugyoSound();
+      } else {
+        triggerSingingBowl();
+      }
+
+      appState.todayCount++;
+      appState.totalCount++;
+      saveState();
+      renderUI();
+
+      // Hiệu ứng gợn sóng (Ripple)
+      createRipple(e);
+
+      // Cột mốc hoàn thành chuỗi 108 hạt
+      if (appState.todayCount % TOTAL_BEADS === 0) {
+        triggerSingingBowl(); // Chuông ngân báo hiệu hết 1 chuỗi
+      }
+    }
+
+    function createRipple(e) {
+      const arena = document.getElementById('arena');
+      const ripple = document.createElement('div');
+      ripple.className = 'tap-ripple';
+
+      // Đặt vị trí chính giữa nút gỗ
+      const rect = document.getElementById('woodblock').getBoundingClientRect();
+      const arenaRect = arena.getBoundingClientRect();
+      const left = rect.left - arenaRect.left + rect.width / 2 - 80;
+      const top = rect.top - arenaRect.top + rect.height / 2 - 80;
+
+      ripple.style.left = left + 'px';
+      ripple.style.top = top + 'px';
+
+      arena.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 700);
+    }
+
+    // Phím tắt Spacebar
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'Space' && !e.repeat) {
+        e.preventDefault();
+        handleChantTap({ clientX: 0, clientY: 0 });
+      }
+    });
+
+    /* =========================================================
+       5. TỰ ĐỘNG NIỆM PHẬT (AUTO MODE)
+       ========================================================= */
+    let autoInterval = null;
+    function toggleAutoChant() {
+      const pill = document.getElementById('auto-pill');
+      const icon = document.getElementById('auto-icon');
+
+      if (autoInterval) {
+        clearInterval(autoInterval);
+        autoInterval = null;
+        pill.classList.remove('active');
+        icon.innerText = '▶️';
+      } else {
+        pill.classList.add('active');
+        icon.innerText = '⏸️';
+        autoInterval = setInterval(() => {
+          handleChantTap({});
+        }, 1500); // 1.5 giây một câu
+      }
+    }
+
+    function toggleSoundType() {
+      appState.soundType = appState.soundType === 'mokugyo' ? 'bowl' : 'mokugyo';
+      saveState();
+      renderUI();
+    }
+
+    function changeChantTitle() {
+      const sel = document.getElementById('chant-select');
+      appState.currentChant = sel.value;
+      saveState();
+    }
+
+    function resetTodayCount() {
+      if (confirm("Bạn có chắc chắn muốn đặt lại số đếm của ngày hôm nay về 0? (Tổng tích lũy vẫn được giữ nguyên)")) {
+        appState.todayCount = 0;
+        saveState();
+        renderUI();
+      }
+    }
+
+    function changeDailyGoalPrompt() {
+      const target = prompt("Nhập mục tiêu số câu niệm Phật trong ngày của bạn:", appState.dailyGoal);
+      const parsed = parseInt(target, 10);
+      if (!isNaN(parsed) && parsed > 0) {
+        appState.dailyGoal = parsed;
+        saveState();
+        renderUI();
+      }
+    }
+
+    /* =========================================================
+       6. HỒI HƯỚNG CÔNG ĐỨC & MODAL
+       ========================================================= */
+    function openDedicationModal() {
+      document.getElementById('modal-today-count').innerText = appState.todayCount.toLocaleString('vi-VN');
+      document.getElementById('dedication-modal').classList.add('active');
+      triggerSingingBowl();
+    }
+
+    function closeDedicationModal(e) {
+      if (e.target.id === 'dedication-modal') {
+        document.getElementById('dedication-modal').classList.remove('active');
+      }
+    }
+
+    function confirmDedication() {
+      document.getElementById('dedication-modal').classList.remove('active');
+      alert("Công đức niệm Phật hôm nay đã được ghi nhận trang nghiêm. Kính chúc quý Phật tử vạn sự an lành!");
+    }
+
+    function shareAppToCommunity() {
+      const shareData = {
+        title: 'Sổ Công Cứ Niệm Phật & Nhắc Lịch Tu Học',
+        text: 'Kính gửi quý Đạo Hữu ứng dụng Sổ Công Cứ Niệm Phật, gõ mõ chuông bát và nhắc lịch 4 khóa tu học hàng ngày thanh tịnh:',
+        url: window.location.href
+      };
+      if (navigator.share) {
+        navigator.share(shareData).catch(err => console.log('Share canceled'));
+      } else {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+          alert("Đã sao chép đường link ứng dụng! Quý Đạo Hữu có thể dán (Paste) gửi qua Zalo, Facebook hoặc tin nhắn cho mọi người cùng tinh tấn tu học.");
+        });
+      }
+    }
+
+    /* =========================================================
+       7. XUẤT FILE LỊCH (.ICS) ĐỒNG BỘ VÀO ĐIỆN THOẠI
+       ========================================================= */
+    function downloadCalendarICS() {
+      const icsData = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//TinhTanNiemPhat//VN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Lịch Khóa Tu Niệm Phật Hằng Ngày
+BEGIN:VEVENT
+SUMMARY:🌸 Khóa Sáng: Niệm Phật Khai Tâm
+DESCRIPTION:Dành 30-45 phút tĩnh tọa, gõ mõ và xưng niệm danh hiệu Nam Mô A Di Đà Phật.
+RRULE:FREQ=DAILY
+DTSTART:20261001T050000
+DTEND:20261001T060000
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🌸 Khóa Tối: Công Cứ Niệm Phật & Hồi Hướng
+DESCRIPTION:Hoàn thành chỉ tiêu công cứ niệm Phật hàng ngày, trì chú và đọc bài văn Hồi Hướng Cực Lạc.
+RRULE:FREQ=DAILY
+DTSTART:20261001T193000
+DTEND:20261001T204500
+END:VEVENT
+END:VCALENDAR`;
+
+      const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Lich_Tu_Hoc_Niem_Phat.ics';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function saveScheduleSettings() {
+      appState.schedules = {
+        1: document.getElementById('chk-sched-1').checked,
+        2: document.getElementById('chk-sched-2').checked,
+        3: document.getElementById('chk-sched-3').checked,
+        4: document.getElementById('chk-sched-4').checked
+      };
+      saveState();
+    }
+
+    /* =========================================================
+       8. CÁNH HOA SEN RƠI TĨNH TÂM (CANVAS ANIMATION)
+       ========================================================= */
+    const canvas = document.getElementById('lotus-canvas');
+    const ctx = canvas.getContext('2d');
+    let petals = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Petal {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * -canvas.height;
+        this.size = Math.random() * 10 + 12;
+        this.speedX = Math.random() * 1 - 0.5;
+        this.speedY = Math.random() * 1 + 0.8;
+        this.angle = Math.random() * 360;
+        this.spin = Math.random() * 0.02 - 0.01;
+        this.opacity = Math.random() * 0.4 + 0.2;
+      }
+      update() {
+        this.x += this.speedX + Math.sin(this.angle) * 0.5;
+        this.y += this.speedY;
+        this.angle += this.spin;
+        if (this.y > canvas.height + 20) {
+          this.reset();
+          this.y = -10;
+        }
+      }
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.angle);
+        ctx.fillStyle = `rgba(251, 113, 133, ${this.opacity})`;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.bezierCurveTo(this.size / 2, -this.size / 2, this.size, 0, 0, this.size);
+        ctx.bezierCurveTo(-this.size, 0, -this.size / 2, -this.size / 2, 0, 0);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    for (let i = 0; i < 28; i++) {
+      petals.push(new Petal());
+    }
+
+    function animatePetals() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      petals.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animatePetals);
+    }
+
+    // Khởi chạy khi load trang
+    window.addEventListener('DOMContentLoaded', () => {
+      initMalaBeads();
+      loadState();
+      animatePetals();
+    });
+  </script>
+</body>
+</html>
