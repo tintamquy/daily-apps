@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cổng Ứng Dụng Mỗi Ngày | Phật Pháp Chánh Niệm & Cỗ Máy Kiếm Tiền Tự Động</title>
-  <meta name="description" content="Hệ sinh thái ứng dụng hữu ích chia sẻ ngay cho cộng đồng: Rút thẻ Lời Phật Dạy, Đài niệm Phật chạy ngầm, Cỗ máy tạo Hook triệu view TikTok và CRM tự động.">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Cổng Ứng Dụng Mỗi Ngày | Phật Pháp Chánh Niệm & Kiếm Tiền Tự Động</title>
+  <meta name="description" content="Hệ sinh thái ứng dụng hữu ích chia sẻ ngay cho cộng đồng: Rút thẻ Lời Phật Dạy, Sổ Công Cứ niệm Phật đồng bộ vĩnh viễn, Cỗ máy tạo Hook triệu view TikTok và CRM tự động.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&family=Montserrat:wght@700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
@@ -28,15 +31,68 @@
       color: var(--text);
       font-family: var(--font);
       min-height: 100vh;
-      padding: 30px 16px 80px;
+      padding-bottom: 80px;
     }
-    .container {
+
+    /* STICKY TOP NAV FOR INSTANT ACCESS */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(12, 8, 30, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(245, 158, 11, 0.25);
+      padding: 10px 16px;
+    }
+    .nav-container {
       max-width: 1000px;
       margin: 0 auto;
       display: flex;
-      flex-direction: column;
-      gap: 30px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      overflow-x: auto;
     }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 15px;
+      color: var(--gold-light);
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 8px;
+    }
+    .nav-item {
+      white-space: nowrap;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e2e8f0;
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .nav-item:hover {
+      background: var(--gold);
+      color: #0f172a;
+      border-color: var(--gold);
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 26px;
+    }
+
     header { text-align: center; }
     .badge-top {
       display: inline-flex;
@@ -52,7 +108,7 @@
       margin-bottom: 12px;
     }
     h1 {
-      font-size: 34px;
+      font-size: 32px;
       font-weight: 900;
       background: linear-gradient(135deg, #fef08a 0%, #f59e0b 50%, #ec4899 100%);
       -webkit-background-clip: text;
@@ -67,7 +123,7 @@
       background: linear-gradient(135deg, rgba(139, 92, 246, 0.25) 0%, rgba(236, 72, 153, 0.2) 100%);
       border: 1px solid rgba(139, 92, 246, 0.4);
       border-radius: 22px;
-      padding: 22px 26px;
+      padding: 20px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -77,7 +133,7 @@
     .strat-h { font-size: 16px; font-weight: 800; color: #e9d5ff; margin-bottom: 4px; }
     .strat-p { font-size: 13px; color: #cbd5e1; line-height: 1.6; }
 
-    /* DANH MỤC 4 ỨNG DỤNG */
+    /* TIÊU ĐỀ SECTION */
     .section-title {
       font-size: 20px;
       font-weight: 800;
@@ -85,7 +141,6 @@
       align-items: center;
       gap: 10px;
       color: #fff;
-      margin-top: 10px;
     }
 
     .grid {
@@ -166,29 +221,43 @@
 </head>
 <body>
 
+  <!-- STICKY TOP MENU -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <span>☸️</span> HỆ SINH THÁI 4 ỨNG DỤNG
+      </div>
+      <div class="nav-links">
+        <a href="app3-rut-the-loi-phat-day/index.html" class="nav-item">🎋 Rút Thẻ Phật Dạy</a>
+        <a href="app1-cong-cu-niem-phat/index.html" class="nav-item">🪵 Sổ Công Cứ (Đã Có Sync QR)</a>
+        <a href="app4-ai-viral-hook-generator/index.html" class="nav-item">🎬 Hook Video Triệu View</a>
+        <a href="app2-kinh-doanh-cho-me/index.html" class="nav-item">📦 Mini CRM & Bán Hàng</a>
+      </div>
+    </div>
+  </nav>
+
   <div class="container">
     <header>
       <div class="badge-top">
-        <span>☸️</span> HỆ SINH THÁI TỰ ĐỘNG HÓA VIRAL & KIẾM TIỀN TOÀN DIỆN
+        <span>⚡</span> TỔNG HỢP CÁC ỨNG DỤNG CHIA SẺ CỘNG ĐỒNG
       </div>
-      <h1>MỖI NGÀY ỨNG DỤNG MỚI CHO CỘNG ĐỒNG</h1>
+      <h1>MỖI NGÀY ỨNG DỤNG MỚI CHO BẠN</h1>
       <p class="lead">Lan tỏa giáo pháp thanh tịnh • Tạo dòng tiền tự động không giới hạn để mang về cho Mẹ</p>
     </header>
 
-    <!-- BANNER CHIẾN LƯỢC TỰ ĐỘNG HÓA -->
     <div class="strategy-banner">
       <div>
-        <div class="strat-h">🚀 ĐỊNH HƯỚNG MỚI: CHIA SẺ LÀ DÙNG NGAY - KHÔNG CẦN TÌM KHÁCH</div>
+        <div class="strat-h">🚀 ĐẶC TÍNH: MỞ LÀ DÙNG NGAY - KHÔNG SỢ MẤT DỮ LIỆU KHI CHUYỂN THIẾT BỊ</div>
         <div class="strat-p">
-          Toàn bộ ứng dụng đều được thiết kế theo mô hình <strong>Viral Tự Nhiên & Giá Trị Tức Thì</strong>: người dùng nhận được giá trị ngay lập tức, tự bấm chia sẻ lên mạng xã hội kéo traffic miễn phí, và tự động quét mã <strong>VietQR chuyển tiền về tài khoản</strong> của bạn 24/7!
+          Sổ Công Cứ Niệm Phật đã được nâng cấp tính năng <strong>Chuyển Thiết Bị Siêu Tốc Bằng Mã QR & Link Đồng Bộ</strong> — không bao giờ mất công đức dù bạn đổi điện thoại hay xóa cache trình duyệt!
         </div>
       </div>
       <div style="font-size: 13px; color: #34d399; font-weight: 800;">
-        🟢 100% Hoạt Động Trực Tuyến
+        🟢 Đã Cập Nhật Bản Mới Nhất
       </div>
     </div>
 
-    <!-- KHỐI 1: CÁC CÔNG CỤ PHẬT GIÁO VIRAL -->
+    <!-- KHỐI 1: PHẬT GIÁO VIRAL -->
     <div class="section-title">
       <span>🌸</span> ỨNG DỤNG PHÁT TRIỂN PHẬT PHÁP (LAN TỎA CỘNG ĐỒNG)
     </div>
@@ -212,20 +281,20 @@
       <!-- App 1 -->
       <div class="card">
         <div>
-          <span class="card-tag tag-dharma">CÔNG ĐỨC TU TẬP</span>
-          <div class="card-icon">🪷</div>
+          <span class="card-tag tag-dharma">ĐỒNG BỘ ĐA THIẾT BỊ VĨNH VIỄN</span>
+          <div class="card-icon">🪵</div>
           <h2 class="card-title">Sổ Công Cứ Niệm Phật & Nhắc Lịch Tu Học</h2>
           <p class="card-desc">
-            Vòng tràng hạt 108 hạt sáng rực, âm thanh mõ gỗ & chuông bát ngân vang chuẩn thiền môn qua Web Audio, nhắc lịch 4 khóa tu trong ngày và hồi hướng công đức.
+            Tràng hạt 108 hạt sáng rực, mõ gỗ & chuông bát ngân vang qua Web Audio. <strong>Đã nâng cấp: Quét mã QR chuyển công đức sang điện thoại khác tức thì, không bao giờ mất dữ liệu khi reload hay đổi máy!</strong>
           </p>
         </div>
         <a href="app1-cong-cu-niem-phat/index.html" class="btn-launch btn-gold" target="_blank">
-          <span>🪵</span> Mở Sổ Công Cứ Niệm Phật
+          <span>🪵</span> Mở Sổ Công Cứ Niệm Phật (Đã Có Sync QR)
         </a>
       </div>
     </div>
 
-    <!-- KHỐI 2: CÁC CÔNG CỤ KIẾM TIỀN TỰ ĐỘNG -->
+    <!-- KHỐI 2: KIẾM TIỀN TỰ ĐỘNG -->
     <div class="section-title">
       <span>💰</span> CÔNG CỤ TẠO DÒNG TIỀN TỰ ĐỘNG (MANG TIỀN VỀ CHO MẸ)
     </div>
